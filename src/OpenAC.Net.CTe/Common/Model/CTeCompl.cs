@@ -1,0 +1,111 @@
+// ***********************************************************************
+// Assembly         : OpenAC.Net.CTe
+// Author           : RFTD
+// Created          : 10-15-2016
+//
+// Last Modified By : RFTD
+// Last Modified On : 10-15-2016
+// ***********************************************************************
+// <copyright file="CTeRetira.cs" company="OpenAC .Net">
+//		        		   The MIT License (MIT)
+//	     		    Copyright (c) 2016 Grupo OpenAC.Net
+//
+//	 Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files (the "Software"),
+// to deal in the Software without restriction, including without limitation
+// the rights to use, copy, modify, merge, publish, distribute, sublicense,
+// and/or sell copies of the Software, and to permit persons to whom the
+// Software is furnished to do so, subject to the following conditions:
+//	 The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
+//	 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+// IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+// ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+
+using System.ComponentModel;
+using OpenAC.Net.Core.Extensions;
+using OpenAC.Net.Core.Generics;
+using OpenAC.Net.DFe.Core.Attributes;
+using OpenAC.Net.DFe.Core.Collection;
+using OpenAC.Net.DFe.Core.Serializer;
+using System.Linq;
+
+namespace OpenAC.Net.CTe;
+
+public sealed partial class CTeCompl : GenericClone<CTeCompl>, INotifyPropertyChanged
+{
+    #region Events
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    #endregion Events
+
+    #region Constructors
+
+    public CTeCompl()
+    {
+        ObsFisco = [];
+        ObsCont = [];
+        Entrega = new CTeComplEntrega();
+        Fluxo = new CTeFluxo();
+    }
+
+    #endregion Constructors
+
+    #region Propriedades
+
+    [DFeElement(TipoCampo.Str, "xCaracAd", Id = "#060", Min = 1, Max = 15, Ocorrencia = Ocorrencia.NaoObrigatoria)]
+    public string XCaracAd { get; set; }
+
+    [DFeElement(TipoCampo.Str, "xCaracSer", Id = "#061", Min = 1, Max = 30, Ocorrencia = Ocorrencia.NaoObrigatoria)]
+    public string XCaracSer { get; set; }
+
+    [DFeElement(TipoCampo.Str, "xEmi", Id = "#062", Min = 1, Max = 20, Ocorrencia = Ocorrencia.NaoObrigatoria)]
+    public string XEmi { get; set; }
+
+    [DFeElement("fluxo", Ocorrencia = Ocorrencia.NaoObrigatoria)]
+    public CTeFluxo Fluxo { get; set; }
+
+    [DFeElement("Entrega", Ocorrencia = Ocorrencia.NaoObrigatoria)]
+    public CTeComplEntrega Entrega { get; set; }
+
+    [DFeElement(TipoCampo.Str, "origCalc", Id = "#088", Min = 2, Max = 40, Ocorrencia = Ocorrencia.NaoObrigatoria)]
+    public string OrigCalc { get; set; }
+
+    [DFeElement(TipoCampo.Str, "destCalc", Id = "#089", Min = 2, Max = 40, Ocorrencia = Ocorrencia.NaoObrigatoria)]
+    public string DestCalc { get; set; }
+
+    [DFeElement(TipoCampo.Str, "xObs", Id = "#090", Min = 1, Max = 2000, Ocorrencia = Ocorrencia.NaoObrigatoria)]
+    public string XObs { get; set; }
+
+    [DFeCollection("ObsCont", Ocorrencia = Ocorrencia.NaoObrigatoria)]
+    public DFeCollection<CTeObsCont> ObsCont { get; set; }
+
+    [DFeCollection("ObsFisco", Ocorrencia = Ocorrencia.NaoObrigatoria)]
+    public DFeCollection<CTeObsFisco> ObsFisco { get; set; }
+
+    #endregion Propriedades
+
+    #region Methods
+
+    internal bool ShouldSerializeFluxo()
+    {
+        return Fluxo != null && (!Fluxo.XOrig.IsEmpty() || !Fluxo.XDest.IsEmpty() ||
+               !Fluxo.XRota.IsEmpty() || Fluxo.Pass.Any());
+    }
+
+    internal bool ShouldSerializeEntrega()
+    {
+        return Entrega != null && (Entrega.TipoData != null ||
+               Entrega.TipoHora != null);
+    }
+
+    #endregion Methods
+}

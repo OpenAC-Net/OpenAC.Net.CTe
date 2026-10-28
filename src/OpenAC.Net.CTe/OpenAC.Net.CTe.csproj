@@ -1,0 +1,74 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net462;net48;netstandard2.0;net8.0;net9.0;net10.0</TargetFrameworks>
+        <LangVersion>latest</LangVersion>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>OpenAC.snk</AssemblyOriginatorKeyFile>
+        <Copyright>Copyright © Grupo OpenAC.Net 2014 - 2026</Copyright>
+        <Company>OpenAC.Net - Automação Comercial em .Net</Company>
+        <Authors>Projeto OpenAC.Net</Authors>
+        <PackageProjectUrl>https://openac.net.br/</PackageProjectUrl>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+        <PackageIcon>nuget.png</PackageIcon>
+        <RepositoryUrl>https://github.com/OpenAC-Net/OpenAC.Net.CTe</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>Automação;Comercial;OpenAC;OpenAC.Net;CTe;CTeOS;DFe</PackageTags>
+        <Description>OpenAC.Net CTe é uma biblioteca para geração e envio de CTe e CTeOS</Description>
+        <NeutralLanguage>pt-BR</NeutralLanguage>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <Version>1.0.0.0</Version>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <FileVersion>1.0.0.0</FileVersion>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>1591;1570;1572;1573;1574;1587</NoWarn>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+        <DefineConstants>NETSTANDARD2_0</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'net462' or '$(TargetFramework)' == 'net48' ">
+        <DefineConstants>NETFULL</DefineConstants>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\LICENSE">
+            <Pack>True</Pack>
+            <PackagePath>/</PackagePath>
+        </None>
+        <None Include="..\README.md">
+            <Pack>True</Pack>
+            <PackagePath>/</PackagePath>
+        </None>
+        <None Include="..\..\nuget.png">
+            <Pack>True</Pack>
+            <PackagePath>/</PackagePath>
+        </None>
+        <Content Include="Schemas\**\*.*">
+            <Pack>true</Pack>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Resources\services.cte"/>
+        <EmbeddedResource Include="Resources\services.cte"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net462' or '$(TargetFramework)' == 'net48'">
+        <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.403">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="OpenAC.Net.Core" Version="1.6.0"/>
+    <PackageReference Include="OpenAC.Net.DFe.Core" Version="1.7.1" />
+    </ItemGroup>
+
+</Project>
