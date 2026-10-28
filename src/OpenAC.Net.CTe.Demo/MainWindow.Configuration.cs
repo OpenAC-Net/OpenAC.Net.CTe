@@ -155,9 +155,13 @@ public partial class MainWindow
         EnvironmentText.Text = environment == DFeTipoAmbiente.Homologacao ? "Homologação" : "Produção";
         ContextText.Text = $"CT-e {version.GetDescription()} · {Selected<DFeCodUF>(StateCombo)} · {Selected<DFeTipoEmissao>(EmissionCombo)}";
         EnvironmentBadge.Background = Avalonia.Media.Brush.Parse(environment == DFeTipoAmbiente.Producao ? "#FFE8DB" : "#EAF2FF");
-        ReceiptButton.IsEnabled = VoidButton.IsEnabled = version != CTeVersao.v400;
-        ToolTip.SetTip(ReceiptButton, version == CTeVersao.v400 ? "CT-e 4.00 usa autorização síncrona, sem recibo de lote." : null);
-        ToolTip.SetTip(VoidButton, version == CTeVersao.v400 ? "O serviço de inutilização está disponível nas versões anteriores à 4.00." : null);
+        var communicationEnabled = version == CTeVersao.v400;
+        SendButton.IsEnabled = StatusButton.IsEnabled = QueryButton.IsEnabled =
+            RegistrationButton.IsEnabled = DistributionButton.IsEnabled = CancelDocumentButton.IsEnabled = communicationEnabled;
+        ToolTip.SetTip(SendButton, communicationEnabled ? null : "CT-e 2.00 e 3.00 permitem apenas leitura, geração e impressão.");
+        ReceiptButton.IsEnabled = VoidButton.IsEnabled = false;
+        ToolTip.SetTip(ReceiptButton, "A recepção em lote foi descontinuada. CT-e 4.00 usa autorização síncrona.");
+        ToolTip.SetTip(VoidButton, "O serviço de inutilização foi descontinuado e não existe no CT-e 4.00.");
     }
 
     private async Task SelectFolderAsync(TextBox target)

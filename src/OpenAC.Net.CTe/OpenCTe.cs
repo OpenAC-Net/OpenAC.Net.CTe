@@ -30,9 +30,7 @@
 // ***********************************************************************
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
@@ -149,79 +147,8 @@ public sealed partial class OpenCTe : OpenDisposable, IOpenLog
     public async Task<EnviarCTeResposta> EnviarAsync(string lote, bool imprimir = true, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        if (Configuracoes.Geral.VersaoDFe == CTeVersao.v400 || Conhecimentos.CTeOS.Length > 0)
-            return await EnviarSincronoAsync(imprimir, cancellationToken).ConfigureAwait(false);
-
-        using var cert = Configuracoes.Certificados.ObterCertificado();
-
-        var saveOptions = DFeSaveOptions.DisableFormatting | DFeSaveOptions.OmitDeclaration;
-        if (Configuracoes.Geral.RetirarAcentos) saveOptions |= DFeSaveOptions.RemoveAccents;
-        if (Configuracoes.Geral.RetirarEspacos) saveOptions |= DFeSaveOptions.RemoveSpaces;
-
-        Conhecimentos.Assinar(cert, saveOptions);
-        Conhecimentos.Validar();
-
-        RecepcaoCTeResposta recepcao;
-
-        try
-        {
-            Status = StatusCTe.Recepcao;
-            using var cliente = new CTeRecepcaoServiceClient(Configuracoes, cert);
-            recepcao = await cliente.RecepcaoLoteAsync(Conhecimentos.CTe, lote, cancellationToken).ConfigureAwait(false);
-        }
-        catch (Exception exception)
-        {
-            this.Log().Error("[EnviarCTe]", exception);
-            throw;
-        }
-        finally
-        {
-            Status = StatusCTe.EmEspera;
-        }
-
-        if (recepcao.Resultado.CStat != 103) return new EnviarCTeResposta(recepcao, null);
-
-        await Task.Delay((int)Configuracoes.WebServices.AguardarConsultaRet, cancellationToken).ConfigureAwait(false);
-        var retRecepcao = await ConsultaReciboAsync(recepcao.Resultado.InfRec.NRec, cancellationToken).ConfigureAwait(false);
-
-        var retorno = new EnviarCTeResposta(recepcao, retRecepcao);
-        if (retorno.RetRecepcaoResposta.Resultado.CStat == 104 && retorno.RetRecepcaoResposta.Resultado.ProtCTe.Any())
-        {
-            var cteAutorizados = new List<CTeProc>();
-            foreach (var protCTe in retorno.RetRecepcaoResposta.Resultado.ProtCTe)
-            {
-                var cte = Conhecimentos.CTe.SingleOrDefault(x => x.InfCTe.Id.Substring(3) == protCTe.InfProt.ChCTe);
-                if (cte == null || !protCTe.InfProt.CStat.IsIn(100, 150)) continue;
-
-                if (Configuracoes.Geral.ValidarDigest)
-                {
-                    Guard.Against<OpenDFeException>(!protCTe.InfProt.DigVal.IsEmpty() &&
-                                                    protCTe.InfProt.DigVal != cte.Signature.SignedInfo.Reference.DigestValue,
-                        $"DigestValue do documento {cte.InfCTe.Id} não confere.");
-                }
-
-                var cteProc = new CTeProc { Versao = cte.InfCTe.Versao, CTe = cte, ProtCTe = protCTe };
-                cteAutorizados.Add(cteProc);
-
-                if (!Configuracoes.Arquivos.Salvar) continue;
-                if (Configuracoes.Arquivos.SalvarApenasCTeProcessados && !cteProc.Processado) continue;
-
-                var data = Configuracoes.Arquivos.EmissaoPathCTe ? cteProc.CTe.InfCTe.Ide.DhEmi.DateTime : DateTime.Now;
-                var pathArquivo = Configuracoes.Arquivos.GetPathCTe(data, cteProc.CTe.InfCTe.Emit.CNPJ, cteProc.CTe.InfCTe.Ide.Mod);
-                var nomeArquivo = $"{cteProc.CTe.InfCTe.Id}-cte.xml";
-
-                await Configuracoes.DocumentStore.SaveAsync(Path.Combine(pathArquivo, nomeArquivo), cteProc.GetXml(), cancellationToken).ConfigureAwait(false);
-            }
-
-            retorno.CTeAutorizados = [.. cteAutorizados];
-        }
-
-        if (imprimir && retorno.CTeAutorizados?.Any() == true)
-        {
-            DACTe?.Imprimir(retorno.CTeAutorizados);
-        }
-
-        return retorno;
+        CTeUtils.ValidarVersaoComunicacao(Configuracoes.Geral.VersaoDFe);
+        return await EnviarSincronoAsync(imprimir, cancellationToken).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -230,40 +157,11 @@ public sealed partial class OpenCTe : OpenDisposable, IOpenLog
     /// <param name="recibo"></param>
     /// <param name="cancellationToken">Token para cancelar a consulta e a espera entre tentativas.</param>
     /// <returns></returns>
-    public async Task<RetRecepcaoResposta> ConsultaReciboAsync(string recibo, CancellationToken cancellationToken = default)
+    public Task<RetRecepcaoResposta> ConsultaReciboAsync(string recibo, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        Guard.Against<ArgumentException>(recibo.IsEmpty(), nameof(recibo));
-
-        using var cert = Configuracoes.Certificados.ObterCertificado();
-
-        try
-        {
-            Status = StatusCTe.RetRecepcao;
-            RetRecepcaoResposta retRecepcao;
-            using var cliente = new CTeRetRecepcaoServiceClient(Configuracoes, cert);
-            var tentativas = 0;
-            var intervaloTentativas = Math.Max(Configuracoes.WebServices.IntervaloTentativas, 1000);
-
-            do
-            {
-                retRecepcao = await cliente.RetRecepcaoAsync(recibo, cancellationToken).ConfigureAwait(false);
-                tentativas++;
-                if (retRecepcao.Resultado.CStat != 105 || tentativas >= Configuracoes.WebServices.Tentativas) break;
-                await Task.Delay(intervaloTentativas, cancellationToken).ConfigureAwait(false);
-            } while (true);
-
-            return retRecepcao;
-        }
-        catch (Exception exception)
-        {
-            this.Log().Error("[ConsultaRecibo]", exception);
-            throw;
-        }
-        finally
-        {
-            Status = StatusCTe.EmEspera;
-        }
+        CTeUtils.ValidarVersaoComunicacao(Configuracoes.Geral.VersaoDFe);
+        throw new NotSupportedException("A consulta de recibo foi descontinuada. CT-e 4.00 utiliza autorização síncrona.");
     }
 
     /// <summary>
@@ -275,6 +173,7 @@ public sealed partial class OpenCTe : OpenDisposable, IOpenLog
     public async Task<ConsultaCTeResposta> ConsultarAsync(string chave = "", CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
+        CTeUtils.ValidarVersaoComunicacao(Configuracoes.Geral.VersaoDFe);
         Guard.Against<ArgumentException>(chave.IsEmpty() && !Conhecimentos.CTe.Any(), "ERRO: Nenhum CT-e ou Chave Informada!");
 
         using var cert = Configuracoes.Certificados.ObterCertificado();
@@ -306,6 +205,7 @@ public sealed partial class OpenCTe : OpenDisposable, IOpenLog
     public async Task<ConsultaStatusResposta> ConsultarSituacaoServicoAsync(CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
+        CTeUtils.ValidarVersaoComunicacao(Configuracoes.Geral.VersaoDFe);
         using var cert = Configuracoes.Certificados.ObterCertificado();
 
         try
@@ -338,28 +238,12 @@ public sealed partial class OpenCTe : OpenDisposable, IOpenLog
     /// <param name="numeroFinal"></param>
     /// <param name="cancellationToken">Token para cancelar a operação.</param>
     /// <returns></returns>
-    public async Task<InutilizaoResposta> InutilizacaoAsync(string cnpj, string aJustificativa, int ano, ModeloCTe modelo, int serie,
+    public Task<InutilizaoResposta> InutilizacaoAsync(string cnpj, string aJustificativa, int ano, ModeloCTe modelo, int serie,
         int numeroInicial, int numeroFinal, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        using var cert = Configuracoes.Certificados.ObterCertificado();
-
-        try
-        {
-            Status = StatusCTe.Inutilizacao;
-
-            using var cliente = new CTeInutilizacaoServiceClient(Configuracoes, cert);
-            return await cliente.InutilizacaoAsync(cnpj, aJustificativa, ano, modelo, serie, numeroInicial, numeroFinal, cancellationToken).ConfigureAwait(false);
-        }
-        catch (Exception exception)
-        {
-            this.Log().Error("[Inutilizacao]", exception);
-            throw;
-        }
-        finally
-        {
-            Status = StatusCTe.EmEspera;
-        }
+        CTeUtils.ValidarVersaoComunicacao(Configuracoes.Geral.VersaoDFe);
+        throw new NotSupportedException("A inutilização de numeração foi descontinuada e não existe no CT-e 4.00.");
     }
 
     /// <summary>
@@ -374,6 +258,7 @@ public sealed partial class OpenCTe : OpenDisposable, IOpenLog
     public async Task<RecepcaoEventoResposta> EnviarEventoAsync(int nSeqEvento, string chave, string cnpj, IEventoCTe evento, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
+        CTeUtils.ValidarVersaoComunicacao(Configuracoes.Geral.VersaoDFe);
         using var cert = Configuracoes.Certificados.ObterCertificado();
 
         try
@@ -427,6 +312,7 @@ public sealed partial class OpenCTe : OpenDisposable, IOpenLog
     public async Task<DFeConsultaCadastroResposta> ConsultaCadastroAsync(DFeCodUF uf, string cpfCNPJ = "", string ie = "", CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
+        CTeUtils.ValidarVersaoComunicacao(Configuracoes.Geral.VersaoDFe);
         using var cert = Configuracoes.Certificados.ObterCertificado();
 
         try

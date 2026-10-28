@@ -12,6 +12,7 @@ public sealed partial class OpenCTe : IOpenCTeClient
         string nsu = "", string chave = "", string ultNsu = "", CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
+        CTeUtils.ValidarVersaoComunicacao(Configuracoes.Geral.VersaoDFe);
         using var certificate = Configuracoes.Certificados.ObterCertificado();
         using var service = new DistribuicaoDFeServiceClient(Configuracoes, uf, certificate);
         return await service.ConsultaDFeAsync(cpfCNPJ, nsu, chave, ultNsu, cancellationToken).ConfigureAwait(false);

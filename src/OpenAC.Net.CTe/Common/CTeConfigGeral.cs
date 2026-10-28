@@ -50,7 +50,7 @@ public sealed partial class CTeConfigGeral : DFeGeralConfigBase<CTeVersao>
     /// </summary>
     internal CTeConfigGeral()
     {
-        VersaoDFe = CTeVersao.v300;
+        VersaoDFe = CTeVersao.v400;
         Mod = ModeloCTe.CTe;
     }
 

@@ -33,13 +33,10 @@ using System.Threading.Tasks;
 
 using System;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Xml.Linq;
-using OpenAC.Net.Core;
 using OpenAC.Net.Core.Extensions;
 using OpenAC.Net.CTe.Configuracao;
 using OpenAC.Net.DFe.Core;
-using OpenAC.Net.DFe.Core.Common;
 
 namespace OpenAC.Net.CTe.Services;
 
@@ -58,50 +55,15 @@ public sealed partial class CTeRecepcaoServiceClient : CTeServiceClient
 
     #region Methods
 
-    public async Task<RecepcaoCTeResposta> RecepcaoLoteAsync(CTe[] ctes, string loteId, CancellationToken cancellationToken = default)
+    /// <summary>
+    /// A recepção em lote das versões 2.00 e 3.00 foi descontinuada.
+    /// Utilize OpenCTe.EnviarAsync ou CTeAutorizacaoServiceClient para a versão 4.00.
+    /// </summary>
+    public Task<RecepcaoCTeResposta> RecepcaoLoteAsync(CTe[] ctes, string loteId, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        Guard.Against<ArgumentNullException>(ctes == null, nameof(ctes));
-        Guard.Against<ArgumentNullException>(loteId.IsEmpty(), "Número do lote vazio.");
-        Guard.Against<ArgumentException>(!loteId.IsNumeric(), "Número do lote incorreto.");
-        Guard.Against<ArgumentException>(ctes.Length < 1, "Precisa de pelo menos 1 conhecimento por lote.");
-        Guard.Against<ArgumentException>(ctes.Length > 50, "So pode enviar 50 conhecimentos por lote.");
-
-        await ServiceGate.WaitAsync(cancellationToken).ConfigureAwait(false);
-        try
-        {
-            var request = new StringBuilder();
-            request.Append($"<enviCTe xmlns=\"http://www.portalfiscal.inf.br/cte\" versao=\"{Configuracoes.Geral.VersaoDFe.GetDescription()}\">");
-            request.Append($"<idLote>{loteId}</idLote>");
-
-            var saveOptions = DFeSaveOptions.DisableFormatting | DFeSaveOptions.OmitDeclaration;
-            if (Configuracoes.Geral.RetirarAcentos) saveOptions |= DFeSaveOptions.RemoveAccents;
-            if (Configuracoes.Geral.RetirarEspacos) saveOptions |= DFeSaveOptions.RemoveSpaces;
-
-            foreach (var cte in ctes)
-            {
-                var cteXml = cte.Xml.IsEmpty() ? cte.GetXml(saveOptions) : cte.Xml;
-                await GravarCTeAsync(cteXml, cte.GetXmlName(), cte.InfCTe.Ide.DhEmi.DateTime, cte.InfCTe.Emit.CNPJ, cte.InfCTe.Ide.Mod, cancellationToken).ConfigureAwait(false);
-                request.Append(cteXml);
-            }
-
-            request.Append("</enviCTe>");
-
-            var dadosMsg = request.ToString();
-
-            Guard.Against<OpenDFeException>(dadosMsg.Length > (500 * 1024),
-                $"Tamanho do XML de Dados superior a 500 Kbytes. Tamanho atual: {(dadosMsg.Length / 1024M).Trunc()} Kbytes");
-
-            ValidateMessage(dadosMsg);
-
-            const string xmlns = "http://www.portalfiscal.inf.br/cte/wsdl/CteRecepcao";
-            var message = $"<cteDadosMsg xmlns=\"{xmlns}\">{dadosMsg}</cteDadosMsg>";
-            var ret = await ExecuteAsync("http://www.portalfiscal.inf.br/cte/wsdl/CteRecepcao/cteRecepcaoLote", message, SoapHeader(xmlns), cancellationToken).ConfigureAwait(false);
-
-            var retorno = new RecepcaoCTeResposta(dadosMsg, ret, EnvelopeEnvio, EnvelopeRetorno);
-            return retorno;
-        }
-        finally { ServiceGate.Release(); }
+        throw new NotSupportedException("A recepção em lote de CT-e 2.00 e 3.00 foi descontinuada. " +
+            "Utilize a autorização síncrona da versão 4.00.");
     }
 
     /// <inheritdoc />

@@ -70,7 +70,7 @@ public sealed partial class CTeInfCTe : GenericClone<CTeInfCTe>
         Emit = new CTeEmit();
         Compl = new CTeCompl();
         Ide = new CTeIde();
-        Versao = CTeVersao.v300;
+        Versao = CTeVersao.v400;
     }
 
     #endregion Contructors

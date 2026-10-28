@@ -17,7 +17,7 @@ Desenvolvida pelo time **OpenAC .Net**, a biblioteca segue as especificações o
 
 - **Emissão e Transmissão de CT-e e CT-e OS**:
   - Autorização **Síncrona** no leiaute **4.00** (compressão GZip/Base64 em `CTeRecepcaoSincV4` e `CTeRecepcaoOSV4`).
-  - Recepção em lote e consulta de recibo no leiaute **3.00** (`CTeRecepcao` / `CTeRetRecepcao`).
+  - Os leiautes **2.00** e **3.00** permitem apenas leitura, geração e impressão; a transmissão é exclusiva do leiaute **4.00**, inclusive para CT-e OS.
   - Suporte aos modais **Rodoviário**, **Aéreo**, **Aquaviário**, **Ferroviário**, **Dutoviário** e **Multimodal**.
 - **Eventos do CT-e**:
   - Cancelamento (`CTeEvCancCTe`).
@@ -30,7 +30,7 @@ Desenvolvida pelo time **OpenAC .Net**, a biblioteca segue as especificações o
   - Consulta de Situação do CT-e por Chave de Acesso (`ConsultarAsync`).
   - Consulta de Cadastro de Contribuinte (`ConsultaCadastroAsync`).
   - Distribuição DF-e por último NSU, NSU específico ou Chave de Acesso (`DistribuicaoDFePorUltNSUAsync`, `DistribuicaoDFePorNSUAsync`, `DistribuicaoDFePorChaveAsync`).
-  - Inutilização de numeração no leiaute 3.00 (`InutilizacaoAsync`).
+  - Recepção em lote, consulta de recibo e inutilização de numeração pertencem aos serviços descontinuados e são bloqueadas.
 - **Geração de DACTE em PDF (`OpenAC.Net.CTe.DACTe.PDFSharp`)**:
   - Geração de PDF em memória (`byte[]`), `Stream` ou arquivo para CT-e, CT-e OS, Eventos e Inutilização.
   - Baseado em **PDFsharp 6.2.4** com fontes *Liberation Sans* embutidas (funciona em Windows, Linux, macOS e containers Docker sem necessidade de GDI+ ou fontes instaladas).
@@ -97,7 +97,7 @@ using var cte = new OpenCTe();
 
 // Configurações Gerais
 cte.Configuracoes.Geral.Ambiente = DFeTipoAmbiente.Homologacao;
-cte.Configuracoes.Geral.VersaoDFe = CTeVersao.v400; // ou CTeVersao.v300
+cte.Configuracoes.Geral.VersaoDFe = CTeVersao.v400; // padrão; 2.00 e 3.00 somente para operações locais
 cte.Configuracoes.Geral.Mod = ModeloCTe.CTe;        // ou ModeloCTe.CTeOS
 cte.Configuracoes.Geral.RetirarAcentos = true;
 cte.Configuracoes.Geral.RetirarEspacos = true;

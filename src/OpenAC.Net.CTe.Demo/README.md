@@ -23,10 +23,11 @@ aparece na tela de configuração.
 
 ## Operações
 
-- Carregar um ou vários XMLs de CT-e ou CT-e OS, validar e enviar os documentos.
+- Carregar um ou vários XMLs de CT-e ou CT-e OS e validar os documentos. O envio é exclusivo da versão 4.00.
 - Consultar situação, status do serviço, cadastro e distribuição de documentos.
 - Enviar cancelamento por chave, protocolo, CNPJ, justificativa e sequência do evento.
-- Consultar recibos e inutilizar numeração nas versões anteriores à 4.00.
+- As versões 2.00 e 3.00 permitem apenas leitura, geração e impressão, sem comunicação com a SEFAZ.
+- Consulta de recibos e inutilização de numeração ficam desabilitadas, pois pertencem aos serviços descontinuados.
 - Gerar DACTE e PDF de evento processado, em retrato ou paisagem, e abrir no leitor de PDF
   do sistema para visualizar ou imprimir.
 

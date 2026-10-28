@@ -99,8 +99,7 @@ public sealed partial class ConhecimentosCollection
     public CTeOS AddNewCTeOS()
     {
         var instance = cteOs.AddNew();
-        //instance.InfCTe.Versao = Parent.Configuracoes.Geral.VersaoDFe;
-        //instance.InfCTe.Ide.Mod = Parent.Configuracoes.Geral.Mod;
+        instance.Versao = instance.InfCTe.Versao = Parent.Configuracoes.Geral.VersaoDFe;
 
         return instance;
     }

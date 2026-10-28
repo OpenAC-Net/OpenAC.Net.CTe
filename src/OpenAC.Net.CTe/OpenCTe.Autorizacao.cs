@@ -31,13 +31,11 @@ public sealed partial class OpenCTe
         CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
+        CTeUtils.ValidarVersaoComunicacao(Configuracoes.Geral.VersaoDFe);
         var info = cte?.InfCTe ?? os?.InfCTe ?? throw new ArgumentException("Informações do documento não informadas.");
         var version = Configuracoes.Geral.VersaoDFe;
-        if (cte != null && version != CTeVersao.v400)
-            throw new NotSupportedException("Utilize EnviarAsync para lotes de CT-e 2.00/3.00.");
-        if (os != null && version == CTeVersao.v200)
-            throw new NotSupportedException("CT-e OS exige versão 3.00 ou superior.");
-        info.Versao = version;
+        CTeUtils.ValidarVersaoComunicacao(info.Versao);
+        if (os != null) CTeUtils.ValidarVersaoComunicacao(os.Versao);
         info.Ide.Mod = os != null ? ModeloCTe.CTeOS : ModeloCTe.CTe;
         info.Ide.TpAmb = Configuracoes.WebServices.Ambiente;
         os?.Versao = version;
@@ -103,6 +101,14 @@ public sealed partial class OpenCTe
     {
         if (Conhecimentos.CTe.Length + Conhecimentos.CTeOS.Length == 0)
             throw new InvalidOperationException("Nenhum conhecimento carregado.");
+        // Valida toda a coleção antes de transmitir o primeiro documento.
+        foreach (var document in Conhecimentos.CTe)
+            CTeUtils.ValidarVersaoComunicacao(document.InfCTe.Versao);
+        foreach (var document in Conhecimentos.CTeOS)
+        {
+            CTeUtils.ValidarVersaoComunicacao(document.InfCTe.Versao);
+            CTeUtils.ValidarVersaoComunicacao(document.Versao);
+        }
         var responses = new System.Collections.Generic.List<CTeAutorizacaoResposta>();
         foreach (var document in Conhecimentos.CTe)
             responses.Add(await AutorizarAsync(document, cancellationToken).ConfigureAwait(false));

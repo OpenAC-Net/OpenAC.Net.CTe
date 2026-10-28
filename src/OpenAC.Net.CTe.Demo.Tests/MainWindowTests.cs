@@ -32,12 +32,17 @@ public class MainWindowTests
         await Assert.That(Control<Grid>(window, "OperationsPage").IsVisible).IsFalse();
         await CaptureAsync(window, "configuracoes");
         Control<ComboBox>(window, "VersionCombo").SelectedIndex = 1;
-        await Assert.That(Control<Button>(window, "ReceiptButton").IsEnabled).IsTrue();
+        await Assert.That(Control<Button>(window, "ReceiptButton").IsEnabled).IsFalse();
+        await Assert.That(Control<Button>(window, "VoidButton").IsEnabled).IsFalse();
+        await Assert.That(Control<Button>(window, "SendButton").IsEnabled).IsFalse();
+        await Assert.That(Control<Button>(window, "StatusButton").IsEnabled).IsFalse();
+        await Assert.That(Control<Button>(window, "ValidateButton").IsEnabled).IsTrue();
+        await Assert.That(Control<Button>(window, "PdfButton").IsEnabled).IsTrue();
         await Assert.That(Control<TextBlock>(window, "ContextText").Text).Contains("3.00");
         navigation.SelectedIndex = 2;
         await Assert.That(Control<Grid>(window, "ServicesPage").IsVisible).IsTrue();
         var endpoints = Control<ItemsControl>(window, "ServiceList").ItemsSource!.Cast<ServiceEndpoint>().ToArray();
-        await Assert.That(endpoints.Any(endpoint => endpoint.Type == TipoServicoCTe.CTeRecepcao && endpoint.Address.StartsWith("https://"))).IsTrue();
+        await Assert.That(endpoints.All(endpoint => string.IsNullOrEmpty(endpoint.Address))).IsTrue();
         await CaptureAsync(window, "webservices");
     });
 
@@ -104,8 +109,8 @@ public class MainWindowTests
             await Assert.That(Control<TextBox>(window, "ResultText").Text).Contains("Endereços aplicados");
             await Assert.That(CTeServiceManager.GetServiceAndress(CTeVersao.v400, DFeSiglaUF.MS,
                 TipoServicoCTe.CTeStatusServico, DFeTipoEmissao.Normal, DFeTipoAmbiente.Homologacao)).IsEqualTo(address);
-            await Assert.That(CTeServiceManager.GetServiceAndress(CTeVersao.v300, DFeSiglaUF.MS,
-                TipoServicoCTe.CTeStatusServico, DFeTipoEmissao.Normal, DFeTipoAmbiente.Homologacao)).IsNotEqualTo(address);
+            Assert.ThrowsExactly<NotSupportedException>(() => CTeServiceManager.GetServiceAndress(CTeVersao.v300, DFeSiglaUF.MS,
+                TipoServicoCTe.CTeStatusServico, DFeTipoEmissao.Normal, DFeTipoAmbiente.Homologacao));
             using var exported = new MemoryStream();
             CTeServiceManager.Save(exported);
             await Assert.That(System.Text.Encoding.UTF8.GetString(exported.ToArray())).Contains(address);

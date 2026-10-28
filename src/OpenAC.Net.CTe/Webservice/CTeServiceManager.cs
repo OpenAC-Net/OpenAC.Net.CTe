@@ -148,6 +148,7 @@ public static class CTeServiceManager
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     public static string GetServiceAndress(CTeVersao versao, DFeSiglaUF uf, TipoServicoCTe tipo, DFeTipoEmissao tipoEmissao, DFeTipoAmbiente ambiente)
     {
+        CTeUtils.ValidarVersaoComunicacao(versao);
         if (versao == CTeVersao.v400 && tipo is TipoServicoCTe.CTeInutilizacao or TipoServicoCTe.CTeRetRecepcao)
             throw new NotSupportedException("A versão 4.00 não possui consulta de recibo nem inutilização.");
 

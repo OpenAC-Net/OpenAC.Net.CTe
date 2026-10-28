@@ -20,26 +20,27 @@ public sealed class CTeAutorizacaoServiceClient : CTeServiceClient
     {
         os = cteOS;
         NomeArquivo = cteOS ? "cteos-autorizacao" : "cte-autorizacao";
-        if (!cteOS && config.Geral.VersaoDFe != CTeVersao.v400)
-            throw new NotSupportedException("A autorização síncrona de CT-e exige a versão 4.00.");
     }
     public async Task<CTeAutorizacaoResposta> AutorizarAsync(string xml, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
+        CTeUtils.ValidarVersaoComunicacao(Configuracoes.Geral.VersaoDFe);
         await ServiceGate.WaitAsync(cancellationToken).ConfigureAwait(false);
         try
         {
             var root = XElement.Parse(xml);
             if (root.Name != XName.Get(os ? "CTeOS" : "CTe", "http://www.portalfiscal.inf.br/cte"))
                 throw new ArgumentException("Modelo do XML incompatível com o serviço de autorização.", nameof(xml));
+            if ((string)root.Element(root.Name.Namespace + "infCte")?.Attribute("versao") != "4.00"
+                || os && (string)root.Attribute("versao") != "4.00")
+                throw new NotSupportedException("Somente documentos CT-e e CT-e OS 4.00 podem ser enviados.");
             CTeSchemaValidator.Validate(xml, Configuracoes, os);
-            var v4 = Configuracoes.Geral.VersaoDFe == CTeVersao.v400;
-            var contract = v4 ? (os ? "CTeRecepcaoOSV4" : "CTeRecepcaoSincV4") : "CteRecepcaoOS";
+            var contract = os ? "CTeRecepcaoOSV4" : "CTeRecepcaoSincV4";
             var xmlns = "http://www.portalfiscal.inf.br/cte/wsdl/" + contract;
             var method = os ? "cteRecepcaoOS" : "cteRecepcao";
-            var payload = v4 ? Compress(xml) : xml;
+            var payload = Compress(xml);
             if (Encoding.UTF8.GetByteCount(payload) > 500 * 1024) throw new ArgumentException("Mensagem superior a 500 KB.", nameof(xml));
-            var message = new XElement(XName.Get("cteDadosMsg", xmlns), v4 ? (object)payload : root).ToString(SaveOptions.DisableFormatting);
+            var message = new XElement(XName.Get("cteDadosMsg", xmlns), payload).ToString(SaveOptions.DisableFormatting);
             var result = await ExecuteAsync(xmlns + "/" + method, message, SoapHeader(xmlns), cancellationToken).ConfigureAwait(false);
             return new CTeAutorizacaoResposta(xml, result, EnvelopeEnvio, EnvelopeRetorno);
         }

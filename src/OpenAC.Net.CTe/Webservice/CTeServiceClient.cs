@@ -83,6 +83,7 @@ public abstract class CTeServiceClient : DFeSoapServiceClient<CTeConfig, CTeConf
     protected CTeServiceClient(CTeConfig config, string url, X509Certificate2 certificado = null) :
         base(config, url, SoapVersion.Soap12)
     {
+        CTeUtils.ValidarVersaoComunicacao(config.Geral.VersaoDFe);
         operationCertificate = certificado;
         ownsCertificate = certificado == null;
     }
@@ -90,9 +91,14 @@ public abstract class CTeServiceClient : DFeSoapServiceClient<CTeConfig, CTeConf
     #endregion Constructors
 
     private static string ResolveAddress(CTeConfig config, TipoServicoCTe service)
-        => config.WebServices.Enderecos.TryGetValue(service, out var address) ? address
+    {
+        CTeUtils.ValidarVersaoComunicacao(config.Geral.VersaoDFe);
+        if (service is TipoServicoCTe.CTeInutilizacao or TipoServicoCTe.CTeRetRecepcao)
+            throw new NotSupportedException("A versão 4.00 não possui consulta de recibo nem inutilização.");
+        return config.WebServices.Enderecos.TryGetValue(service, out var address) ? address
             : CTeServiceManager.GetServiceAndress(config.Geral.VersaoDFe, config.WebServices.UF.ToSiglaUF(),
                 service, config.Geral.FormaEmissao, config.WebServices.Ambiente);
+    }
 
     #region Propriedades
 
@@ -141,6 +147,7 @@ public abstract class CTeServiceClient : DFeSoapServiceClient<CTeConfig, CTeConf
         CancellationToken cancellationToken, params string[] soapNamespaces)
     {
         cancellationToken.ThrowIfCancellationRequested();
+        CTeUtils.ValidarVersaoComunicacao(Configuracoes.Geral.VersaoDFe);
         XNamespace soap = "http://www.w3.org/2003/05/soap-envelope";
         EnvelopeEnvio = $"<soapenv:Envelope xmlns:soapenv=\"{soap}\" {string.Join(" ", soapNamespaces)}><soapenv:Header>{soapHeader}</soapenv:Header><soapenv:Body>{message}</soapenv:Body></soapenv:Envelope>";
         using var request = new HttpRequestMessage(HttpMethod.Post, Url);

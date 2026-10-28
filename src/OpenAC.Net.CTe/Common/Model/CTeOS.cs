@@ -24,7 +24,7 @@ public sealed partial class CTeOS : DFeSignDocument<CTeOS>
     {
         InfCTe = new CTeInfCTe();
         InfCTe.Ide.Mod = ModeloCTe.CTeOS;
-        Versao = CTeVersao.v300;
+        Versao = CTeVersao.v400;
     }
 
     #region Propriedades
