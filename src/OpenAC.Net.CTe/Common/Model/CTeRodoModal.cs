@@ -29,7 +29,6 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System.ComponentModel;
 using OpenAC.Net.Core.Extensions;
 using OpenAC.Net.DFe.Core.Attributes;
 using OpenAC.Net.DFe.Core.Collection;
@@ -39,11 +38,10 @@ using OpenAC.Net.DFe.Core.Serializer;
 namespace OpenAC.Net.CTe;
 
 [DFeRoot("rodo")]
-public sealed partial class CTeRodoModal : DFeDocument<CTeRodoModal>, ICTeModal, INotifyPropertyChanged
+public sealed partial class CTeRodoModal : DFeDocument<CTeRodoModal>, ICTeModal
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

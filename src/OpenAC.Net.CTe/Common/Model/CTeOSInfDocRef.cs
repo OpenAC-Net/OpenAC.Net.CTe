@@ -30,7 +30,6 @@
 // ***********************************************************************
 
 using System;
-using System.ComponentModel;
 using OpenAC.Net.Core.Extensions;
 using OpenAC.Net.Core.Generics;
 using OpenAC.Net.DFe.Core.Attributes;
@@ -38,11 +37,10 @@ using OpenAC.Net.DFe.Core.Serializer;
 
 namespace OpenAC.Net.CTe;
 
-public sealed partial class CTeOSInfDocRef : GenericClone<CTeOSInfDocRef>, INotifyPropertyChanged
+public sealed partial class CTeOSInfDocRef : GenericClone<CTeOSInfDocRef>
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

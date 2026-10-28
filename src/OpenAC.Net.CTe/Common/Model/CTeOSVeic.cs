@@ -36,16 +36,14 @@ using OpenAC.Net.DFe.Core.Common;
 using OpenAC.Net.DFe.Core.Serializer;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Text;
 
 namespace OpenAC.Net.CTe;
 
-public sealed partial class CTeOSVeic : GenericClone<CTeOSVeic>, INotifyPropertyChanged
+public sealed partial class CTeOSVeic : GenericClone<CTeOSVeic>
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

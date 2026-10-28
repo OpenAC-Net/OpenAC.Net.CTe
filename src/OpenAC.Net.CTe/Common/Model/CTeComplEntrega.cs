@@ -29,17 +29,15 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System.ComponentModel;
 using OpenAC.Net.Core.Generics;
 using OpenAC.Net.DFe.Core.Attributes;
 
 namespace OpenAC.Net.CTe;
 
-public sealed partial class CTeComplEntrega : GenericClone<CTeComplEntrega>, INotifyPropertyChanged
+public sealed partial class CTeComplEntrega : GenericClone<CTeComplEntrega>
 {
 	#region Events
 
-	public event PropertyChangedEventHandler PropertyChanged;
 
 	#endregion Events
 

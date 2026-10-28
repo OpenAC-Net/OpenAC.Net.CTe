@@ -32,15 +32,13 @@ using OpenAC.Net.Core.Generics;
 using OpenAC.Net.DFe.Core.Attributes;
 using OpenAC.Net.DFe.Core.Serializer;
 using System;
-using System.ComponentModel;
 
 namespace OpenAC.Net.CTe;
 
-public sealed partial class CTeEntregaNoPeriodo : GenericClone<CTeEntregaNoPeriodo>, ICTeTipoData, INotifyPropertyChanged
+public sealed partial class CTeEntregaNoPeriodo : GenericClone<CTeEntregaNoPeriodo>, ICTeTipoData
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

@@ -8,6 +8,7 @@
     <Description>Geração de DACTE e relatórios de eventos em PDF com PDFsharp.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../OpenAC.Net.CTe/OpenAC.Net.CTe.csproj" />

@@ -148,7 +148,7 @@ public static class CTeServiceManager
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     public static string GetServiceAndress(CTeVersao versao, DFeSiglaUF uf, TipoServicoCTe tipo, DFeTipoEmissao tipoEmissao, DFeTipoAmbiente ambiente)
     {
-        if (versao == CTeVersao.v400 && (tipo == TipoServicoCTe.CTeInutilizacao || tipo == TipoServicoCTe.CTeRetRecepcao))
+        if (versao == CTeVersao.v400 && tipo is TipoServicoCTe.CTeInutilizacao or TipoServicoCTe.CTeRetRecepcao)
             throw new NotSupportedException("A versão 4.00 não possui consulta de recibo nem inutilização.");
 
         switch (tipo)
@@ -220,8 +220,9 @@ public static class CTeServiceManager
             using var stream = assembly.GetManifestResourceStream("OpenAC.Net.CTe.Resources.services.cte");
             if (stream != null)
             {
-                buffer = new byte[stream.Length];
-                stream.Read(buffer, 0, buffer.Length);
+                using var ms = new MemoryStream();
+                stream.CopyTo(ms);
+                buffer = ms.ToArray();
             }
         }
         else if (File.Exists(path))

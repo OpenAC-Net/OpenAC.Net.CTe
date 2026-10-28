@@ -29,18 +29,16 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System.ComponentModel;
 using OpenAC.Net.Core.Generics;
 using OpenAC.Net.DFe.Core.Attributes;
 using OpenAC.Net.DFe.Core.Collection;
 
 namespace OpenAC.Net.CTe;
 
-public sealed partial class CTeAquavInfDoc : GenericClone<CTeAquavInfDoc>, INotifyPropertyChanged
+public sealed partial class CTeAquavInfDoc : GenericClone<CTeAquavInfDoc>
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

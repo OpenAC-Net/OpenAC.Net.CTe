@@ -29,7 +29,6 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System.ComponentModel;
 using OpenAC.Net.DFe.Core.Attributes;
 using OpenAC.Net.DFe.Core.Document;
 using OpenAC.Net.DFe.Core.Serializer;
@@ -38,11 +37,10 @@ namespace OpenAC.Net.CTe;
 
 [DFeRoot("protCTe", Namespace = "http://www.portalfiscal.inf.br/cte")]
 [DFeSignInfoElement("infProt")]
-public sealed partial class CTeProtCTe : DFeSignDocument<CTeProtCTe>, INotifyPropertyChanged
+public sealed partial class CTeProtCTe : DFeSignDocument<CTeProtCTe>
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

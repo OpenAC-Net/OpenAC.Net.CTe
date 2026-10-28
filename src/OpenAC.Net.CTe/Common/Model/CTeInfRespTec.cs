@@ -29,7 +29,6 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System.ComponentModel;
 using OpenAC.Net.Core.Generics;
 using OpenAC.Net.DFe.Core.Attributes;
 using OpenAC.Net.DFe.Core.Serializer;
@@ -39,11 +38,10 @@ namespace OpenAC.Net.CTe;
 /// <summary>
 ///   TRespTec - Informações do Responsável Técnico pela emissão do DF-e
 /// </summary>
-public sealed partial class CTeInfRespTec : GenericClone<CTeInfRespTec>, INotifyPropertyChanged
+public sealed partial class CTeInfRespTec : GenericClone<CTeInfRespTec>
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

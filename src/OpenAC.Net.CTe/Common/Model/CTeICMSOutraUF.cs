@@ -29,7 +29,6 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System.ComponentModel;
 using OpenAC.Net.Core.Generics;
 using OpenAC.Net.DFe.Core.Attributes;
 using OpenAC.Net.DFe.Core.Common;
@@ -38,11 +37,10 @@ using System.Xml.Serialization;
 
 namespace OpenAC.Net.CTe;
 
-public sealed partial class CTeICMSOutraUF : GenericClone<CTeICMSOutraUF>, ICTeICMS, INotifyPropertyChanged
+public sealed partial class CTeICMSOutraUF : GenericClone<CTeICMSOutraUF>, ICTeICMS
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

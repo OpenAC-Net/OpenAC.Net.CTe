@@ -29,7 +29,6 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System.ComponentModel;
 using OpenAC.Net.Core.Generics;
 using OpenAC.Net.DFe.Core.Attributes;
 using OpenAC.Net.DFe.Core.Serializer;
@@ -39,11 +38,10 @@ namespace OpenAC.Net.CTe.Services;
 /// <summary>
 /// Tipo Dados do Endereço
 /// </summary>
-public sealed partial class DFeCadEndereco : GenericClone<DFeCadEndereco>, INotifyPropertyChanged
+public sealed partial class DFeCadEndereco : GenericClone<DFeCadEndereco>
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

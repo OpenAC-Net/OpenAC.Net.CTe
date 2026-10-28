@@ -70,7 +70,7 @@ internal sealed class CTeWebHttpTransport(
 
     internal static void ValidateCertificate(X509Certificate2 certificate, TimeSpan margin)
     {
-        if (certificate == null || !certificate.HasPrivateKey)
+        if (certificate is not { HasPrivateKey: true })
             throw new InvalidOperationException("Certificado com chave privada não informado.");
         var now = DateTime.UtcNow;
         if (certificate.NotBefore.ToUniversalTime() > now || certificate.NotAfter.ToUniversalTime() <= now + margin)

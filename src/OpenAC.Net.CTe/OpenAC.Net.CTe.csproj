@@ -27,6 +27,7 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <NoWarn>1591;1570;1572;1573;1574;1587</NoWarn>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
@@ -42,7 +43,7 @@
             <Pack>True</Pack>
             <PackagePath>/</PackagePath>
         </None>
-        <None Include="..\README.md">
+        <None Include="..\..\README.md">
             <Pack>True</Pack>
             <PackagePath>/</PackagePath>
         </None>

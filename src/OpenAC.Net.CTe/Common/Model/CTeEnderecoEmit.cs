@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using OpenAC.Net.Core.Generics;
 using OpenAC.Net.DFe.Core.Attributes;
 using OpenAC.Net.DFe.Core.Common;
@@ -6,11 +5,10 @@ using OpenAC.Net.DFe.Core.Serializer;
 
 namespace OpenAC.Net.CTe;
 
-public sealed partial class CTeEnderecoEmit : GenericClone<CTeEnderecoEmit>, INotifyPropertyChanged
+public sealed partial class CTeEnderecoEmit : GenericClone<CTeEnderecoEmit>
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

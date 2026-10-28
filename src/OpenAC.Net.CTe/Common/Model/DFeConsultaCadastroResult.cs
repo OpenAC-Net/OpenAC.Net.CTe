@@ -29,7 +29,6 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System.ComponentModel;
 using OpenAC.Net.DFe.Core.Attributes;
 using OpenAC.Net.DFe.Core.Document;
 using OpenAC.Net.DFe.Core.Serializer;
@@ -37,11 +36,10 @@ using OpenAC.Net.DFe.Core.Serializer;
 namespace OpenAC.Net.CTe.Services;
 
 [DFeRoot("retConsCad", Namespace = "http://www.portalfiscal.inf.br/nfe")]
-public sealed partial class DFeConsultaCadastroResult : DFeDocument<DFeConsultaCadastroResult>, INotifyPropertyChanged
+public sealed partial class DFeConsultaCadastroResult : DFeDocument<DFeConsultaCadastroResult>
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

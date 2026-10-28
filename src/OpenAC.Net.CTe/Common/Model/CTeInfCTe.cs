@@ -29,7 +29,6 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System.ComponentModel;
 using System.Linq;
 using OpenAC.Net.Core.Extensions;
 using OpenAC.Net.Core.Generics;
@@ -39,18 +38,16 @@ using OpenAC.Net.DFe.Core.Serializer;
 
 namespace OpenAC.Net.CTe;
 
-public sealed partial class CTeInfCTe : GenericClone<CTeInfCTe>, INotifyPropertyChanged
+public sealed partial class CTeInfCTe : GenericClone<CTeInfCTe>
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 
     #region Fields
 
     private CTeIde ide;
-    private CTeOSToma toma;
     private CTeExped exped;
     private CTeRem rem;
     private CTeReceb receb;

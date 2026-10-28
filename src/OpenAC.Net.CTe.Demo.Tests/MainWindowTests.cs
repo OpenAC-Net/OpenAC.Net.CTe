@@ -21,6 +21,7 @@ public class MainWindowTests
         using var scope = new WindowScope();
         var window = scope.Window;
         window.Show();
+        await Assert.That(window.Icon).IsNotNull();
         await Assert.That(Control<Grid>(window, "OperationsPage").IsVisible).IsTrue();
         await Assert.That(Control<Button>(window, "ReceiptButton").IsEnabled).IsFalse();
         await Assert.That(Control<TextBlock>(window, "ContextText").Text).Contains("4.00");

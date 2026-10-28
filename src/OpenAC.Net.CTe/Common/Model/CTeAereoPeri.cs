@@ -29,18 +29,16 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System.ComponentModel;
 using OpenAC.Net.Core.Generics;
 using OpenAC.Net.DFe.Core.Attributes;
 using OpenAC.Net.DFe.Core.Serializer;
 
 namespace OpenAC.Net.CTe;
 
-public sealed partial class CTeAereoPeri : GenericClone<CTeAereoPeri>, INotifyPropertyChanged
+public sealed partial class CTeAereoPeri : GenericClone<CTeAereoPeri>
 {
 	#region Events
 
-	public event PropertyChangedEventHandler PropertyChanged;
 
 	#endregion Events
 

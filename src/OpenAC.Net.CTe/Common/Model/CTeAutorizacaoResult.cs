@@ -18,5 +18,5 @@ public sealed class CTeAutorizacaoResposta : DFeResposta<CTeAutorizacaoResult>
     public CTeAutorizacaoResposta(string xmlEnvio, string xmlRetorno, string envelopeEnvio, string envelopeRetorno)
         : base(xmlEnvio, xmlRetorno, envelopeEnvio, envelopeRetorno) { }
     public CTeProc Conhecimento { get; internal set; }
-    public bool Autorizado => Resultado?.ProtCTe?.InfProt?.CStat == 100 || Resultado?.ProtCTe?.InfProt?.CStat == 150;
+    public bool Autorizado => Resultado?.ProtCTe?.InfProt?.CStat is 100 or 150;
 }

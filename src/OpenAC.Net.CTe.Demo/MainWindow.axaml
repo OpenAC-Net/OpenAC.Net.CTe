@@ -2,6 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="using:OpenAC.Net.CTe.Demo"
         x:Class="OpenAC.Net.CTe.Demo.MainWindow"
+        Icon="avares://OpenAC.Net.CTe.Demo/Assets/openac.ico"
         Title="OpenAC.Net · CT-e" Width="1360" Height="900"
         MinWidth="1080" MinHeight="720" WindowStartupLocation="CenterScreen">
   <Grid ColumnDefinitions="218,*">
@@ -14,8 +15,8 @@
       </Border.Background>
       <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="18,30,18,22">
         <StackPanel Margin="14,0,0,34" Spacing="12">
-          <Border Width="46" Height="46" Background="#3274E8" CornerRadius="13" HorizontalAlignment="Left">
-            <TextBlock Text="AC" Foreground="White" FontWeight="Bold" FontSize="19" HorizontalAlignment="Center" VerticalAlignment="Center" />
+          <Border Width="48" Height="48" Background="White" CornerRadius="13" Padding="4" HorizontalAlignment="Left" ClipToBounds="True">
+            <Image Source="avares://OpenAC.Net.CTe.Demo/Assets/openac.png" Stretch="Uniform" />
           </Border>
           <StackPanel Spacing="4">
             <TextBlock Text="OpenAC.Net" Foreground="White" FontSize="21" FontWeight="SemiBold" />

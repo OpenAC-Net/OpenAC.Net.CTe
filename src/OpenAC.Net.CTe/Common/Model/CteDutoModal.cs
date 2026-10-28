@@ -30,7 +30,6 @@
 // ***********************************************************************
 
 using System;
-using System.ComponentModel;
 using OpenAC.Net.DFe.Core.Attributes;
 using OpenAC.Net.DFe.Core.Document;
 using OpenAC.Net.DFe.Core.Serializer;
@@ -38,11 +37,10 @@ using OpenAC.Net.DFe.Core.Serializer;
 namespace OpenAC.Net.CTe;
 
 [DFeRoot("duto")]
-public sealed partial class CTeDutoModal : DFeDocument<CTeDutoModal>, ICTeModal, INotifyPropertyChanged
+public sealed partial class CTeDutoModal : DFeDocument<CTeDutoModal>, ICTeModal
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

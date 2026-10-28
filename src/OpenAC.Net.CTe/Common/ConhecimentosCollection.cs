@@ -134,7 +134,7 @@ public sealed partial class ConhecimentosCollection
     /// </summary>
     /// <param name="collection">
     ///   A coleção cujos elementos devem ser adicionados ao final do <see cref="T:System.Collections.Generic.List`1" />.
-    ///    A coleção em si não pode ser <see langword="null" />, mas pode conter elementos que são <see langword="null" />, se o tipo <paramref name="T" /> é um tipo de referência.
+    ///    A coleção em si não pode ser <see langword="null" />, mas pode conter elementos que são <see langword="null" />.
     /// </param>
     /// <exception cref="T:System.ArgumentNullException">
     ///   <paramref name="collection" /> é <see langword="null" />.
@@ -149,7 +149,7 @@ public sealed partial class ConhecimentosCollection
     /// </summary>
     /// <param name="collection">
     ///   A coleção cujos elementos devem ser adicionados ao final do <see cref="T:System.Collections.Generic.List`1" />.
-    ///    A coleção em si não pode ser <see langword="null" />, mas pode conter elementos que são <see langword="null" />, se o tipo <paramref name="T" /> é um tipo de referência.
+    ///    A coleção em si não pode ser <see langword="null" />, mas pode conter elementos que são <see langword="null" />.
     /// </param>
     /// <exception cref="T:System.ArgumentNullException">
     ///   <paramref name="collection" /> é <see langword="null" />.

@@ -33,15 +33,13 @@ using OpenAC.Net.Core.Generics;
 using OpenAC.Net.DFe.Core.Attributes;
 using OpenAC.Net.DFe.Core.Serializer;
 using System;
-using System.ComponentModel;
 
 namespace OpenAC.Net.CTe;
 
-public sealed partial class CTeDuplicata : GenericClone<CTeDuplicata>, INotifyPropertyChanged
+public sealed partial class CTeDuplicata : GenericClone<CTeDuplicata>
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

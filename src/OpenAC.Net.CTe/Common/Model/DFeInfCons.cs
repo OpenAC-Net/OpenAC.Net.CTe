@@ -30,7 +30,6 @@
 // ***********************************************************************
 
 using System;
-using System.ComponentModel;
 using OpenAC.Net.Core.Extensions;
 using OpenAC.Net.Core.Generics;
 using OpenAC.Net.DFe.Core.Attributes;
@@ -40,11 +39,10 @@ using OpenAC.Net.DFe.Core.Serializer;
 
 namespace OpenAC.Net.CTe.Services;
 
-public sealed partial class DFeInfCons : GenericClone<DFeInfCons>, INotifyPropertyChanged
+public sealed partial class DFeInfCons : GenericClone<DFeInfCons>
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

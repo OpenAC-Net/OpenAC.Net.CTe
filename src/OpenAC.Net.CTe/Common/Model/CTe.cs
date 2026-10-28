@@ -31,7 +31,6 @@ using OpenAC.Net.DFe.Core.Extensions;
 // ***********************************************************************
 
 using System;
-using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
 using OpenAC.Net.Core;
 using OpenAC.Net.Core.Extensions;
@@ -44,11 +43,10 @@ namespace OpenAC.Net.CTe;
 
 [DFeSignInfoElement("infCte")]
 [DFeRoot("CTe", Namespace = "http://www.portalfiscal.inf.br/cte")]
-public sealed partial class CTe : DFeSignDocument<CTe>, INotifyPropertyChanged
+public sealed partial class CTe : DFeSignDocument<CTe>
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

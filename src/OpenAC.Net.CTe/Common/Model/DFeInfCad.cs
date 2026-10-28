@@ -30,7 +30,6 @@
 // ***********************************************************************
 
 using System;
-using System.ComponentModel;
 using OpenAC.Net.Core.Extensions;
 using OpenAC.Net.Core.Generics;
 using OpenAC.Net.DFe.Core.Attributes;
@@ -42,11 +41,10 @@ namespace OpenAC.Net.CTe.Services;
 /// <summary>
 /// Informações cadastrais do contribuinte consultado.
 /// </summary>
-public sealed partial class DFeInfCad : GenericClone<DFeInfCad>, INotifyPropertyChanged
+public sealed partial class DFeInfCad : GenericClone<DFeInfCad>
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

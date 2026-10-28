@@ -36,11 +36,10 @@ using OpenAC.Net.DFe.Core.Common;
 namespace OpenAC.Net.CTe.Configuracao;
 
 [TypeConverter(typeof(ExpandableObjectConverter))]
-public sealed partial class CTeConfigGeral : DFeGeralConfigBase<CTeVersao>, INotifyPropertyChanged
+public sealed partial class CTeConfigGeral : DFeGeralConfigBase<CTeVersao>
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

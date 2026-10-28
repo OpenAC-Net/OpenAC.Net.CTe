@@ -34,16 +34,14 @@ using OpenAC.Net.DFe.Core.Attributes;
 using OpenAC.Net.DFe.Core.Collection;
 using OpenAC.Net.DFe.Core.Serializer;
 using System;
-using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace OpenAC.Net.CTe;
 
-public sealed partial class CTeInfOutros : GenericClone<CTeInfOutros>, ICTeInfDoc, INotifyPropertyChanged
+public sealed partial class CTeInfOutros : GenericClone<CTeInfOutros>, ICTeInfDoc
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

@@ -8,6 +8,7 @@
     <Description>Integração ASP.NET Core para CT-e com isolamento por empresa e IHttpClientFactory.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../OpenAC.Net.CTe/OpenAC.Net.CTe.csproj" />

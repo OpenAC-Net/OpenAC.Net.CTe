@@ -54,5 +54,5 @@ internal sealed class InputDialog : Window
     }
 
     public static Task<Dictionary<string, string>?> AskAsync(Window owner, string title, params InputField[] fields)
-        => new InputDialog(title, fields).ShowDialog<Dictionary<string, string>?>(owner);
+        => new InputDialog(title, fields) { Icon = owner.Icon }.ShowDialog<Dictionary<string, string>?>(owner);
 }

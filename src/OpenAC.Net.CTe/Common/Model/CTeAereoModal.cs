@@ -34,18 +34,16 @@ using OpenAC.Net.DFe.Core.Attributes;
 using OpenAC.Net.DFe.Core.Collection;
 using OpenAC.Net.DFe.Core.Serializer;
 using System;
-using System.ComponentModel;
 using System.Linq;
 using OpenAC.Net.DFe.Core.Document;
 
 namespace OpenAC.Net.CTe;
 
 [DFeRoot("aereo")]
-public sealed partial class CTeAereoModal : DFeDocument<CTeAereoModal>, ICTeModal, INotifyPropertyChanged
+public sealed partial class CTeAereoModal : DFeDocument<CTeAereoModal>, ICTeModal
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

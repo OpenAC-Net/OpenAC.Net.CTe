@@ -29,7 +29,6 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System.ComponentModel;
 using OpenAC.Net.DFe.Core.Attributes;
 using OpenAC.Net.DFe.Core.Collection;
 using OpenAC.Net.DFe.Core.Document;
@@ -38,11 +37,10 @@ using OpenAC.Net.DFe.Core.Serializer;
 namespace OpenAC.Net.CTe.Eventos;
 
 [DFeRoot("evCCeCTe", Namespace = "http://www.portalfiscal.inf.br/cte")]
-public sealed partial class CTeEvCCeCTe : DFeDocument<CTeEvCCeCTe>, IEventoCTe, INotifyPropertyChanged
+public sealed partial class CTeEvCCeCTe : DFeDocument<CTeEvCCeCTe>, IEventoCTe
 {
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

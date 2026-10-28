@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using OpenAC.Net.CTe.DACTe.PDFSharp.Common;
 using OpenAC.Net.CTe.DACTe.PDFSharp.Configuracao;
 using PdfSharp;
 using PdfSharp.Drawing;

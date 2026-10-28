@@ -40,7 +40,7 @@ using OpenAC.Net.DFe.Core.Common;
 namespace OpenAC.Net.CTe.Configuracao;
 
 [TypeConverter(typeof(ExpandableObjectConverter))]
-public sealed partial class CTeConfigWebServices : DFeWebserviceConfigBase, INotifyPropertyChanged
+public sealed partial class CTeConfigWebServices : DFeWebserviceConfigBase
 {
     /// <summary>Sobrescritas por instância para endpoints de integração ou autorizadores específicos.</summary>
     public Dictionary<TipoServicoCTe, string> Enderecos { get; } = new();
@@ -53,7 +53,6 @@ public sealed partial class CTeConfigWebServices : DFeWebserviceConfigBase, INot
 
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 

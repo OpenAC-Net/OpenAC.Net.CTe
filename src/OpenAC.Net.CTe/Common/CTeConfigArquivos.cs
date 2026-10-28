@@ -41,7 +41,7 @@ using OpenAC.Net.DFe.Core.Common;
 namespace OpenAC.Net.CTe.Configuracao;
 
 [TypeConverter(typeof(ExpandableObjectConverter))]
-public sealed partial class CTeConfigArquivos : DFeArquivosConfigBase<SchemaCTe>, INotifyPropertyChanged
+public sealed partial class CTeConfigArquivos : DFeArquivosConfigBase<SchemaCTe>
 {
     #region Fields
 
@@ -52,7 +52,6 @@ public sealed partial class CTeConfigArquivos : DFeArquivosConfigBase<SchemaCTe>
 
     #region Events
 
-    public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion Events
 
