@@ -37,7 +37,6 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using OpenAC.Net.Core.Extensions;
 using OpenAC.Net.CTe.Configuracao;
-using OpenAC.Net.DFe.Core.Extensions;
 using OpenAC.Net.DFe.Core.Service;
 using OpenAC.Net.DFe.Core.Http;
 using OpenAC.Net.DFe.Core.Storage;

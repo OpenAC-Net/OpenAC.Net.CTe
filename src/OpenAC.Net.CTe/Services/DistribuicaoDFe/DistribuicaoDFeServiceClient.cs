@@ -8,7 +8,6 @@ using System.Xml.Linq;
 using OpenAC.Net.Core;
 using OpenAC.Net.Core.Extensions;
 using OpenAC.Net.CTe.Configuracao;
-using OpenAC.Net.CTe.Services;
 using OpenAC.Net.DFe.Core;
 using OpenAC.Net.DFe.Core.Common;
 using OpenAC.Net.DFe.Core.Extensions;

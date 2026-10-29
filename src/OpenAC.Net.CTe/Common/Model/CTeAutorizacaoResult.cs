@@ -1,5 +1,4 @@
 using OpenAC.Net.DFe.Core.Attributes;
-using OpenAC.Net.DFe.Core.Serializer;
 using OpenAC.Net.DFe.Core.Service;
 
 namespace OpenAC.Net.CTe.Services;

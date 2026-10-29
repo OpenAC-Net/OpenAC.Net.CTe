@@ -33,7 +33,6 @@ using OpenAC.Net.Core.Generics;
 using OpenAC.Net.DFe.Core.Attributes;
 using OpenAC.Net.DFe.Core.Collection;
 using OpenAC.Net.DFe.Core.Serializer;
-using System.Xml.Serialization;
 
 namespace OpenAC.Net.CTe;
 

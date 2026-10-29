@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using OpenAC.Net.CTe.DACTe.PDFSharp.Configuracao;
 using OpenAC.Net.CTe.DACTe.PDFSharp.Layout;
-using OpenAC.Net.CTe.Eventos;
 using OpenAC.Net.CTe.Services;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;

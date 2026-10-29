@@ -1,11 +1,8 @@
 using System.Xml.Linq;
 using OpenAC.Net.CTe.Services;
-using OpenAC.Net.DFe.Core;
 using System.Globalization;
 using OpenAC.Net.Core.Extensions;
 using Avalonia.Platform.Storage;
-using OpenAC.Net.CTe.Eventos;
-using OpenAC.Net.DFe.Core.Common;
 using OpenAC.Net.DFe.Core.Service;
 
 namespace OpenAC.Net.CTe.Demo;

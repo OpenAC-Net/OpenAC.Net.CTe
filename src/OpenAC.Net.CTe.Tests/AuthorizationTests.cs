@@ -5,9 +5,6 @@ using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
 using OpenAC.Net.CTe.Configuracao;
-using OpenAC.Net.CTe.Services;
-using OpenAC.Net.CTe.Storage;
-using OpenAC.Net.DFe.Core.Common;
 
 namespace OpenAC.Net.CTe.Tests;
 

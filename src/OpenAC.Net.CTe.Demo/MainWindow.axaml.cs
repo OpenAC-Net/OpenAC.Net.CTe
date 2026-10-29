@@ -2,7 +2,6 @@ using OpenAC.Net.CTe.Configuracao;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
 using Avalonia.Controls;
-using Avalonia.Interactivity;
 using Avalonia.Input.Platform;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;

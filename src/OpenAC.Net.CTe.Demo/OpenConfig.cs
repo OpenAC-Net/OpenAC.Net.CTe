@@ -1,8 +1,6 @@
 using OpenAC.Net.Core.Extensions;
-using System;
 using System.Configuration;
 using System.Globalization;
-using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 

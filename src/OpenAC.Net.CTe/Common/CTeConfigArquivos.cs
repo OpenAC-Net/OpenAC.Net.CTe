@@ -30,10 +30,8 @@
 // ***********************************************************************
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using OpenAC.Net.Core;
 using OpenAC.Net.Core.Extensions;
 using OpenAC.Net.CTe.Services;
 using OpenAC.Net.DFe.Core.Common;

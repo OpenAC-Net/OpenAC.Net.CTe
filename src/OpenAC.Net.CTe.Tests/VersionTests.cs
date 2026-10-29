@@ -1,4 +1,3 @@
-using System.Globalization;
 using System.Xml.Linq;
 using OpenAC.Net.CTe.DACTe.PDFSharp;
 using OpenAC.Net.CTe.Services;

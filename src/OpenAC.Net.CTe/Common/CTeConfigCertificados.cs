@@ -30,7 +30,6 @@
 // ***********************************************************************
 
 using System.ComponentModel;
-using OpenAC.Net.Core;
 using OpenAC.Net.DFe.Core.Common;
 
 namespace OpenAC.Net.CTe.Configuracao;

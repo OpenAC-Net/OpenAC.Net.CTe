@@ -2,7 +2,6 @@ using OpenAC.Net.DFe.Core.Extensions;
 using System;
 using OpenAC.Net.CTe.Services;
 using OpenAC.Net.CTe.Storage;
-using OpenAC.Net.Core.Extensions;
 using OpenAC.Net.DFe.Core.Common;
 
 namespace OpenAC.Net.CTe.Configuracao;

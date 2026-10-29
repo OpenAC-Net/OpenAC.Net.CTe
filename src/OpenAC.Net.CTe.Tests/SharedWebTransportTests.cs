@@ -16,7 +16,7 @@ public class SharedWebTransportTests
         var clients = new RecordingClientFactory();
         var services = new ServiceCollection();
         services.AddSingleton<IHttpClientFactory>(clients);
-        services.AddOpenCTeWeb(config =>
+        services.AddOpenCTe(config =>
         {
             config.Certificados.CertificadoBytes = pfx;
             config.Certificados.Senha = "test";

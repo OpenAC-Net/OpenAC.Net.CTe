@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using OpenAC.Net.CTe.Services;
 using OpenAC.Net.DFe.Core.Common;
 using OpenAC.Net.DFe.Core.Service;

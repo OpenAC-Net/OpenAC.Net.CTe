@@ -10,7 +10,7 @@ namespace OpenAC.Net.CTe.Web;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddOpenCTeWeb(this IServiceCollection services, Action<CTeConfig> configure,
+    public static IServiceCollection AddOpenCTe(this IServiceCollection services, Action<CTeConfig> configure,
         Action<CTeWebOptions>? infrastructure = null)
     {
         ArgumentNullException.ThrowIfNull(configure);
@@ -19,7 +19,7 @@ public static class ServiceCollectionExtensions
         return AddInfrastructure(services, infrastructure);
     }
 
-    public static IServiceCollection AddOpenCTeWebMultiTenant<TConfigurationProvider, TCertificateProvider>(
+    public static IServiceCollection AddOpenCTeMultiTenant<TConfigurationProvider, TCertificateProvider>(
         this IServiceCollection services, Action<CTeWebOptions>? infrastructure = null)
         where TConfigurationProvider : class, ICTeConfigurationProvider<CTeConfig>
         where TCertificateProvider : class, ICTeCertificateProvider

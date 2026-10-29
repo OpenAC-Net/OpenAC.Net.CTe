@@ -23,23 +23,28 @@ internal sealed class CTeWebHttpTransport(
     private static readonly Histogram<double> Duration =
         Meter.CreateHistogram<double>("openac.cte.request.duration", "ms");
 
-    public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, DFeHttpTransportOptions transportOptions,
+    public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+        DFeHttpTransportOptions transportOptions,
         CancellationToken cancellationToken = default)
     {
         var endpoint = request.RequestUri ?? throw new ArgumentException("Endpoint não informado.");
         if (!endpoint.IsAbsoluteUri || endpoint.Scheme != Uri.UriSchemeHttps)
             throw new ArgumentException("O endpoint fiscal deve utilizar HTTPS.");
+        
         var certificate = transportOptions.Certificate
-            ?? throw new InvalidOperationException("Certificado com chave privada não informado.");
+                          ?? throw new InvalidOperationException("Certificado com chave privada não informado.");
+        
         ValidateCertificate(certificate, options.Value.MargemValidadeCertificado);
-        var name = registry.Register(tenantId, certificate, transportOptions.Protocols,
-            endpoint);
+        
+        var name = registry.Register(tenantId, certificate, transportOptions.Protocols, endpoint);
         using var activity = Activities.StartActivity("CTe.SOAP", ActivityKind.Client);
         activity?.SetTag("server.address", endpoint.Host);
         activity?.SetTag("openac.tenant", CTeHttpClientRegistry.Hash(tenantId));
         using var timeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
         timeout.CancelAfter(options.Value.TimeoutOperacao);
+        
         var watch = Stopwatch.StartNew();
+        
         try
         {
             using var client = clients.CreateClient(name);
@@ -54,7 +59,8 @@ internal sealed class CTeWebHttpTransport(
         {
             throw;
         }
-        catch (Exception exception) when (exception is HttpRequestException or OperationCanceledException or BrokenCircuitException or TimeoutRejectedException)
+        catch (Exception exception) when (exception is HttpRequestException or OperationCanceledException
+                                              or BrokenCircuitException or TimeoutRejectedException)
         {
             activity?.SetStatus(ActivityStatusCode.Error);
             Count.Add(1, new KeyValuePair<string, object?>("outcome", "transport_error"));
@@ -72,6 +78,7 @@ internal sealed class CTeWebHttpTransport(
     {
         if (certificate is not { HasPrivateKey: true })
             throw new InvalidOperationException("Certificado com chave privada não informado.");
+        
         var now = DateTime.UtcNow;
         if (certificate.NotBefore.ToUniversalTime() > now || certificate.NotAfter.ToUniversalTime() <= now + margin)
             throw new InvalidOperationException("Certificado fora do período de validade ou próximo do vencimento.");

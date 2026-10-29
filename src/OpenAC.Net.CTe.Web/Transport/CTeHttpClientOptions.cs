@@ -24,17 +24,18 @@ internal sealed class CTeHttpClientOptions(CTeHttpClientRegistry registry, IOpti
         {
             builder.PrimaryHandler = new SocketsHttpHandler
             {
-            AllowAutoRedirect = false,
-            UseCookies = false,
-            AutomaticDecompression = DecompressionMethods.All,
-            PooledConnectionLifetime = options.Value.TempoVidaConexaoPool,
-            SslOptions = new SslClientAuthenticationOptions
-            {
-                EnabledSslProtocols = registration.Protocols,
-                ClientCertificates = new X509CertificateCollection { registration.Certificate }
-            }
+                AllowAutoRedirect = false,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.All,
+                PooledConnectionLifetime = options.Value.TempoVidaConexaoPool,
+                SslOptions = new SslClientAuthenticationOptions
+                {
+                    EnabledSslProtocols = registration.Protocols,
+                    ClientCertificates = new X509CertificateCollection { registration.Certificate }
+                }
             };
-            var pipeline = new ResiliencePipelineBuilder<HttpResponseMessage>().AddTimeout(options.Value.TimeoutTentativa);
+            var pipeline =
+                new ResiliencePipelineBuilder<HttpResponseMessage>().AddTimeout(options.Value.TimeoutTentativa);
             if (options.Value.CircuitBreakerHabilitado)
                 pipeline.AddCircuitBreaker(new HttpCircuitBreakerStrategyOptions());
             builder.AdditionalHandlers.Add(new ResilienceHandler(pipeline.Build()));

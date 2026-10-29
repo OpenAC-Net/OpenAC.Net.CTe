@@ -1,7 +1,6 @@
 using OpenAC.Net.DFe.Core.Storage;
 using OpenAC.Net.DFe.Core.Http;
 using System.Net;
-using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
 using OpenAC.Net.CTe.Configuracao;
 using OpenAC.Net.CTe.Eventos;

@@ -1,6 +1,7 @@
 using OpenAC.Net.DFe.Core.Extensions;
 using System;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
 using OpenAC.Net.Core.Extensions;
@@ -56,7 +57,8 @@ public sealed class OpenCTe : IOpenCTeClient
         return await service.ConsultaAsync(key, cancellationToken).ConfigureAwait(false);
     }
 
-    public async Task<ConsultaStatusResposta> ConsultarSituacaoServicoAsync(CancellationToken cancellationToken = default)
+    public async Task<ConsultaStatusResposta> ConsultarSituacaoServicoAsync(
+        CancellationToken cancellationToken = default)
     {
         ValidarOperacao(cancellationToken);
         using var certificate = await ObterCertificadoAsync(cancellationToken).ConfigureAwait(false);
@@ -64,41 +66,50 @@ public sealed class OpenCTe : IOpenCTeClient
         return await service.StatusServicoAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    public async Task<RecepcaoEventoResposta> EnviarEventoAsync(CTeEventoSolicitacao solicitacao, CancellationToken cancellationToken = default)
+    public async Task<RecepcaoEventoResposta> EnviarEventoAsync(CTeEventoSolicitacao solicitacao,
+        CancellationToken cancellationToken = default)
     {
         ValidarOperacao(cancellationToken);
         if (solicitacao == null) throw new ArgumentNullException(nameof(solicitacao));
         var key = ValidarChave(solicitacao.Chave);
         var cnpj = solicitacao.CnpjAutor?.OnlyNumbers();
-        if (string.IsNullOrWhiteSpace(cnpj) || !cnpj.IsCNPJ()) throw new ArgumentException("CNPJ do autor inválido.", nameof(solicitacao));
-        if (solicitacao.Sequencia < 1 || solicitacao.Sequencia > 99) throw new ArgumentOutOfRangeException(nameof(solicitacao), "Sequência do evento deve estar entre 1 e 99.");
+        if (string.IsNullOrWhiteSpace(cnpj) || !cnpj.IsCNPJ())
+            throw new ArgumentException("CNPJ do autor inválido.", nameof(solicitacao));
+        if (solicitacao.Sequencia is < 1 or > 99)
+            throw new ArgumentOutOfRangeException(nameof(solicitacao), "Sequência do evento deve estar entre 1 e 99.");
         var sequence = solicitacao.Sequencia;
-        var evento = CTeDocumentCopy.Copiar(solicitacao.Evento ?? throw new ArgumentException("Evento não informado.", nameof(solicitacao)));
+        var evento = CTeDocumentCopy.Copiar(solicitacao.Evento ??
+                                            throw new ArgumentException("Evento não informado.", nameof(solicitacao)));
         var tipo = evento is CTeEvEPEC ? TipoServicoCTe.RecepcaoEventoEpec : TipoServicoCTe.RecepcaoEvento;
         using var certificate = await ObterCertificadoAsync(cancellationToken).ConfigureAwait(false);
         using var service = new CTeRecepcaoEventoServiceClient(configuracao, tipo, certificate);
         return await service.RecepcaoEventoAsync(sequence, key, cnpj, evento, cancellationToken).ConfigureAwait(false);
     }
 
-    public async Task<DFeConsultaCadastroResposta> ConsultaCadastroAsync(DFeCodUF uf, string cpfCNPJ = "", string ie = "", CancellationToken cancellationToken = default)
+    public async Task<DFeConsultaCadastroResposta> ConsultaCadastroAsync(DFeCodUF uf, string cpfCNPJ = "",
+        string ie = "", CancellationToken cancellationToken = default)
     {
         ValidarOperacao(cancellationToken);
         using var certificate = await ObterCertificadoAsync(cancellationToken).ConfigureAwait(false);
         using var service = new ConsultaCadastroServiceClient(configuracao, uf, certificate);
-        return await service.ConsultaCadastroAsync(uf.ToSiglaUF(), uf, cpfCNPJ, ie, cancellationToken).ConfigureAwait(false);
+        return await service.ConsultaCadastroAsync(uf.ToSiglaUF(), uf, cpfCNPJ, ie, cancellationToken)
+            .ConfigureAwait(false);
     }
 
-    public async Task<DistribuicaoDFeResponse> ConsultarDistribuicaoAsync(CTeDistribuicaoSolicitacao solicitacao, CancellationToken cancellationToken = default)
+    public async Task<DistribuicaoDFeResponse> ConsultarDistribuicaoAsync(CTeDistribuicaoSolicitacao solicitacao,
+        CancellationToken cancellationToken = default)
     {
         ValidarOperacao(cancellationToken);
         if (solicitacao == null) throw new ArgumentNullException(nameof(solicitacao));
         var uf = solicitacao.UF;
         var taxpayer = solicitacao.CpfCnpj?.OnlyNumbers();
-        if (string.IsNullOrWhiteSpace(taxpayer) || !taxpayer.IsCPF() && !taxpayer.IsCNPJ()) throw new ArgumentException("CPF/CNPJ inválido.", nameof(solicitacao));
+        if (string.IsNullOrWhiteSpace(taxpayer) || !taxpayer.IsCPF() && !taxpayer.IsCNPJ())
+            throw new ArgumentException("CPF/CNPJ inválido.", nameof(solicitacao));
         var last = solicitacao.UltimoNsu;
         var nsu = solicitacao.Nsu;
         if (new[] { last, nsu }.Count(value => !string.IsNullOrWhiteSpace(value)) != 1)
-            throw new ArgumentException("Informe exatamente um filtro de distribuição: último NSU ou NSU específico.", nameof(solicitacao));
+            throw new ArgumentException("Informe exatamente um filtro de distribuição: último NSU ou NSU específico.",
+                nameof(solicitacao));
         ValidarNsu(last);
         ValidarNsu(nsu);
         using var certificate = await ObterCertificadoAsync(cancellationToken).ConfigureAwait(false);
@@ -106,17 +117,23 @@ public sealed class OpenCTe : IOpenCTeClient
         return await service.ConsultaDFeAsync(taxpayer, nsu ?? "", last ?? "", cancellationToken).ConfigureAwait(false);
     }
 
-    private async Task<System.Security.Cryptography.X509Certificates.X509Certificate2> ObterCertificadoAsync(CancellationToken token)
+    private async Task<X509Certificate2> ObterCertificadoAsync(
+        CancellationToken token)
     {
-        var certificate = await certificados.ObterAsync(configuracao.Certificados.Copiar(), token).ConfigureAwait(false);
+        var certificate =
+            await certificados.ObterAsync(configuracao.Certificados.Copiar(), token).ConfigureAwait(false);
         try
         {
             token.ThrowIfCancellationRequested();
-            if (certificate == null || !certificate.HasPrivateKey)
-                throw new InvalidOperationException("Certificado com chave privada não informado.");
-            return certificate;
+            return certificate is not { HasPrivateKey: true }
+                ? throw new InvalidOperationException("Certificado com chave privada não informado.")
+                : certificate;
         }
-        catch { certificate?.Dispose(); throw; }
+        catch
+        {
+            certificate?.Dispose();
+            throw;
+        }
     }
 
     private void ValidarOperacao(CancellationToken token)
@@ -128,14 +145,14 @@ public sealed class OpenCTe : IOpenCTeClient
     private static string ValidarChave(string chave)
     {
         var key = chave?.Trim();
-        if (key == null || key.Length != 44 || key.Any(c => c < '0' || c > '9'))
+        if (key is not { Length: 44 } || key.Any(c => c is < '0' or > '9'))
             throw new ArgumentException("A chave deve conter 44 dígitos.", nameof(chave));
         return key;
     }
 
     private static void ValidarNsu(string nsu)
     {
-        if (!string.IsNullOrEmpty(nsu) && (nsu.Length > 15 || nsu.Any(c => c < '0' || c > '9')))
+        if (!string.IsNullOrEmpty(nsu) && (nsu.Length > 15 || nsu.Any(c => c is < '0' or > '9')))
             throw new ArgumentException("O NSU deve conter até 15 dígitos.", nameof(nsu));
     }
 }

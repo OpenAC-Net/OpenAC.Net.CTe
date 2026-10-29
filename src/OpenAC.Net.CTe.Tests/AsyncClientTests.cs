@@ -3,7 +3,6 @@ using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using OpenAC.Net.CTe.Configuracao;
 using OpenAC.Net.CTe.Eventos;
-using OpenAC.Net.CTe.Services;
 using OpenAC.Net.DFe.Core;
 using OpenAC.Net.DFe.Core.Common;
 

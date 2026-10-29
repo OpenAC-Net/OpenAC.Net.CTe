@@ -29,8 +29,6 @@
 // <summary></summary>
 // ***********************************************************************
 
-using OpenAC.Net.DFe.Core.Common;
-
 namespace OpenAC.Net.CTe;
 
 public interface ICTeICMS

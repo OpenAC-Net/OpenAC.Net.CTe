@@ -61,7 +61,7 @@ public class InfrastructureTests
         using var certificate = CreateCertificate();
         var bytes = certificate.Export(X509ContentType.Pfx, "test");
         var services = new ServiceCollection();
-        services.AddOpenCTeWeb(config =>
+        services.AddOpenCTe(config =>
         {
             config.Certificados.CertificadoBytes = bytes;
             config.Certificados.Senha = "test";

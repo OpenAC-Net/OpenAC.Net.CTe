@@ -40,21 +40,11 @@ namespace OpenAC.Net.CTe;
 // ReSharper disable once InconsistentNaming
 public abstract class DACTeBase : DFeOptionsBase<FiltroDFeReport>
 {
-    #region Constructors
-
-    protected DACTeBase()
-    {
-        QuebrarLinhasObservacao = true;
-        LayoutImpressao = DACTeLayout.Retrato;
-    }
-
-    #endregion Constructors
-
     #region Properties
 
-    public bool QuebrarLinhasObservacao { get; set; }
+    public bool QuebrarLinhasObservacao { get; set; } = true;
 
-    public DACTeLayout LayoutImpressao { get; set; }
+    public DACTeLayout LayoutImpressao { get; set; } = DACTeLayout.Retrato;
 
     #endregion Properties
 

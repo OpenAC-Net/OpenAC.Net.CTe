@@ -34,7 +34,7 @@ public sealed class CTeCertificadoProvider : ICTeCertificadoProvider
         try
         {
             cancellationToken.ThrowIfCancellationRequested();
-            if (certificate == null || !certificate.HasPrivateKey)
+            if (certificate is not { HasPrivateKey: true })
                 throw new InvalidOperationException("Certificado com chave privada não informado.");
             return certificate;
         }

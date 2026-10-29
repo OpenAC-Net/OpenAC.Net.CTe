@@ -4,7 +4,6 @@ using System.Xml.Linq;
 using OpenAC.Net.CTe.Configuracao;
 using OpenAC.Net.CTe.Services;
 using OpenAC.Net.CTe.Web;
-using OpenAC.Net.DFe.Core.Common;
 using OpenAC.Net.DFe.Core.Http;
 using OpenAC.Net.DFe.Core.Storage;
 
