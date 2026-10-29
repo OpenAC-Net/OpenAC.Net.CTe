@@ -51,7 +51,7 @@ public sealed class CTeProc : DFeDocument<CTeProc>
         CTe = new CTe();
         ProtCTe = new CTeProtCTe();
 
-        Versao = CTeVersao.v300;
+        Versao = CTeVersao.v400;
     }
 
     #endregion Constructors

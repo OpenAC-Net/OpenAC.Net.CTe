@@ -2,5 +2,5 @@ namespace OpenAC.Net.CTe.Web;
 
 public interface IOpenCTeClientFactory
 {
-    ValueTask<OpenCTe> CreateAsync(string tenantId = "default", CancellationToken cancellationToken = default);
+    ValueTask<IOpenCTeClient> CriarAsync(string tenantId = "default", CancellationToken cancellationToken = default);
 }

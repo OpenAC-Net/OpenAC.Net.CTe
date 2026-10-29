@@ -1,3 +1,6 @@
+using System.Xml.Linq;
+using OpenAC.Net.CTe.Services;
+using OpenAC.Net.DFe.Core;
 using System.Globalization;
 using OpenAC.Net.Core.Extensions;
 using Avalonia.Platform.Storage;
@@ -17,7 +20,8 @@ public partial class MainWindow
             FileTypeFilter = [new FilePickerFileType("Documentos XML") { Patterns = ["*.xml"] }]
         });
         if (files.Count == 0) return;
-        using var temporary = new OpenCTe();
+        var carregados = new List<CTe>();
+        var carregadosOS = new List<CTeOS>();
         var xmls = new List<string>();
         foreach (var file in files)
         {
@@ -25,26 +29,29 @@ public partial class MainWindow
             using var reader = new StreamReader(stream);
             var xml = await reader.ReadToEndAsync(token);
             token.ThrowIfCancellationRequested();
-            temporary.Conhecimentos.Load(xml);
+            AdicionarDocumento(xml, carregados, carregadosOS);
             xmls.Add(xml);
         }
-        client.Conhecimentos.Clear();
-        client.Conhecimentos.AddRange(temporary.Conhecimentos.CTe);
-        client.Conhecimentos.AddRange(temporary.Conhecimentos.CTeOS);
+        conhecimentos.Clear(); conhecimentosOS.Clear();
+        conhecimentos.AddRange(carregados); conhecimentosOS.AddRange(carregadosOS);
         documentPaths.Clear();
         documentPaths.AddRange(files.Select(file => file.Name));
         DocumentNameText.Text = string.Join(", ", documentPaths);
         DocumentCountText.Text = $"{files.Count} XML";
         AccessKeyText.Text = DefaultAccessKey();
         SentXmlText.Text = string.Join("\n\n", xmls.Select(PrettyXml));
-        ResultText.Text = $"{temporary.Conhecimentos.CTe.Length} CT-e e {temporary.Conhecimentos.CTeOS.Length} CT-e OS carregados.\n\nValide o documento antes de enviar. A versão e o ambiente de emissão seguem as configurações selecionadas.";
+        ResultText.Text = $"{conhecimentos.Count} CT-e e {conhecimentosOS.Count} CT-e OS carregados.\n\nValide o documento antes de enviar. A versão e o ambiente de emissão seguem as configurações selecionadas.";
         ResponseTabs.SelectedIndex = 0;
     }
 
     private async Task ValidateDocumentsAsync(CancellationToken token)
     {
         RequireDocuments();
-        await Task.Run(() => { token.ThrowIfCancellationRequested(); client.Conhecimentos.Validar(); }, token);
+        await Task.Run(() =>
+        {
+            foreach (var cte in conhecimentos) { token.ThrowIfCancellationRequested(); CTeSchemaValidator.Validate(cte.GetXml(), settings, false); }
+            foreach (var cte in conhecimentosOS) { token.ThrowIfCancellationRequested(); CTeSchemaValidator.Validate(cte.GetXml(), settings, true); }
+        }, token);
         ResultText.Text = "Os documentos carregados foram validados com os schemas da versão selecionada.";
         ResponseTabs.SelectedIndex = 0;
     }
@@ -52,7 +59,11 @@ public partial class MainWindow
     private async Task SendDocumentsAsync(CancellationToken token)
     {
         RequireDocuments();
-        var response = await client.EnviarAsync(BatchText.Text?.Trim() ?? "1", imprimir: false, cancellationToken: token);
+        foreach (var documento in conhecimentos) ValidarVersaoComunicacao(documento.InfCTe.Versao);
+        foreach (var documento in conhecimentosOS) { ValidarVersaoComunicacao(documento.Versao); ValidarVersaoComunicacao(documento.InfCTe.Versao); }
+        var autorizacoes = new List<CTeAutorizacaoResposta>();
+        foreach (var documento in conhecimentos) autorizacoes.Add(await client.AutorizarAsync(documento, token));
+        foreach (var documento in conhecimentosOS) autorizacoes.Add(await client.AutorizarAsync(documento, token));
         var sent = new List<string>();
         var received = new List<string>();
         var requestEnvelopes = new List<string>();
@@ -64,11 +75,9 @@ public partial class MainWindow
             requestEnvelopes.Add(item.EnvelopeEnvio);
             responseEnvelopes.Add(item.EnvelopeRetorno);
         }
-        if (response.RecepcaoResposta != null) Capture(response.RecepcaoResposta);
-        if (response.RetRecepcaoResposta != null) Capture(response.RetRecepcaoResposta);
-        foreach (var authorization in response.AutorizacoesSincronas) Capture(authorization);
+        foreach (var authorization in autorizacoes) Capture(authorization);
         ShowXml(string.Join("\n\n", sent), string.Join("\n\n", received), string.Join("\n\n", requestEnvelopes), string.Join("\n\n", responseEnvelopes));
-        ResultText.Text = $"Documentos autorizados: {response.CTeAutorizados.Length}\n\n" + string.Join("\n\n", received.Select(PrettyXml));
+        ResultText.Text = $"Documentos autorizados: {autorizacoes.Count(item => item.Autorizado)}\n\n" + string.Join("\n\n", received.Select(PrettyXml));
         ResponseTabs.SelectedIndex = 0;
     }
 
@@ -79,35 +88,34 @@ public partial class MainWindow
         ShowResponse(await client.ConsultarAsync(key, token));
     }
 
-    private async Task ReceiptAsync(CancellationToken token)
-    {
-        var values = await InputDialog.AskAsync(this, "Consultar recibo de lote", new InputField("recibo", "Número do recibo"));
-        if (values == null) return;
-        token.ThrowIfCancellationRequested();
-        ShowResponse(await client.ConsultaReciboAsync(values["recibo"], token));
-    }
+    private Task ReceiptAsync(CancellationToken token) =>
+        Task.FromException(new NotSupportedException("CT-e 4.00 utiliza autorização síncrona e não possui consulta de recibo."));
 
     private async Task RegistrationAsync(CancellationToken token)
     {
         var values = await InputDialog.AskAsync(this, "Consultar cadastro SEFAZ", new InputField("documento", "CPF ou CNPJ do contribuinte"));
         if (values == null) return;
         token.ThrowIfCancellationRequested();
-        ShowResponse(await client.ConsultaCadastroAsync(client.Configuracoes.WebServices.UF, values["documento"].OnlyNumbers(), cancellationToken: token));
+        ShowResponse(await client.ConsultaCadastroAsync(settings.WebServices.UF, values["documento"].OnlyNumbers(), cancellationToken: token));
     }
 
     private async Task DistributionAsync(CancellationToken token)
     {
         var values = await InputDialog.AskAsync(this, "Distribuição de documentos",
             new InputField("documento", "CPF ou CNPJ do interessado"),
-            new InputField("nsu", "Último NSU (vazio para consulta por chave)", "0", false),
-            new InputField("chave", "Chave de acesso (para consulta por chave)", AccessKeyText.Text ?? "", false));
+            new InputField("nsu", "Último NSU (vazio para consultar um NSU específico)", "0", false),
+            new InputField("nsuEspecifico", "NSU específico", "", false));
         if (values == null) return;
         token.ThrowIfCancellationRequested();
-        if (string.IsNullOrWhiteSpace(values["nsu"]) && string.IsNullOrWhiteSpace(values["chave"]))
-            throw new ArgumentException("Informe o último NSU ou uma chave de acesso.");
-        ShowResponse(await client.ConsultarDistribuicaoAsync(client.Configuracoes.WebServices.UF,
-            values["documento"].OnlyNumbers(), chave: values["nsu"].Length == 0 ? values["chave"].OnlyNumbers() : "",
-            ultNsu: values["nsu"].OnlyNumbers(), cancellationToken: token));
+        if (string.IsNullOrWhiteSpace(values["nsu"]) && string.IsNullOrWhiteSpace(values["nsuEspecifico"]))
+            throw new ArgumentException("Informe o último NSU ou um NSU específico.");
+        ShowResponse(await client.ConsultarDistribuicaoAsync(new CTeDistribuicaoSolicitacao
+        {
+            UF = settings.WebServices.UF,
+            CpfCnpj = values["documento"].OnlyNumbers(),
+            Nsu = values["nsuEspecifico"].Length == 0 ? null : values["nsuEspecifico"].OnlyNumbers(),
+            UltimoNsu = values["nsu"].Length == 0 ? null : values["nsu"].OnlyNumbers()
+        }, token));
     }
 
     private async Task CancelDocumentAsync(CancellationToken token)
@@ -121,37 +129,44 @@ public partial class MainWindow
         if (values == null) return;
         token.ThrowIfCancellationRequested();
         var evento = EventoCTe.Cancelamento(values["protocolo"], values["justificativa"]);
-        ShowResponse(await client.EnviarEventoAsync(PositiveNumber(values["sequencia"], "sequência"),
-            values["chave"].OnlyNumbers(), values["cnpj"].OnlyNumbers(), evento, token));
+        ShowResponse(await client.EnviarEventoAsync(new CTeEventoSolicitacao
+        {
+            Sequencia = PositiveNumber(values["sequencia"], "sequência"),
+            Chave = values["chave"].OnlyNumbers(), CnpjAutor = values["cnpj"].OnlyNumbers(), Evento = evento
+        }, token));
     }
 
-    private async Task VoidNumbersAsync(CancellationToken token)
-    {
-        var values = await InputDialog.AskAsync(this, "Inutilizar numeração CT-e",
-            new InputField("cnpj", "CNPJ do emitente"),
-            new InputField("ano", "Ano", DateTime.Now.ToString("yy", CultureInfo.InvariantCulture)),
-            new InputField("serie", "Série", "1"),
-            new InputField("inicio", "Número inicial"),
-            new InputField("fim", "Número final"),
-            new InputField("justificativa", "Justificativa da inutilização"));
-        if (values == null) return;
-        token.ThrowIfCancellationRequested();
-        ShowResponse(await client.InutilizacaoAsync(values["cnpj"].OnlyNumbers(), values["justificativa"],
-            PositiveNumber(values["ano"], "ano") % 100, ModeloCTe.CTe,
-            PositiveNumber(values["serie"], "série", allowZero: true), PositiveNumber(values["inicio"], "número inicial"),
-            PositiveNumber(values["fim"], "número final"), token));
-    }
+    private Task VoidNumbersAsync(CancellationToken token) =>
+        Task.FromException(new NotSupportedException("CT-e 4.00 não possui serviço de inutilização."));
 
     private string DefaultAccessKey()
     {
-        var id = client.Conhecimentos.CTe.FirstOrDefault()?.InfCTe.Id ?? client.Conhecimentos.CTeOS.FirstOrDefault()?.InfCTe.Id ?? "";
+        var id = conhecimentos.FirstOrDefault()?.InfCTe.Id ?? conhecimentosOS.FirstOrDefault()?.InfCTe.Id ?? "";
         return id.OnlyNumbers();
     }
 
     private void RequireDocuments()
     {
-        if (client.Conhecimentos.CTe.Length + client.Conhecimentos.CTeOS.Length == 0)
+        if (conhecimentos.Count + conhecimentosOS.Count == 0)
             throw new InvalidOperationException("Carregue um XML de CT-e ou CT-e OS para continuar.");
+    }
+
+    internal static void AdicionarDocumento(string xml, List<CTe> ctes, List<CTeOS> cteOS)
+    {
+        var root = XElement.Parse(xml);
+        XNamespace ns = "http://www.portalfiscal.inf.br/cte";
+        var documento = root.Name.LocalName is "CTe" or "CTeOS" ? root
+            : root.Elements().FirstOrDefault(element => element.Name == ns + "CTe" || element.Name == ns + "CTeOS")
+                ?? throw new ArgumentException("XML deve conter CT-e ou CT-e OS, avulso ou processado.");
+        if (documento.Name == ns + "CTe") ctes.Add(CTe.Load(documento.ToString()));
+        else if (documento.Name == ns + "CTeOS") cteOS.Add(CTeOS.Load(documento.ToString()));
+        else throw new ArgumentException("Namespace do documento inválido.");
+    }
+
+    private static void ValidarVersaoComunicacao(CTeVersao versao)
+    {
+        if (versao != CTeVersao.v400)
+            throw new NotSupportedException("CT-e 2.00 e 3.00 permitem apenas leitura, geração e impressão.");
     }
 
     private static int PositiveNumber(string text, string label, bool allowZero = false)

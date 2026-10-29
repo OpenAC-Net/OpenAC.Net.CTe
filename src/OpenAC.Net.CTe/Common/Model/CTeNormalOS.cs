@@ -102,7 +102,7 @@ public sealed partial class CTeNormalOS : GenericClone<CTeNormalOS>, IInfoCTe
 
     internal bool ShouldSerializeCobr()
     {
-        return Cobr != null && Cobr.Fat != null && !Cobr.Fat.NFat.IsEmpty();
+        return Cobr is { Fat: not null } && !Cobr.Fat.NFat.IsEmpty();
     }
 
     #endregion Methods

@@ -62,10 +62,10 @@ public class VersionTests
     [Arguments(DFeSiglaUF.BA, DFeTipoAmbiente.Producao, "cte.svrs.rs.gov.br")]
     public async Task CatalogSelectsVersionAndEnvironment(DFeSiglaUF uf, DFeTipoAmbiente environment, string host)
     {
-        var address = CTeServiceManager.GetServiceAndress(CTeVersao.v400, uf, TipoServicoCTe.CTeRecepcao, DFeTipoEmissao.Normal, environment);
+        var address = CTeServiceManager.ObterEndereco(CTeVersao.v400, uf, TipoServicoCTe.CTeRecepcaoSinc, DFeTipoEmissao.Normal, environment);
         await Assert.That(new Uri(address).Host).IsEqualTo(host);
         await Assert.That(address).Contains("CTeRecepcaoSincV4");
-        Assert.ThrowsExactly<NotSupportedException>(() => CTeServiceManager.GetServiceAndress(CTeVersao.v400, uf, TipoServicoCTe.CTeRetRecepcao, DFeTipoEmissao.Normal, environment));
+        Assert.ThrowsExactly<ArgumentOutOfRangeException>(() => CTeServiceManager.ObterEndereco(CTeVersao.v400, uf, (TipoServicoCTe)999, DFeTipoEmissao.Normal, environment));
     }
 
     [Test]
@@ -99,13 +99,10 @@ public class VersionTests
     }
 
     [Test]
-    public async Task CollectionLoadsBothDocumentModelsAndProcessedRoots()
+    public async Task ModelsLoadWithoutAClientOrCollection()
     {
-        using var client = new OpenCTe();
-        client.Conhecimentos.Load(Sample(CTeVersao.v400).GetXml());
-        client.Conhecimentos.Load(SampleOS().GetXml());
-        await Assert.That(client.Conhecimentos.CTe).Count().IsEqualTo(1);
-        await Assert.That(client.Conhecimentos.CTeOS).Count().IsEqualTo(1);
+        await Assert.That(CTe.Load(Sample(CTeVersao.v400).GetXml()).InfCTe.Versao).IsEqualTo(CTeVersao.v400);
+        await Assert.That(CTeOS.Load(SampleOS().GetXml()).Versao).IsEqualTo(CTeVersao.v400);
     }
 
     [Test]

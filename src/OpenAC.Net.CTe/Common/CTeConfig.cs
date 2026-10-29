@@ -1,49 +1,96 @@
-// ***********************************************************************
-// Assembly         : OpenAC.Net.CTe
-// Author           : RFTD
-// Created          : 06-11-2017
-//
-// Last Modified By : RFTD
-// Last Modified On : 06-11-2017
-// ***********************************************************************
-// <copyright file="CTeConfig.cs" company="OpenAC .Net">
-//		        		   The MIT License (MIT)
-//	     		    Copyright (c) 2016 Grupo OpenAC.Net
-//
-//	 Permission is hereby granted, free of charge, to any person obtaining
-// a copy of this software and associated documentation files (the "Software"),
-// to deal in the Software without restriction, including without limitation
-// the rights to use, copy, modify, merge, publish, distribute, sublicense,
-// and/or sell copies of the Software, and to permit persons to whom the
-// Software is furnished to do so, subject to the following conditions:
-//	 The above copyright notice and this permission notice shall be
-// included in all copies or substantial portions of the Software.
-//	 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-// IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-// ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-// DEALINGS IN THE SOFTWARE.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
+using OpenAC.Net.DFe.Core.Extensions;
+using System;
+using OpenAC.Net.CTe.Services;
+using OpenAC.Net.CTe.Storage;
+using OpenAC.Net.Core.Extensions;
 using OpenAC.Net.DFe.Core.Common;
 
 namespace OpenAC.Net.CTe.Configuracao;
 
-public sealed partial class CTeConfig : DFeConfigBase<CTeConfigGeral, CTeConfigWebServices, CTeConfigCertificados, CTeConfigArquivos>
+/// <summary>Configuração usada para construir um cliente. Alterações posteriores não afetam o cliente criado.</summary>
+public sealed class CTeConfig : DFeConfigBase<CTeConfigGeral, CTeConfigWebServices, CTeConfigCertificados, CTeConfigArquivos>
 {
-    #region Constructors
-
     public CTeConfig()
     {
+        HttpTransport = new DesktopCTeHttpTransport();
+        DocumentStore = new LocalDocumentStore();
         Geral = new CTeConfigGeral();
         WebServices = new CTeConfigWebServices();
         Certificados = new CTeConfigCertificados();
-        Arquivos = new CTeConfigArquivos(Geral);
+        Arquivos = new CTeConfigArquivos(Geral) { Salvar = false, CriarDiretorios = false };
     }
 
-    #endregion Constructors
+    /// <summary>Copia as opções, os bytes do certificado e as coleções de endereços e ordenação.</summary>
+    public CTeConfig Copiar()
+    {
+        var copia = new CTeConfig
+        {
+            HttpTransport = HttpTransport ?? throw new InvalidOperationException("Transporte HTTP não configurado."),
+            DocumentStore = DocumentStore ?? throw new InvalidOperationException("Armazenamento não configurado.")
+        };
+        copia.Geral.VersaoDFe = Geral.VersaoDFe;
+        copia.Geral.FormaEmissao = Geral.FormaEmissao;
+        copia.Geral.Mod = Geral.Mod;
+        copia.Geral.Salvar = Geral.Salvar;
+        copia.Geral.ExibirErroSchema = Geral.ExibirErroSchema;
+        copia.Geral.FormatoAlerta = Geral.FormatoAlerta;
+        copia.Geral.RetirarAcentos = Geral.RetirarAcentos;
+        copia.Geral.RetirarEspacos = Geral.RetirarEspacos;
+        copia.Geral.IdentarXml = Geral.IdentarXml;
+        copia.Geral.ValidarDigest = Geral.ValidarDigest;
+        copia.WebServices.UF = WebServices.UF;
+        copia.WebServices.TimeoutOperacao = WebServices.TimeoutOperacao;
+        copia.WebServices.Salvar = WebServices.Salvar;
+        copia.WebServices.Ambiente = WebServices.Ambiente;
+        copia.WebServices.Tentativas = WebServices.Tentativas;
+        copia.WebServices.IntervaloTentativas = WebServices.IntervaloTentativas;
+        copia.WebServices.AjustaAguardaConsultaRet = WebServices.AjustaAguardaConsultaRet;
+        copia.WebServices.AguardarConsultaRet = WebServices.AguardarConsultaRet;
+        copia.WebServices.Protocolos = WebServices.Protocolos;
+        copia.WebServices.Proxy = WebServices.Proxy;
+        copia.WebServices.TimeOut = WebServices.TimeOut;
+        copia.Arquivos.PathSalvar = Arquivos.PathSalvar;
+        copia.Arquivos.PathSchemas = Arquivos.PathSchemas;
+        copia.Arquivos.Salvar = Arquivos.Salvar;
+        copia.Arquivos.AdicionarLiteral = Arquivos.AdicionarLiteral;
+        copia.Arquivos.SepararPorCNPJ = Arquivos.SepararPorCNPJ;
+        copia.Arquivos.SepararPorModelo = Arquivos.SepararPorModelo;
+        copia.Arquivos.SepararPorAno = Arquivos.SepararPorAno;
+        copia.Arquivos.SepararPorMes = Arquivos.SepararPorMes;
+        copia.Arquivos.SepararPorDia = Arquivos.SepararPorDia;
+        copia.Arquivos.PathCTe = Arquivos.PathCTe;
+        copia.Arquivos.PathInu = Arquivos.PathInu;
+        copia.Arquivos.PathEvento = Arquivos.PathEvento;
+        copia.Arquivos.EmissaoPathCTe = Arquivos.EmissaoPathCTe;
+        copia.Arquivos.SalvarApenasCTeProcessados = Arquivos.SalvarApenasCTeProcessados;
+        copia.Arquivos.CriarDiretorios = Arquivos.CriarDiretorios;
+        copia.Certificados.Certificado = Certificados.Certificado;
+        copia.Certificados.Senha = Certificados.Senha;
+        copia.Certificados.CertificadoBytes = Certificados.CertificadoBytes == null ? null : (byte[])Certificados.CertificadoBytes.Clone();
+        copia.Arquivos.OrdenacaoPath.AddRange(Arquivos.OrdenacaoPath);
+        copia.Arquivos.CopiarCatalogo(Arquivos);
+        foreach (var endpoint in WebServices.Enderecos) copia.WebServices.Enderecos.Add(endpoint.Key, endpoint.Value);
+        return copia;
+    }
+
+    internal string ObterEndereco(TipoServicoCTe tipo, DFeCodUF? uf = null)
+    {
+        CTeServiceManager.ValidarConsulta(Geral.VersaoDFe, (uf ?? WebServices.UF).ToSiglaUF(), tipo, Geral.FormaEmissao, WebServices.Ambiente);
+        if (WebServices.Enderecos.TryGetValue(tipo, out var endpoint))
+        {
+            return CTeServiceManager.NormalizarEndereco(tipo, endpoint);
+        }
+        return CTeServiceManager.ObterEndereco(Arquivos.Catalogo ?? CTeServiceManager.Padrao, Geral.VersaoDFe,
+            (uf ?? WebServices.UF).ToSiglaUF(), tipo, Geral.FormaEmissao, WebServices.Ambiente);
+    }
+}
+
+internal static class CTeCertificadoConfigCopy
+{
+    internal static CTeConfigCertificados Copiar(this CTeConfigCertificados origem) => new()
+    {
+        Certificado = origem.Certificado,
+        Senha = origem.Senha,
+        CertificadoBytes = origem.CertificadoBytes == null ? null : (byte[])origem.CertificadoBytes.Clone()
+    };
 }

@@ -1,3 +1,4 @@
+using OpenAC.Net.DFe.Core.Http;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using OpenAC.Net.CTe.Configuracao;
@@ -17,24 +18,19 @@ public class AsyncClientTests
     {
         var config = new CTeConfig();
         config.Geral.VersaoDFe = version;
-        using IOpenCTeClient client = new OpenCTe(config);
+        IOpenCTeClient client = new OpenCTe(config);
         using var cancellation = new CancellationTokenSource();
         cancellation.Cancel();
         var token = cancellation.Token;
         Func<Task>[] operations =
         [
-            () => client.EnviarAsync(1, cancellationToken: token),
-            () => client.EnviarAsync("1", cancellationToken: token),
             () => client.AutorizarAsync(new CTe(), token),
             () => client.AutorizarAsync(new CTeOS(), token),
-            () => client.ConsultaReciboAsync("1", token),
-            () => client.ConsultarAsync(cancellationToken: token),
+            () => client.ConsultarAsync(PdfTests.Key, token),
             () => client.ConsultarSituacaoServicoAsync(token),
-            () => client.InutilizacaoAsync("12345678000195", "Justificativa da inutilização", 26,
-                ModeloCTe.CTe, 1, 1, 2, token),
-            () => client.EnviarEventoAsync(1, PdfTests.Key, "12345678000195", new CTeEvCancCTe(), token),
+            () => client.EnviarEventoAsync(new CTeEventoSolicitacao { Chave = PdfTests.Key, CnpjAutor = "12345678000195", Evento = new CTeEvCancCTe() }, token),
             () => client.ConsultaCadastroAsync(DFeCodUF.MS, cancellationToken: token),
-            () => client.ConsultarDistribuicaoAsync(DFeCodUF.MS, "12345678000195", cancellationToken: token)
+            () => client.ConsultarDistribuicaoAsync(new CTeDistribuicaoSolicitacao { UF = DFeCodUF.MS, CpfCnpj = "12345678000195", UltimoNsu = "0" }, token)
         ];
 
         foreach (var operation in operations)
@@ -48,7 +44,7 @@ public class AsyncClientTests
     [Arguments("success")]
     [Arguments("cancellation")]
     [Arguments("fault")]
-    public async Task StatusReturnsPendingTaskAndRestoresStateAfterCompletion(string outcome)
+    public async Task StatusReturnsPendingTaskAndPreservesCancellationAndFaults(string outcome)
     {
         using var certificate = InfrastructureTests.CreateCertificate();
         var transport = new PendingTransport();
@@ -57,14 +53,13 @@ public class AsyncClientTests
         config.Certificados.CertificadoBytes = certificate.Export(X509ContentType.Pfx, "test");
         config.Certificados.Senha = "test";
         config.Arquivos.PathSchemas = Path.Combine(AppContext.BaseDirectory, "Schemas");
-        using var component = new OpenCTe(config);
+        var component = new OpenCTe(config);
         IOpenCTeClient client = component;
         using var cancellation = new CancellationTokenSource();
 
         var pending = client.ConsultarSituacaoServicoAsync(cancellation.Token);
         await transport.Started.Task.WaitAsync(TimeSpan.FromSeconds(10));
         await Assert.That(pending.IsCompleted).IsFalse();
-        await Assert.That(component.Status).IsEqualTo(StatusCTe.StatusServico);
 
         if (outcome == "cancellation")
         {
@@ -84,16 +79,14 @@ public class AsyncClientTests
             await Assert.That(response.Resultado.CStat).IsEqualTo(107);
         }
 
-        await Assert.That(component.Status).IsEqualTo(StatusCTe.EmEspera);
     }
 
-    private sealed class PendingTransport : ICTeHttpTransport
+    private sealed class PendingTransport : IDFeHttpTransport
     {
         internal readonly TaskCompletionSource<bool> Started = new(TaskCreationOptions.RunContinuationsAsynchronously);
         internal readonly TaskCompletionSource<string> Response = new(TaskCreationOptions.RunContinuationsAsynchronously);
 
-        public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CTeConfig configuration,
-            X509Certificate2 certificate, CancellationToken cancellationToken = default)
+        public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, DFeHttpTransportOptions options, CancellationToken cancellationToken = default)
         {
             Started.TrySetResult(true);
             var body = await Response.Task.WaitAsync(cancellationToken);

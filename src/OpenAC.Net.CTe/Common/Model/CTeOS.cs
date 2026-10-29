@@ -24,7 +24,7 @@ public sealed partial class CTeOS : DFeSignDocument<CTeOS>
     {
         InfCTe = new CTeInfCTe();
         InfCTe.Ide.Mod = ModeloCTe.CTeOS;
-        Versao = CTeVersao.v300;
+        Versao = CTeVersao.v400;
     }
 
     #region Propriedades
@@ -70,7 +70,7 @@ public sealed partial class CTeOS : DFeSignDocument<CTeOS>
         Versao = InfCTe.Versao;
         if (InfCTe.Versao == CTeVersao.v400 && string.IsNullOrEmpty(InfCTeSupl?.QrCode))
         {
-            var address = Services.CTeServiceManager.GetServiceAndress(InfCTe.Versao, InfCTe.Ide.CUF.ToSiglaUF(),
+            var address = Services.CTeServiceManager.ObterEndereco(InfCTe.Versao, InfCTe.Ide.CUF.ToSiglaUF(),
                 Services.TipoServicoCTe.QRCode, DFeTipoEmissao.Normal, InfCTe.Ide.TpAmb);
             InfCTeSupl = new CTeInfCteSupl { QrCode = address + (address.Contains("?") ? "&" : "?")
                 + "chCTe=" + InfCTe.Id.Substring(3) + "&tpAmb=" + InfCTe.Ide.TpAmb.GetDFeValue() };

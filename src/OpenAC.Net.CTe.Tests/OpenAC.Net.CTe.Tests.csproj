@@ -10,6 +10,9 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../OpenAC.Net.CTe.DACTe.PDFSharp.Web/OpenAC.Net.CTe.DACTe.PDFSharp.Web.csproj" />
-    <PackageReference Include="TUnit" Version="1.65.68" />
+    <PackageReference Include="TUnit" Version="1.76.45" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources/enderecos-oficiais-2026-10-29.json" />
   </ItemGroup>
 </Project>

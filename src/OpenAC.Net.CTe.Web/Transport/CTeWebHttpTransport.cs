@@ -2,12 +2,10 @@ using Polly.CircuitBreaker;
 using Polly.Timeout;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
-using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using OpenAC.Net.CTe.Configuracao;
-using OpenAC.Net.CTe.Services;
+using OpenAC.Net.DFe.Core.Http;
 
 namespace OpenAC.Net.CTe.Web;
 
@@ -16,7 +14,7 @@ internal sealed class CTeWebHttpTransport(
     IHttpClientFactory clients,
     CTeHttpClientRegistry registry,
     IOptions<CTeWebOptions> options,
-    ILogger<CTeWebHttpTransport> logger) : ICTeHttpTransport
+    ILogger<CTeWebHttpTransport> logger) : IDFeHttpTransport
 {
     private static readonly ActivitySource Activities = new("OpenAC.Net.CTe.Web");
     private static readonly Meter Meter = new("OpenAC.Net.CTe.Web");
@@ -25,14 +23,16 @@ internal sealed class CTeWebHttpTransport(
     private static readonly Histogram<double> Duration =
         Meter.CreateHistogram<double>("openac.cte.request.duration", "ms");
 
-    public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CTeConfig configuration,
-        X509Certificate2 certificate, CancellationToken cancellationToken = default)
+    public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, DFeHttpTransportOptions transportOptions,
+        CancellationToken cancellationToken = default)
     {
         var endpoint = request.RequestUri ?? throw new ArgumentException("Endpoint não informado.");
         if (!endpoint.IsAbsoluteUri || endpoint.Scheme != Uri.UriSchemeHttps)
             throw new ArgumentException("O endpoint fiscal deve utilizar HTTPS.");
+        var certificate = transportOptions.Certificate
+            ?? throw new InvalidOperationException("Certificado com chave privada não informado.");
         ValidateCertificate(certificate, options.Value.MargemValidadeCertificado);
-        var name = registry.Register(tenantId, certificate, (SslProtocols)(int)configuration.WebServices.Protocolos,
+        var name = registry.Register(tenantId, certificate, transportOptions.Protocols,
             endpoint);
         using var activity = Activities.StartActivity("CTe.SOAP", ActivityKind.Client);
         activity?.SetTag("server.address", endpoint.Host);

@@ -1,3 +1,5 @@
+using OpenAC.Net.DFe.Core.Storage;
+using OpenAC.Net.DFe.Core.Http;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
@@ -54,7 +56,7 @@ public class ServiceVersionTests
         await Assert.That(document.Elements().Any(element => element.Name.LocalName == "retEventoCTe")).IsTrue();
     }
 
-    private static CTeConfig Config(ICTeHttpTransport transport)
+    private static CTeConfig Config(IDFeHttpTransport transport)
     {
         var config = new CTeConfig { HttpTransport = transport };
         config.Geral.VersaoDFe = CTeVersao.v400;
@@ -63,10 +65,10 @@ public class ServiceVersionTests
         config.WebServices.Ambiente = DFeTipoAmbiente.Homologacao;
         return config;
     }
-    private sealed class CaptureTransport(string wrapper, string root) : ICTeHttpTransport
+    private sealed class CaptureTransport(string wrapper, string root) : IDFeHttpTransport
     {
         internal string Envelope = "", ContentType = "";
-        public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CTeConfig configuration, X509Certificate2 certificate, CancellationToken cancellationToken = default)
+        public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, DFeHttpTransportOptions options, CancellationToken cancellationToken = default)
         {
             Envelope = await request.Content!.ReadAsStringAsync(cancellationToken);
             ContentType = request.Content.Headers.ContentType!.ToString();
@@ -77,10 +79,10 @@ public class ServiceVersionTests
             return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(envelope.ToString()) };
         }
     }
-    private sealed class EventStore : OpenAC.Net.CTe.Storage.ICTeDocumentStore
+    private sealed class EventStore : IDFeDocumentStore
     {
         public string? Processed;
-        public Task SaveAsync(string path, string content, CancellationToken cancellationToken = default)
-        { if (content.Contains("<procEventoCTe")) Processed = content; return Task.CompletedTask; }
+        public Task SaveAsync(IDFeDocument document, CancellationToken cancellationToken = default)
+        { if (document.Conteudo.Contains("<procEventoCTe")) Processed = document.Conteudo; return Task.CompletedTask; }
     }
 }

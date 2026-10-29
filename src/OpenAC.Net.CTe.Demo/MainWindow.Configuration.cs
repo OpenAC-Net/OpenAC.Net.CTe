@@ -13,6 +13,7 @@ namespace OpenAC.Net.CTe.Demo;
 public partial class MainWindow
 {
     private string servicesPath = "";
+    private bool updatingEmission;
 
     private void InitializeSettings(string? configurationFile)
     {
@@ -25,7 +26,7 @@ public partial class MainWindow
         Fill(VersionCombo, [CTeVersao.v400, CTeVersao.v300, CTeVersao.v200], configuration.Get("Versao", CTeVersao.v400), value => value.GetDescription());
         Fill(EnvironmentCombo, [DFeTipoAmbiente.Homologacao, DFeTipoAmbiente.Producao], configuration.Get("Ambiente", DFeTipoAmbiente.Homologacao), value => value == DFeTipoAmbiente.Homologacao ? "Homologação" : "Produção");
         Fill(StateCombo, Enum.GetValues<DFeCodUF>().Where(value => value is not (DFeCodUF.AN or DFeCodUF.EX or DFeCodUF.SU)).OrderBy(value => value.ToString()), configuration.Get("UF", DFeCodUF.MS));
-        Fill(EmissionCombo, [DFeTipoEmissao.Normal, DFeTipoEmissao.DPEC, DFeTipoEmissao.SVCRS, DFeTipoEmissao.SVCSP], configuration.Get("Emissao", DFeTipoEmissao.Normal));
+        Fill(EmissionCombo, [DFeTipoEmissao.Normal, DFeTipoEmissao.Contingencia, DFeTipoEmissao.DPEC, DFeTipoEmissao.FSDA, DFeTipoEmissao.SVCRS, DFeTipoEmissao.SVCSP], configuration.Get("Emissao", DFeTipoEmissao.Normal));
         Fill(PdfOrientationCombo, Enum.GetValues<DACTeLayout>(), configuration.Get("LayoutPDF", DACTeLayout.Retrato));
         CertificatePathText.Text = configuration.Get("Certificado", "");
         CertificateSerialText.Text = configuration.Get("NumeroSerie", "");
@@ -40,13 +41,13 @@ public partial class MainWindow
         TimeoutInput.Value = Math.Clamp(configuration.Get("TimeoutSegundos", 100), 1, 600);
         BatchText.Text = configuration.Get("Lote", "1");
         servicesPath = configuration.Get("PathServicos", "");
-        if (File.Exists(servicesPath)) CTeServiceManager.Load(servicesPath);
+        if (File.Exists(servicesPath)) catalog.Load(servicesPath);
     }
 
     private void ConnectSettingsEvents()
     {
         foreach (var combo in new[] { VersionCombo, EnvironmentCombo, StateCombo, EmissionCombo })
-            combo.SelectionChanged += (_, _) => { if (initialized) { UpdateContext(); RefreshServices(); } };
+            combo.SelectionChanged += (_, _) => { if (initialized && !updatingEmission) { UpdateContext(); RefreshServices(); } };
         BrowseCertificateButton.Click += async (_, _) => await RunAsync("Selecionar certificado", async _ =>
         {
             var file = await PickFileAsync("Selecionar certificado digital", "Certificado PFX/P12", "*.pfx", "*.p12");
@@ -65,23 +66,16 @@ public partial class MainWindow
         RefreshServicesButton.Click += (_, _) => RefreshServices();
         LoadServicesButton.Click += async (_, _) => await RunAsync("Carregar catálogo", async token =>
         {
-            var file = await PickFileAsync("Carregar catálogo de serviços", "Catálogo CT-e", "*.cte", "*.xml");
+            var file = await PickFileAsync("Carregar catálogo de serviços", "Catálogo XML de serviços", "*.xml");
             if (file == null) return;
             await using var stream = await file.OpenReadAsync();
             token.ThrowIfCancellationRequested();
-            CTeServiceManager.Load(stream);
+            catalog.Load(stream);
             servicesPath = file.TryGetLocalPath() ?? "";
             RefreshServices();
         });
-        ImportServicesButton.Click += async (_, _) => await RunAsync("Importar INI ACBr 3.00", async token =>
-        {
-            var file = await PickFileAsync("Importar endereços CT-e 3.00 do ACBr", "INI ACBr", "*.ini");
-            if (file == null) return;
-            await using var stream = await file.OpenReadAsync();
-            token.ThrowIfCancellationRequested();
-            CTeServiceManager.ImportIniACBr(stream);
-            RefreshServices();
-        });
+        ImportServicesButton.IsEnabled = false;
+        ToolTip.SetTip(ImportServicesButton, "O importador antigo atendia ao CT-e 3.00, já desativado. Carregue um catálogo CT-e 4.00.");
         ApplyServicesButton.Click += async (_, _) => await RunAsync("Aplicar endereços", _ =>
         {
             ApplyEndpoints();
@@ -92,23 +86,26 @@ public partial class MainWindow
         {
             var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
             {
-                Title = "Exportar catálogo", SuggestedFileName = "services.cte", DefaultExtension = "cte",
-                FileTypeChoices = [new FilePickerFileType("Catálogo CT-e") { Patterns = ["*.cte"] }]
+                Title = "Exportar catálogo", SuggestedFileName = "services.xml", DefaultExtension = "xml",
+                FileTypeChoices = [new FilePickerFileType("Catálogo XML de serviços") { Patterns = ["*.xml"] }]
             });
             if (file == null) return;
             ApplyEndpoints();
             token.ThrowIfCancellationRequested();
             await using var stream = await file.OpenWriteAsync();
             stream.SetLength(0);
-            CTeServiceManager.Save(stream);
+            catalog.Save(stream);
             servicesPath = file.TryGetLocalPath() ?? "";
         });
     }
 
     private void ApplyConfiguration()
     {
-        var config = client.Configuracoes;
+        var config = settings;
         config.Geral.VersaoDFe = Selected<CTeVersao>(VersionCombo);
+        config.WebServices.Enderecos.Clear();
+        foreach (var endpoint in endpoints.Where(item => !string.IsNullOrWhiteSpace(item.Address)))
+            config.WebServices.Enderecos[endpoint.Type] = endpoint.Address;
         config.Geral.FormaEmissao = Selected<DFeTipoEmissao>(EmissionCombo);
         config.Geral.ExibirErroSchema = true;
         config.WebServices.Ambiente = Selected<DFeTipoAmbiente>(EnvironmentCombo);
@@ -124,6 +121,7 @@ public partial class MainWindow
         config.Arquivos.Salvar = SaveDocumentsCheck.IsChecked == true;
         config.WebServices.Salvar = SaveSoapCheck.IsChecked == true;
         renderer.LayoutImpressao = Selected<DACTeLayout>(PdfOrientationCombo);
+        client = new OpenCTe(settings);
     }
 
     private void SaveConfiguration()
@@ -150,14 +148,40 @@ public partial class MainWindow
 
     private void UpdateContext()
     {
+        if (updatingEmission) return;
         var version = Selected<CTeVersao>(VersionCombo);
+        var uf = Selected<DFeCodUF>(StateCombo).ToSiglaUF();
         var environment = Selected<DFeTipoAmbiente>(EnvironmentCombo);
+        var selectedEmission = Selected<DFeTipoEmissao>(EmissionCombo);
+        var allowed = new[] { DFeTipoEmissao.Normal, DFeTipoEmissao.Contingencia, DFeTipoEmissao.DPEC, DFeTipoEmissao.FSDA, DFeTipoEmissao.SVCRS, DFeTipoEmissao.SVCSP }
+            .Where(emission =>
+            {
+                if (version != CTeVersao.v400) return emission == DFeTipoEmissao.Normal;
+                try { CTeServiceManager.ValidarConsulta(version, uf, TipoServicoCTe.CTeStatusServico, emission, environment); return true; }
+                catch (NotSupportedException) { return false; }
+            }).ToArray();
+        updatingEmission = true;
+        try
+        {
+            Fill(EmissionCombo, allowed, selectedEmission, emission => emission switch
+            {
+                DFeTipoEmissao.Contingencia => "Offline (tpEmis=2)",
+                DFeTipoEmissao.DPEC => "EPEC / conciliação (tpEmis=4)",
+                _ => emission.ToString()
+            });
+        }
+        finally { updatingEmission = false; }
         EnvironmentText.Text = environment == DFeTipoAmbiente.Homologacao ? "Homologação" : "Produção";
         ContextText.Text = $"CT-e {version.GetDescription()} · {Selected<DFeCodUF>(StateCombo)} · {Selected<DFeTipoEmissao>(EmissionCombo)}";
         EnvironmentBadge.Background = Avalonia.Media.Brush.Parse(environment == DFeTipoAmbiente.Producao ? "#FFE8DB" : "#EAF2FF");
-        ReceiptButton.IsEnabled = VoidButton.IsEnabled = version != CTeVersao.v400;
-        ToolTip.SetTip(ReceiptButton, version == CTeVersao.v400 ? "CT-e 4.00 usa autorização síncrona, sem recibo de lote." : null);
-        ToolTip.SetTip(VoidButton, version == CTeVersao.v400 ? "O serviço de inutilização está disponível nas versões anteriores à 4.00." : null);
+        var communicationEnabled = version == CTeVersao.v400;
+        SendButton.IsEnabled = StatusButton.IsEnabled = QueryButton.IsEnabled =
+            RegistrationButton.IsEnabled = DistributionButton.IsEnabled = CancelDocumentButton.IsEnabled = communicationEnabled;
+        ToolTip.SetTip(SendButton, communicationEnabled ? null : "CT-e 2.00 e 3.00 permitem apenas leitura, geração e impressão.");
+        ReceiptButton.IsEnabled = VoidButton.IsEnabled = false;
+        ApplyServicesButton.IsEnabled = LoadServicesButton.IsEnabled = SaveServicesButton.IsEnabled = communicationEnabled;
+        ToolTip.SetTip(ReceiptButton, "A recepção em lote foi descontinuada. CT-e 4.00 usa autorização síncrona.");
+        ToolTip.SetTip(VoidButton, "O serviço de inutilização foi descontinuado e não existe no CT-e 4.00.");
     }
 
     private async Task SelectFolderAsync(TextBox target)
@@ -211,17 +235,18 @@ public partial class MainWindow
     {
         if (!initialized) return;
         ApplyConfiguration();
-        var config = client.Configuracoes;
+        var config = settings;
         endpoints.Clear();
         foreach (var type in Enum.GetValues<TipoServicoCTe>())
         {
-            if (type == TipoServicoCTe.DistribuicaoDFe) continue;
             string address;
-            try { address = CTeServiceManager.GetServiceAndress(config.Geral.VersaoDFe, config.WebServices.UF.ToSiglaUF(), type, config.Geral.FormaEmissao, config.WebServices.Ambiente); }
-            catch { address = ""; }
+            try { address = catalog.ObterEndereco(config.Geral.VersaoDFe, config.WebServices.UF.ToSiglaUF(), type, config.Geral.FormaEmissao, config.WebServices.Ambiente); }
+            catch (NotSupportedException) { continue; }
             endpoints.Add(new ServiceEndpoint(type, type.GetDescription(), address));
         }
     }
+
+    internal void ExportarCatalogo(Stream destino) => catalog.Save(destino);
 
     private void ApplyEndpoints()
     {
@@ -231,27 +256,8 @@ public partial class MainWindow
                 && (uri.Scheme == Uri.UriSchemeHttps || endpoint.Type == TipoServicoCTe.QRCode && uri.Scheme == Uri.UriSchemeHttp);
             if (!valid) throw new ArgumentException($"O endereço de {endpoint.Name} deve ser uma URL válida para esse serviço.");
         }
-        using var stream = new MemoryStream();
-        CTeServiceManager.Save(stream);
-        stream.Position = 0;
-        var document = XDocument.Load(stream);
-        XNamespace ns = document.Root!.Name.Namespace;
-        var config = client.Configuracoes;
-        var version = config.Geral.VersaoDFe == CTeVersao.v400 ? "4.00" : "3.00";
-        var service = document.Root.Elements(ns + "Services").First(element => (string?)element.Attribute("Versao") == version && (string?)element.Attribute("TipoEmissao") == config.Geral.FormaEmissao.GetDFeValue());
-        var environment = service.Elements(ns + "Ambiente").First(element => (string?)element.Attribute("Tipo") == config.WebServices.Ambiente.GetDFeValue() && (string?)element.Attribute("UF") == config.WebServices.UF.ToSiglaUF().ToString());
-        var addresses = environment.Element(ns + "Enderecos");
-        if (addresses == null) { addresses = new XElement(ns + "Enderecos"); environment.Add(addresses); }
         foreach (var endpoint in endpoints)
-        {
-            var element = addresses.Elements(ns + "Endereco").FirstOrDefault(element => (string?)element.Attribute("Tipo") == endpoint.Type.ToString());
-            if (string.IsNullOrWhiteSpace(endpoint.Address)) { element?.Remove(); continue; }
-            if (element == null) { element = new XElement(ns + "Endereco", new XAttribute("Tipo", endpoint.Type)); addresses.Add(element); }
-            element.Value = endpoint.Address.Trim();
-        }
-        using var updated = new MemoryStream();
-        document.Save(updated);
-        updated.Position = 0;
-        CTeServiceManager.Load(updated);
+            catalog.AplicarEndereco(settings.Geral.VersaoDFe, settings.WebServices.UF.ToSiglaUF(), endpoint.Type,
+                settings.Geral.FormaEmissao, settings.WebServices.Ambiente, endpoint.Address);
     }
 }

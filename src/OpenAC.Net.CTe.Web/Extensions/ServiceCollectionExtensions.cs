@@ -4,12 +4,13 @@ using Microsoft.Extensions.Http;
 using Microsoft.Extensions.Options;
 using OpenAC.Net.CTe.Configuracao;
 using OpenAC.Net.CTe.Storage;
+using OpenAC.Net.DFe.Core.Storage;
 
 namespace OpenAC.Net.CTe.Web;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddCTe(this IServiceCollection services, Action<CTeConfig> configure,
+    public static IServiceCollection AddOpenCTeWeb(this IServiceCollection services, Action<CTeConfig> configure,
         Action<CTeWebOptions>? infrastructure = null)
     {
         ArgumentNullException.ThrowIfNull(configure);
@@ -39,11 +40,12 @@ public static class ServiceCollectionExtensions
                                                       && (!value.PersistenciaHabilitada ||
                                                           !string.IsNullOrWhiteSpace(value.DiretorioDocumentos)),
             "Opções de infraestrutura CT-e inválidas.");
+        services.TryAddSingleton<ICTeCertificadoProvider, CTeCertificadoProvider>();
         services.AddHttpClient();
         services.TryAddSingleton<CTeHttpClientRegistry>();
         services.TryAddEnumerable(ServiceDescriptor
             .Singleton<IConfigureOptions<HttpClientFactoryOptions>, CTeHttpClientOptions>());
-        services.TryAddSingleton<ICTeDocumentStore, DesktopCTeDocumentStore>();
+        services.TryAddSingleton<IDFeDocumentStore, LocalDocumentStore>();
         services.TryAddScoped<IOpenCTeClientFactory, OpenCTeClientFactory>();
         return services;
     }

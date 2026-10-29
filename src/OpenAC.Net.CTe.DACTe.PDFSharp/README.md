@@ -4,31 +4,12 @@ Geração de PDF em C# com PDFsharp **6.2.4**, fixado por compatibilidade e lice
 As fontes Liberation Sans são embutidas; a licença OFL acompanha o pacote.
 Não depende de fontes instaladas, GDI+, impressora ou interface gráfica.
 
-```csharp
-using OpenAC.Net.CTe;
-using OpenAC.Net.CTe.DACTe.PDFSharp;
-
-var renderer = new OpenDACTe();
-renderer.LayoutImpressao = DACTeLayout.Retrato;
-renderer.Configuracoes.MensagemRodape = "Minha empresa";
-renderer.Configuracoes.Logo = File.ReadAllBytes("logo.png");
-
-var conhecimento = CTeProc.Load("autorizado-cte.xml");
-byte[] pdf = renderer.GerarPDF(conhecimento);
-using var stream = File.Create("dacte.pdf");
-renderer.GerarPDF(stream, conhecimento); // mantém o stream aberto
-```
 
 `GerarPDF(params CTeProc[])` reúne documentos no mesmo PDF.
 `ImprimirPDF(CTeProc[])` grava um arquivo por documento em `Configuracoes.DiretorioSaida`.
 Os métodos `Imprimir` produzem o mesmo PDF; o envio a uma impressora física cabe à aplicação.
 
-Eventos e inutilização:
-
-```csharp
-byte[] evento = renderer.GerarEventoPDF(eventoProcessado);
-byte[] inutilizacao = renderer.GerarInutilizacaoPDF(respostaInutilizacao);
-```
+`GerarEventoPDF` e `GerarInutilizacaoPDF` aceitam os documentos processados correspondentes.
 
 O PDF inclui canhoto, emitente, chave Code 128 C, QR Code quando informado no XML,
 participantes, tomador, valores, impostos, carga/serviço, documentos, dados dos modais,
@@ -52,3 +33,5 @@ Referências consultadas para a organização em blocos (implementação origina
 
 - [ACBrCTeDACTeFPDF.pas](https://svn.code.sf.net/p/acbr/code/trunk2/Fontes/ACBrDFe/ACBrCTe/DACTE/FPDF/ACBrCTeDACTeFPDF.pas)
 - [ACBrCTeUtilsFPDF.pas](https://svn.code.sf.net/p/acbr/code/trunk2/Fontes/ACBrDFe/ACBrCTe/DACTE/FPDF/ACBrCTeUtilsFPDF.pas)
+
+O exemplo de integração está no [README principal](../../README.md).

@@ -38,31 +38,26 @@ namespace OpenAC.Net.CTe;
 
 public sealed partial class AquavDetCont : GenericClone<AquavDetCont>
 {
-	#region Events
+    #region Constructors
 
+    public AquavDetCont()
+    {
+        InfDoc = new CTeAquavInfDoc();
+        Lacre = [];
+    }
 
-	#endregion Events
+    #endregion Constructors
 
-	#region Constructors
+    #region Propriedades
 
-	public AquavDetCont()
-	{
-		InfDoc = new CTeAquavInfDoc();
-		Lacre = [];
-	}
+    [DFeElement(TipoCampo.Str, "nCont", Id = "#11", Min = 1, Max = 20, Ocorrencia = Ocorrencia.Obrigatoria)]
+    public string NCont { get; set; }
 
-	#endregion Constructors
+    [DFeCollection("lacre", Id = "#12", Min = 0, Max = 3, Ocorrencia = Ocorrencia.NaoObrigatoria)]
+    public DFeCollection<CTeLacre> Lacre { get; set; }
 
-	#region Propriedades
+    [DFeElement("infDoc", Ocorrencia = Ocorrencia.Obrigatoria)]
+    public CTeAquavInfDoc InfDoc { get; set; }
 
-	[DFeElement(TipoCampo.Str, "nCont", Id = "#11", Min = 1, Max = 20, Ocorrencia = Ocorrencia.Obrigatoria)]
-	public string NCont { get; set; }
-
-	[DFeCollection("lacre", Id = "#12", Min = 0, Max = 3, Ocorrencia = Ocorrencia.NaoObrigatoria)]
-	public DFeCollection<CTeLacre> Lacre { get; set; }
-
-	[DFeElement("infDoc", Ocorrencia = Ocorrencia.Obrigatoria)]
-	public CTeAquavInfDoc InfDoc { get; set; }
-
-	#endregion Propriedades
+    #endregion Propriedades
 }

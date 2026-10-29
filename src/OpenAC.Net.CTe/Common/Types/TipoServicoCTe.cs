@@ -34,13 +34,11 @@ namespace OpenAC.Net.CTe.Services;
 public enum TipoServicoCTe
 {
     RecepcaoEvento,
-    CTeRecepcao,
-    CTeRetRecepcao,
-    CTeInutilizacao,
+    CTeRecepcaoSinc,
     CTeConsultaProtocolo,
     CTeStatusServico,
     CTeConsultaCadastro,
-    RecepcaoEventoAN,
+    RecepcaoEventoEpec,
     CTeRecepcaoOS,
     DistribuicaoDFe,
     QRCode

@@ -40,12 +40,6 @@ namespace OpenAC.Net.CTe;
 // ReSharper disable once InconsistentNaming
 public abstract class DACTeBase : DFeOptionsBase<FiltroDFeReport>
 {
-    #region Fields
-
-    private OpenCTe parent;
-
-    #endregion Fields
-
     #region Constructors
 
     protected DACTeBase()
@@ -57,19 +51,6 @@ public abstract class DACTeBase : DFeOptionsBase<FiltroDFeReport>
     #endregion Constructors
 
     #region Properties
-
-    public OpenCTe Parent
-    {
-        get => parent;
-        set
-        {
-            if (parent == value) return;
-
-            var oldParent = parent;
-            parent = value;
-            ParentChanged(oldParent, parent);
-        }
-    }
 
     public bool QuebrarLinhasObservacao { get; set; }
 
@@ -114,12 +95,6 @@ public abstract class DACTeBase : DFeOptionsBase<FiltroDFeReport>
     /// </summary>
     /// <param name="inutilizao"></param>
     public abstract void ImprimirInutilizacaoPDF(InutilizaoResposta inutilizao);
-
-    protected virtual void ParentChanged(OpenCTe oldParent, OpenCTe newParent)
-    {
-        if (oldParent != null && oldParent.DACTe == this) oldParent.DACTe = null;
-        if (newParent != null && newParent.DACTe != this) newParent.DACTe = this;
-    }
 
     #endregion Methods
 }

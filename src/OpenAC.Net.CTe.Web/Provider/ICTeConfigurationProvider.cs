@@ -1,6 +1,6 @@
 namespace OpenAC.Net.CTe.Web;
 
-/// <summary>Deve retornar uma configuração nova e independente por chamada.</summary>
+/// <summary>Fornece a configuração da empresa. A fábrica captura uma cópia antes de configurar a operação.</summary>
 public interface ICTeConfigurationProvider<TConfiguration>
 {
     ValueTask<TConfiguration> GetConfigurationAsync(string tenantId = "default",

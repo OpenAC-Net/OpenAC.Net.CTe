@@ -81,7 +81,7 @@ public sealed partial class CTeImp : GenericClone<CTeImp>
 
     internal bool ShouldSerializeICMSUFFim()
     {
-        return ICMSUFFim != null && ICMSUFFim.PICMSInterPart > 0;
+        return ICMSUFFim is { PICMSInterPart: > 0 };
     }
 
     #endregion Methods

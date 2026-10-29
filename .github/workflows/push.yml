@@ -36,9 +36,9 @@ jobs:
       uses: nuget/setup-nuget@v3
       
     - name: Restore NuGet packages
-      run: nuget restore OpenAC.Net.CTe.sln
+      run: nuget restore OpenAC.Net.CTe.slnx
       working-directory: src
 
     - name: Build solution
-      run: dotnet msbuild OpenAC.Net.CTe.sln -property:Configuration=Release -property:platform="Any CPU"
+      run: dotnet msbuild OpenAC.Net.CTe.slnx -property:Configuration=Release -property:platform="Any CPU"
       working-directory: src
