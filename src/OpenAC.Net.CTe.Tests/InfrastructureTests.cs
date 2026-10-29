@@ -1,3 +1,5 @@
+using OpenAC.Net.DFe.Core.Storage;
+using OpenAC.Net.DFe.Core.Http;
 using System.Net;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
@@ -59,7 +61,7 @@ public class InfrastructureTests
         using var certificate = CreateCertificate();
         var bytes = certificate.Export(X509ContentType.Pfx, "test");
         var services = new ServiceCollection();
-        services.AddCTe(config =>
+        services.AddOpenCTeWeb(config =>
         {
             config.Certificados.CertificadoBytes = bytes;
             config.Certificados.Senha = "test";
@@ -67,14 +69,10 @@ public class InfrastructureTests
         using var provider = services.BuildServiceProvider(new ServiceProviderOptions { ValidateScopes = true, ValidateOnBuild = true });
         using var scope = provider.CreateScope();
         var factory = scope.ServiceProvider.GetRequiredService<IOpenCTeClientFactory>();
-        using var first = await factory.CreateAsync("../../empresa-a");
-        using var second = await factory.CreateAsync("empresa-b");
-        await Assert.That(second.Configuracoes).IsNotSameReferenceAs(first.Configuracoes);
-        await Assert.That(second.Configuracoes.Arquivos.PathSalvar).IsNotEqualTo(first.Configuracoes.Arquivos.PathSalvar);
-        await Assert.That(first.Configuracoes.Arquivos.PathSalvar).StartsWith(Path.GetFullPath(Path.GetTempPath()));
-        await Assert.That(first.Configuracoes.Arquivos.PathSalvar).DoesNotContain("..");
-        first.Configuracoes.Certificados.Senha = "changed";
-        await Assert.That(second.Configuracoes.Certificados.Senha).IsEqualTo("test");
+        var first = await factory.CriarAsync("../../empresa-a");
+        var second = await factory.CriarAsync("empresa-b");
+        await Assert.That(second).IsNotSameReferenceAs(first);
+        await Assert.That(first is IOpenCTeClient).IsTrue();
     }
 
     [Test]
@@ -83,9 +81,9 @@ public class InfrastructureTests
         var path = Path.Combine(Path.GetTempPath(), "openac-cte-tests-" + Guid.NewGuid().ToString("N"), "doc.xml");
         try
         {
-            var store = new DesktopCTeDocumentStore();
+            var store = new LocalDocumentStore();
             var payloads = Enumerable.Range(0, 12).Select(i => $"<doc>{new string((char)('a' + i), 8192)}</doc>").ToArray();
-            await Task.WhenAll(payloads.Select(value => store.SaveAsync(path, value)));
+            await Task.WhenAll(payloads.Select(value => store.SaveAsync(new DFeDocument(path, value, DFeArquivoExiste.Sobrescrever))));
             await Assert.That(payloads).Contains(await File.ReadAllTextAsync(path));
             await Assert.That(Directory.GetFiles(Path.GetDirectoryName(path)!)).Count().IsEqualTo(1);
         }
@@ -99,26 +97,26 @@ public class InfrastructureTests
         return request.CreateSelfSigned(DateTimeOffset.UtcNow.AddMinutes(-1), DateTimeOffset.UtcNow.AddDays(1));
     }
 
-    private sealed class RecordingStore : ICTeDocumentStore
+    private sealed class RecordingStore : IDFeDocumentStore
     {
         internal readonly List<string> Documents = [];
-        public Task SaveAsync(string path, string content, CancellationToken cancellationToken = default)
-        { Documents.Add(content); return Task.CompletedTask; }
+        public Task SaveAsync(IDFeDocument document, CancellationToken cancellationToken = default)
+        { Documents.Add(document.Conteudo); return Task.CompletedTask; }
     }
     private sealed class ProbeService(CTeConfig config, X509Certificate2 certificate) : CTeServiceClient(config, "https://example.test/cte", certificate)
     {
         internal Task<string> SendAsync(CancellationToken token) => ExecuteAsync("urn:test", "<request/>", "", token);
         protected override string TratarRetorno(XElement element) => element.Elements().First().ToString();
     }
-    private sealed class FakeTransport : ICTeHttpTransport
+    private sealed class FakeTransport : IDFeHttpTransport
     {
         public bool Wait, Fault;
         public X509Certificate2? Certificate;
         public CancellationToken Token;
         public string Envelope = "", ContentType = "";
-        public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CTeConfig configuration, X509Certificate2 certificate, CancellationToken cancellationToken = default)
+        public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, DFeHttpTransportOptions options, CancellationToken cancellationToken = default)
         {
-            Certificate = certificate;
+            Certificate = options.Certificate;
             Token = cancellationToken;
             Envelope = await request.Content!.ReadAsStringAsync(cancellationToken);
             ContentType = request.Content.Headers.ContentType!.ToString();

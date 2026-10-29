@@ -1,3 +1,5 @@
+using OpenAC.Net.DFe.Core.Storage;
+using OpenAC.Net.DFe.Core.Http;
 using System.IO.Compression;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
@@ -28,19 +30,28 @@ public class AuthorizationTests
         config.Arquivos.PathSchemas = Path.Combine(AppContext.BaseDirectory, "Schemas");
         config.Arquivos.Salvar = true;
         config.Arquivos.CriarDiretorios = false;
-        using var client = new OpenCTe(config);
-        var response = os
-            ? await client.AutorizarAsync(VersionTests.SampleOS())
-            : await client.AutorizarAsync(VersionTests.Sample(CTeVersao.v400));
+        var client = new OpenCTe(config);
+        var cte = VersionTests.Sample(CTeVersao.v400);
+        var cteOS = VersionTests.SampleOS();
+        var before = os ? cteOS.GetXml() : cte.GetXml();
+        var response = os ? await client.AutorizarAsync(cteOS) : await client.AutorizarAsync(cte);
+        await Assert.That(os ? cteOS.GetXml() : cte.GetXml()).IsEqualTo(before);
+        await Assert.That(os ? cteOS.Assinado : cte.Assinado).IsFalse();
+        var originalInfo = os ? cteOS.InfCTe : cte.InfCTe;
+        var copiedInfo = os ? response.DocumentoProcessado.CTeOS.InfCTe : response.DocumentoProcessado.CTe.InfCTe;
+        await Assert.That(copiedInfo).IsNotSameReferenceAs(originalInfo);
+        await Assert.That(copiedInfo.Ide.Parent).IsSameReferenceAs(copiedInfo);
+        await Assert.That(copiedInfo.Rem.Parent).IsSameReferenceAs(copiedInfo);
+        await Assert.That(response.Codigo).IsEqualTo(100);
+        await Assert.That(response.Protocolo).IsEqualTo("135260000000123");
         await Assert.That(response.Autorizado).IsTrue();
-        await Assert.That(response.Conhecimento).IsNotNull();
+        await Assert.That(response.DocumentoProcessado).IsNotNull();
         await Assert.That(transport.Document!.Name.LocalName).IsEqualTo(os ? "CTeOS" : "CTe");
         await Assert.That(transport.Action).Contains(os ? "CTeRecepcaoOSV4" : "CTeRecepcaoSincV4");
         await Assert.That(transport.Envelope).DoesNotContain("cteCabecMsg");
         await Assert.That(transport.Calls).IsEqualTo(1);
         var processed = store.Documents.Single(value => value.Contains("<cteProc") || value.Contains("<cteOSProc"));
         await Assert.That(XElement.Parse(processed).Name.LocalName).IsEqualTo(os ? "cteOSProc" : "cteProc");
-        await Assert.That(client.Status).IsEqualTo(StatusCTe.EmEspera);
     }
 
     [Test]
@@ -52,26 +63,26 @@ public class AuthorizationTests
         config.Certificados.CertificadoBytes = certificate.Export(X509ContentType.Pfx, "test");
         config.Certificados.Senha = "test";
         config.Arquivos.PathSchemas = Path.Combine(AppContext.BaseDirectory, "Schemas");
-        using var client = new OpenCTe(config);
+        var client = new OpenCTe(config);
         var response = await client.AutorizarAsync(VersionTests.Sample(CTeVersao.v400));
         await Assert.That(response.Autorizado).IsFalse();
-        await Assert.That(response.Conhecimento).IsNull();
+        await Assert.That(response.DocumentoProcessado).IsNull();
         await Assert.That(response.Resultado.CStat).IsEqualTo(539);
     }
 
-    private sealed class MemoryStore : ICTeDocumentStore
+    private sealed class MemoryStore : IDFeDocumentStore
     {
         internal readonly List<string> Documents = [];
-        public Task SaveAsync(string path, string content, CancellationToken cancellationToken = default)
-        { Documents.Add(content); return Task.CompletedTask; }
+        public Task SaveAsync(IDFeDocument document, CancellationToken cancellationToken = default)
+        { Documents.Add(document.Conteudo); return Task.CompletedTask; }
     }
-    private sealed class AuthorizationTransport : ICTeHttpTransport
+    private sealed class AuthorizationTransport : IDFeHttpTransport
     {
         internal XElement? Document;
         internal bool Rejected;
         internal int Calls;
         internal string Action = "", Envelope = "";
-        public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CTeConfig configuration, X509Certificate2 certificate, CancellationToken cancellationToken = default)
+        public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, DFeHttpTransportOptions options, CancellationToken cancellationToken = default)
         {
             Calls++;
             Envelope = await request.Content!.ReadAsStringAsync(cancellationToken);

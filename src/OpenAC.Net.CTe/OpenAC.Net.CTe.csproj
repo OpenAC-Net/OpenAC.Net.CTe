@@ -55,8 +55,8 @@
             <Pack>true</Pack>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="Resources\services.cte"/>
-        <EmbeddedResource Include="Resources\services.cte"/>
+        <None Remove="Resources\services.xml"/>
+        <EmbeddedResource Include="Resources\services.xml"/>
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'net462' or '$(TargetFramework)' == 'net48'">
@@ -69,7 +69,7 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="OpenAC.Net.Core" Version="1.6.0"/>
-    <PackageReference Include="OpenAC.Net.DFe.Core" Version="1.7.1" />
+    <PackageReference Include="OpenAC.Net.DFe.Core" Version="1.8.0-beta.4" />
     </ItemGroup>
 
 </Project>

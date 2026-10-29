@@ -16,7 +16,7 @@ public sealed class CTeAutorizacaoServiceClient : CTeServiceClient
 {
     private readonly bool os;
     public CTeAutorizacaoServiceClient(CTeConfig config, bool cteOS = false, X509Certificate2 certificate = null)
-        : base(config, cteOS ? TipoServicoCTe.CTeRecepcaoOS : TipoServicoCTe.CTeRecepcao, certificate)
+        : base(config, cteOS ? TipoServicoCTe.CTeRecepcaoOS : TipoServicoCTe.CTeRecepcaoSinc, certificate)
     {
         os = cteOS;
         NomeArquivo = cteOS ? "cteos-autorizacao" : "cte-autorizacao";

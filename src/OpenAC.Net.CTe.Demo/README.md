@@ -41,26 +41,18 @@ pela SEFAZ. Consulte a situação pela chave antes de reenviar.
 
 ## Webservices
 
-A lista usa o catálogo único `services.cte` e acompanha versão, ambiente, emissão e UF.
+A lista usa o catálogo único `services.xml` e acompanha versão, ambiente, emissão e UF.
 Use **Aplicar endereços** para alterar o catálogo em memória e **Exportar catálogo** para
 salvá-lo. Salve as configurações após carregar ou exportar um catálogo para reutilizar seu
-caminho na próxima execução. O importador INI ACBr existente atualiza os endereços 3.00;
-para 4.00, carregue um catálogo `services.cte` com os grupos dessa versão.
+caminho na próxima execução. O importador INI antigo (3.00) foi desativado. O catálogo aceita somente serviços 4.00.
+As opções de emissão e os serviços exibidos acompanham a UF, o ambiente e a vigência da NT 2026.004.
 
-## Testes da interface
+## Organização
 
-```bash
-dotnet test --project OpenAC.Net.CTe.Demo.Tests/OpenAC.Net.CTe.Demo.Tests.csproj
-```
-
-Os testes usam TUnit e sessões explícitas da
-[plataforma Headless do Avalonia](https://docs.avaloniaui.net/docs/testing/setting-up-the-headless-platform),
-com transporte simulado, sem transmissão à SEFAZ. Os casos são executados na thread da
-interface, em sequência, e exercitam navegação, configurações,
-conclusão e cancelamento de consultas e tratamento de erros. A variável opcional
-`OPENAC_DEMO_SCREENSHOTS` define uma pasta para capturas renderizadas das telas.
-
-Execute os comandos a partir de `src` com o SDK .NET 10, usando o runner definido em `global.json`.
+A demo mantém sua configuração editável, listas de documentos, estado de tela e renderer de PDF.
+Ao iniciar uma operação, ela cria `OpenCTe` com uma cópia das configurações selecionadas e passa
+os documentos explicitamente aos métodos assíncronos. O catálogo editável pertence à demo e não
+altera o catálogo padrão da biblioteca nem outras instâncias do cliente.
 
 ## Interface
 

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 // ***********************************************************************
@@ -30,7 +31,6 @@ using System.Threading.Tasks;
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -47,19 +47,22 @@ namespace OpenAC.Net.CTe.Services;
 public sealed partial class ConsultaCadastroServiceClient : CTeServiceClient
 {
     public ConsultaCadastroServiceClient(CTeConfig config, DFeCodUF uf, X509Certificate2 certificado = null) :
-        base(config, CTeServiceManager.GetServiceAndress(config.Geral.VersaoDFe, uf.ToSiglaUF(),
-            TipoServicoCTe.CTeConsultaCadastro, config.Geral.FormaEmissao, config.WebServices.Ambiente), certificado)
+        base(config, config.ObterEndereco(TipoServicoCTe.CTeConsultaCadastro, uf), certificado)
     {
         Schema = SchemaCTe.ConsCad;
         NomeArquivo = "ped-cad";
     }
 
-    public async Task<DFeConsultaCadastroResposta> ConsultaCadastroAsync(DFeSiglaUF uf, DFeCodUF ufConsulta, string cpfCNPJ, string IE, CancellationToken cancellationToken = default)
+    public async Task<DFeConsultaCadastroResposta> ConsultaCadastroAsync(DFeSiglaUF uf, DFeCodUF ufConsulta,
+        string cpfCNPJ, string IE, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        Guard.Against<ArgumentException>(uf.IsIn(DFeSiglaUF.AN, DFeSiglaUF.EX, DFeSiglaUF.SU), "UF informada não pode ser AN/EX/SU");
-        Guard.Against<ArgumentException>(cpfCNPJ.IsEmpty() && IE.IsEmpty(), "É necessário informar pelo menos 1 documento para realizar a consulta.");
-        Guard.Against<ArgumentException>(!cpfCNPJ.IsEmpty() && !cpfCNPJ.IsCPF() && !cpfCNPJ.IsCNPJ(), "CPF ou CNPJ invalido.");
+        Guard.Against<ArgumentException>(uf.IsIn(DFeSiglaUF.AN, DFeSiglaUF.EX, DFeSiglaUF.SU),
+            "UF informada não pode ser AN/EX/SU");
+        Guard.Against<ArgumentException>(cpfCNPJ.IsEmpty() && IE.IsEmpty(),
+            "É necessário informar pelo menos 1 documento para realizar a consulta.");
+        Guard.Against<ArgumentException>(!cpfCNPJ.IsEmpty() && !cpfCNPJ.IsCPF() && !cpfCNPJ.IsCNPJ(),
+            "CPF ou CNPJ invalido.");
 
         await ServiceGate.WaitAsync(cancellationToken).ConfigureAwait(false);
         try
@@ -79,29 +82,32 @@ public sealed partial class ConsultaCadastroServiceClient : CTeServiceClient
                     ? $"<CNPJ>{cpfCNPJ.OnlyNumbers()}</CNPJ>"
                     : $"<CPF>{cpfCNPJ.OnlyNumbers()}</CPF>");
             }
+
             request.Append("</infCons>");
             request.Append("</ConsCad>");
 
             var dadosMsg = request.ToString();
             ValidateMessage(dadosMsg);
 
-            const string xmlns = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro";
-            var header = $"<nfeCabecMsg xmlns=\"{xmlns}\"><cUF>{ufConsulta.GetDFeValue().ToInt32()}</cUF><versaoDados>2.00</versaoDados></nfeCabecMsg>";
+            const string xmlns = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4";
             var message = $"<nfeDadosMsg xmlns=\"{xmlns}\">{dadosMsg}</nfeDadosMsg>";
-            var ret = await ExecuteAsync("http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro/consultaCadastro", message, header, cancellationToken).ConfigureAwait(false);
+            var ret = await ExecuteAsync("http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4/consultaCadastro",
+                message, "", cancellationToken).ConfigureAwait(false);
 
             var retorno = new DFeConsultaCadastroResposta(dadosMsg, ret, EnvelopeEnvio, EnvelopeRetorno);
             return retorno;
         }
-        finally { ServiceGate.Release(); }
+        finally
+        {
+            ServiceGate.Release();
+        }
     }
 
     /// <inheritdoc />
     protected override string TratarRetorno(XElement xmlDocument)
     {
-        var element = xmlDocument.ElementAnyNs("consultaCadastroResult");
-        if (element != null) return element.FirstNode?.ToString() ?? string.Empty;
-
-        throw new OpenDFeCommunicationException("Elemento consultaCadastroResult não encontrado no retorno.");
+        var result = xmlDocument.Descendants().FirstOrDefault(element => element.Name.LocalName == "retConsCad");
+        if (result != null) return result.ToString();
+        throw new OpenDFeCommunicationException("Elemento retConsCad não encontrado no retorno.");
     }
 }

@@ -1,0 +1,2164 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DFeServices xmlns="https://www.openac.net.br/">
+    <Services Tipo="CTe" TipoEmissao="1" Versao="4.00">
+        <Ambiente Tipo="1" UF="AC">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">
+                    https://cad.svrs.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="AC">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="AL">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="AL">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="AP">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="AP">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="AM">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">
+                    https://nfe.sefaz.am.gov.br/services2/services/CadConsultaCadastro4
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="AM">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="BA">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">
+                    https://nfe.sefaz.ba.gov.br/webservices/CadConsultaCadastro4/CadConsultaCadastro4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="BA">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">
+                    https://hnfe.sefaz.ba.gov.br/webservices/CadConsultaCadastro4/CadConsultaCadastro4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="CE">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="CE">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="DF">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="DF">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="ES">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">
+                    https://cad.svrs.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="ES">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="GO">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">https://nfe.sefaz.go.gov.br/nfe/services/CadConsultaCadastro4
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="GO">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">https://homolog.sefaz.go.gov.br/nfe/services/CadConsultaCadastro4
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="MA">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="MA">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="MT">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://www.sefaz.mt.gov.br/cte/qrcode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://cte.sefaz.mt.gov.br/ctews2/services/CTeStatusServicoV4
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.sefaz.mt.gov.br/ctews2/services/CTeConsultaV4
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://cte.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoEventoV4
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.sefaz.mt.gov.br/ctews/services/CTeRecepcaoOSV4</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://cte.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoSincV4
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">
+                    https://nfe.sefaz.mt.gov.br/nfews/v2/services/CadConsultaCadastro4
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="MT">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.sefaz.mt.gov.br/cte/qrcode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeStatusServicoV4
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeConsultaV4
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoEventoV4
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.sefaz.mt.gov.br/ctews/services/CTeRecepcaoOSV4
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoSincV4
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">
+                    https://homologacao.sefaz.mt.gov.br/nfews/v2/services/CadConsultaCadastro4
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="MS">
+            <Enderecos>
+                <Endereco Tipo="QRCode">http://www.dfe.ms.gov.br/cte/qrcode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://producao.cte.ms.gov.br/ws/CTeStatusServicoV4</Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://producao.cte.ms.gov.br/ws/CTeConsultaV4</Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://producao.cte.ms.gov.br/ws/CTeRecepcaoEventoV4</Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://producao.cte.ms.gov.br/ws/CTeRecepcaoOSV4</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://producao.cte.ms.gov.br/ws/CTeRecepcaoSincV4</Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">https://nfe.sefaz.ms.gov.br/ws/CadConsultaCadastro4</Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="MS">
+            <Enderecos>
+                <Endereco Tipo="QRCode">http://www.dfe.ms.gov.br/cte/qrcode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://homologacao.cte.ms.gov.br/ws/CTeStatusServicoV4</Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://homologacao.cte.ms.gov.br/ws/CTeConsultaV4</Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://homologacao.cte.ms.gov.br/ws/CTeRecepcaoEventoV4</Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.cte.ms.gov.br/ws/CTeRecepcaoOSV4</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://homologacao.cte.ms.gov.br/ws/CTeRecepcaoSincV4</Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">https://hom.nfe.sefaz.ms.gov.br/ws/CadConsultaCadastro4</Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="MG">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://portalcte.fazenda.mg.gov.br/portalcte/sistema/qrcode.xhtml</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://cte.fazenda.mg.gov.br/cte/services/CTeStatusServicoV4
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.fazenda.mg.gov.br/cte/services/CTeConsultaV4
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://cte.fazenda.mg.gov.br/cte/services/CTeRecepcaoEventoV4
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.fazenda.mg.gov.br/cte/services/CTeRecepcaoOSV4</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://cte.fazenda.mg.gov.br/cte/services/CTeRecepcaoSincV4</Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">https://nfe.fazenda.mg.gov.br/nfe2/services/CadConsultaCadastro4
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="MG">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://portalcte.fazenda.mg.gov.br/portalcte/sistema/qrcode.xhtml</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://hcte.fazenda.mg.gov.br/cte/services/CTeStatusServicoV4
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://hcte.fazenda.mg.gov.br/cte/services/CTeConsultaV4
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoEventoV4
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoOSV4</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoSincV4
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="PA">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="PA">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="PB">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">
+                    https://cad.svrs.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="PB">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="PR">
+            <Enderecos>
+                <Endereco Tipo="QRCode">http://www.fazenda.pr.gov.br/cte/qrcode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://cte.fazenda.pr.gov.br/cte4/CTeStatusServicoV4</Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.fazenda.pr.gov.br/cte4/CTeConsultaV4</Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://cte.fazenda.pr.gov.br/cte4/CTeRecepcaoEventoV4</Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.fazenda.pr.gov.br/cte4/CTeRecepcaoOSV4</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://cte.fazenda.pr.gov.br/cte4/CTeRecepcaoSincV4</Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">https://nfe.sefa.pr.gov.br/nfe/CadConsultaCadastro4</Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="PR">
+            <Enderecos>
+                <Endereco Tipo="QRCode">http://www.fazenda.pr.gov.br/cte/qrcode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeStatusServicoV4
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeConsultaV4
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeRecepcaoEventoV4
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeRecepcaoOSV4</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeRecepcaoSincV4
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">https://homologacao.nfe.sefa.pr.gov.br/nfe/CadConsultaCadastro4
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="PE">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">
+                    https://nfe.sefaz.pe.gov.br/nfe-service/services/CadConsultaCadastro4
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="PE">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">
+                    https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/CadConsultaCadastro4
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="PI">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="PI">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="RJ">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="RJ">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="RN">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">
+                    https://cad.svrs.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="RN">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="RS">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">
+                    https://cad.svrs.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="RS">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="RO">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="RO">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="RR">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="RR">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="SC">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">
+                    https://cad.svrs.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="SC">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="SP">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">https://nfe.fazenda.sp.gov.br/ws/cadconsultacadastro4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="SP">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaCadastro">
+                    https://homologacao.nfe.fazenda.sp.gov.br/ws/cadconsultacadastro4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="SE">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="SE">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="TO">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEventoEpec">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="TO">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+                <Endereco Tipo="DistribuicaoDFe">
+                    https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+    </Services>
+    <Services Tipo="CTe" TipoEmissao="7" Versao="4.00">
+        <Ambiente Tipo="1" UF="AP">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="AP">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="MT">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="MT">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="MS">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="MS">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="PE">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="PE">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="RR">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="RR">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="SP">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="SP">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://dfe-portal.svrs.rs.gov.br/cte/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+    </Services>
+    <Services Tipo="CTe" TipoEmissao="8" Versao="4.00">
+        <Ambiente Tipo="1" UF="AC">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="AC">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="AL">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="AL">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="AM">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="AM">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="BA">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="BA">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="CE">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="CE">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="DF">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="DF">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="ES">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="ES">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="GO">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="GO">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="MA">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="MA">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="MG">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="MG">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="PA">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="PA">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="PB">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="PB">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="PR">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="PR">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="PI">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="PI">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="RJ">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="RJ">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="RN">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="RN">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="RS">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="RS">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="RO">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="RO">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="SC">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="SC">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="SE">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="SE">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="1" UF="TO">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx</Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+        <Ambiente Tipo="2" UF="TO">
+            <Enderecos>
+                <Endereco Tipo="QRCode">https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode</Endereco>
+                <Endereco Tipo="CTeStatusServico">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeConsultaProtocolo">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx
+                </Endereco>
+                <Endereco Tipo="RecepcaoEvento">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoOS">https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx
+                </Endereco>
+                <Endereco Tipo="CTeRecepcaoSinc">
+                    https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx
+                </Endereco>
+            </Enderecos>
+        </Ambiente>
+    </Services>
+</DFeServices>

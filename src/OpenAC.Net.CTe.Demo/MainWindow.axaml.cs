@@ -1,3 +1,4 @@
+using OpenAC.Net.CTe.Configuracao;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
 using Avalonia.Controls;
@@ -16,7 +17,11 @@ namespace OpenAC.Net.CTe.Demo;
 
 public partial class MainWindow : Window
 {
-    private readonly OpenCTe client;
+    private readonly CTeConfig settings;
+    private IOpenCTeClient client;
+    private readonly DemoServiceCatalog catalog = new();
+    private readonly List<CTe> conhecimentos = [];
+    private readonly List<CTeOS> conhecimentosOS = [];
     private readonly OpenDACTe renderer = new();
     private readonly ObservableCollection<ServiceEndpoint> endpoints = [];
     private readonly List<string> documentPaths = [];
@@ -27,18 +32,17 @@ public partial class MainWindow : Window
     private bool closed;
     private bool initialized;
 
-    public MainWindow() : this(new OpenCTe(), null) { }
+    public MainWindow() : this(new CTeConfig(), null) { }
 
-    internal MainWindow(OpenCTe component, string? configurationFile)
+    internal MainWindow(CTeConfig configuracoes, string? configurationFile)
     {
-        client = component;
+        settings = configuracoes.Copiar();
+        client = new OpenCTe(settings);
         InitializeComponent();
-        client.DACTe = renderer;
         ServiceList.ItemsSource = endpoints;
         InitializeSettings(configurationFile);
         InitializeLogging();
         ConnectEvents();
-        client.StatusChanged += ClientStatusChanged;
         initialized = true;
         UpdateContext();
         RefreshServices();
@@ -91,8 +95,6 @@ public partial class MainWindow : Window
         Closed += (_, _) =>
         {
             closed = true;
-            client.StatusChanged -= ClientStatusChanged;
-            client.Dispose();
             LogManager.Shutdown();
         };
         ConnectSettingsEvents();
@@ -135,26 +137,6 @@ public partial class MainWindow : Window
             operation = null;
             if (closeAfterOperation) Close();
         }
-    }
-
-    private void ClientStatusChanged(object? sender, EventArgs args)
-    {
-        var status = client.Status;
-        Dispatcher.UIThread.Post(() =>
-        {
-            if (closed || operation == null || status == StatusCTe.EmEspera) return;
-            StatusText.Text = status switch
-            {
-                StatusCTe.Recepcao => "Enviando documento…",
-                StatusCTe.RetRecepcao or StatusCTe.Recibo => "Aguardando processamento do lote…",
-                StatusCTe.StatusServico => "Consultando o status do serviço…",
-                StatusCTe.Consulta => "Consultando CT-e…",
-                StatusCTe.Cancelamento => "Enviando cancelamento…",
-                StatusCTe.Inutilizacao => "Enviando inutilização…",
-                StatusCTe.Cadastro => "Consultando cadastro…",
-                _ => "Comunicando com a SEFAZ…"
-            };
-        });
     }
 
     private void ShowResponse<T>(DFeResposta<T> response) where T : class

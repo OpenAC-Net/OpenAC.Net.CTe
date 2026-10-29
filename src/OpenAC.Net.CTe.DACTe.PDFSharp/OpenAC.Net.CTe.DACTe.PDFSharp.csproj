@@ -13,7 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="../OpenAC.Net.CTe/OpenAC.Net.CTe.csproj" />
     <PackageReference Include="PDFsharp" Version="[6.2.4]" />
-    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.13" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.14" />
     <PackageReference Include="QRCoder" Version="1.8.1" />
     <EmbeddedResource Include="Resources/Fonts/*.ttf" />
     <None Include="Resources/Fonts/LICENSE.txt" Pack="true" PackagePath="licenses/" />

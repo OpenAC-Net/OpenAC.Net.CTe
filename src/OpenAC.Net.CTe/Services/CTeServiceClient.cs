@@ -30,13 +30,8 @@
 // ***********************************************************************
 
 using System;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml.Linq;
-using OpenAC.Net.DFe.Core;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -44,6 +39,9 @@ using OpenAC.Net.Core.Extensions;
 using OpenAC.Net.CTe.Configuracao;
 using OpenAC.Net.DFe.Core.Extensions;
 using OpenAC.Net.DFe.Core.Service;
+using OpenAC.Net.DFe.Core.Http;
+using OpenAC.Net.DFe.Core.Storage;
+using System.Net;
 
 namespace OpenAC.Net.CTe.Services;
 
@@ -93,11 +91,8 @@ public abstract class CTeServiceClient : DFeSoapServiceClient<CTeConfig, CTeConf
     private static string ResolveAddress(CTeConfig config, TipoServicoCTe service)
     {
         CTeUtils.ValidarVersaoComunicacao(config.Geral.VersaoDFe);
-        if (service is TipoServicoCTe.CTeInutilizacao or TipoServicoCTe.CTeRetRecepcao)
-            throw new NotSupportedException("A versão 4.00 não possui consulta de recibo nem inutilização.");
-        return config.WebServices.Enderecos.TryGetValue(service, out var address) ? address
-            : CTeServiceManager.GetServiceAndress(config.Geral.VersaoDFe, config.WebServices.UF.ToSiglaUF(),
-                service, config.Geral.FormaEmissao, config.WebServices.Ambiente);
+        
+        return config.ObterEndereco(service);
     }
 
     #region Propriedades
@@ -137,60 +132,56 @@ public abstract class CTeServiceClient : DFeSoapServiceClient<CTeConfig, CTeConf
         ValidateMessage(xml, Configuracoes.Arquivos.GetSchema(schema));
     }
 
-    protected new X509Certificate2 Certificado => operationCertificate ??= Configuracoes.Certificados.ObterCertificado();
+    protected override X509Certificate2 Certificado => operationCertificate ??= Configuracoes.Certificados.ObterCertificado();
 
-    // O DFe.Core ainda expõe estes pontos de extensão síncronos. O CT-e utiliza os caminhos Async.
-    protected override string Execute(string soapAction, string message, string soapHeader, params string[] soapNamespaces)
-        => throw new NotSupportedException("Utilize ExecuteAsync para comunicação SOAP do CT-e.");
+    protected override TimeSpan TimeoutOperacao => Configuracoes.WebServices.TimeoutOperacao;
 
-    protected async Task<string> ExecuteAsync(string soapAction, string message, string soapHeader,
-        CancellationToken cancellationToken, params string[] soapNamespaces)
+    // Preserva as exceções técnicas específicas do host e dos transportes personalizados.
+    protected override bool EncapsularExcecoesComunicacao => false;
+
+    protected override DFeHttpTransportOptions CriarOpcoesHttp() =>
+        new(Configuracoes.WebServices, Certificado, ValidarCertificadoServidor(), TimeoutOperacao)
+        {
+            UseCookies = false,
+            AllowAutoRedirect = false,
+            AutomaticDecompression = DecompressionMethods.None
+        };
+
+    protected override string CriarNomeArquivo(bool resposta) =>
+        $"{DateTime.UtcNow:yyyyMMddHHmmssfff}_{Guid.NewGuid():N}_{NomeArquivo}_{(resposta ? "retorno" : "envio")}.xml";
+
+    protected override bool AbreviarCabecalhoSoapVazio => false;
+
+    protected override Task<string> ExecuteAsync(string soapAction, string message, string soapHeader,
+        CancellationToken cancellationToken = default, params string[] soapNamespaces)
     {
         cancellationToken.ThrowIfCancellationRequested();
         CTeUtils.ValidarVersaoComunicacao(Configuracoes.Geral.VersaoDFe);
-        XNamespace soap = "http://www.w3.org/2003/05/soap-envelope";
-        EnvelopeEnvio = $"<soapenv:Envelope xmlns:soapenv=\"{soap}\" {string.Join(" ", soapNamespaces)}><soapenv:Header>{soapHeader}</soapenv:Header><soapenv:Body>{message}</soapenv:Body></soapenv:Envelope>";
-        using var request = new HttpRequestMessage(HttpMethod.Post, Url);
-        request.Content = new StringContent(EnvelopeEnvio, Encoding.UTF8);
-        request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse($"application/soap+xml; charset=utf-8; action=\"{soapAction}\"");
-        using var timeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-        timeout.CancelAfter(Configuracoes.WebServices.TimeoutOperacao);
-        var token = timeout.Token;
-        ArquivoEnvio = $"{DateTime.UtcNow:yyyyMMddHHmmssfff}_{Guid.NewGuid():N}_{NomeArquivo}_envio.xml";
-        await GravarSoapAsync(EnvelopeEnvio, ArquivoEnvio, token).ConfigureAwait(false);
-        using var response = await Configuracoes.HttpTransport.SendAsync(request, Configuracoes,
-            Certificado, token).ConfigureAwait(false);
-        EnvelopeRetorno = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-        token.ThrowIfCancellationRequested();
-        ArquivoResposta = $"{DateTime.UtcNow:yyyyMMddHHmmssfff}_{Guid.NewGuid():N}_{NomeArquivo}_retorno.xml";
-        await GravarSoapAsync(EnvelopeRetorno, ArquivoResposta, token).ConfigureAwait(false);
-        var document = XDocument.Parse(EnvelopeRetorno);
-        var body = document.Root?.Element(soap + "Body")
-            ?? throw new OpenDFeCommunicationException("Corpo SOAP não encontrado no retorno.");
-        var fault = body.Element(soap + "Fault");
-        if (fault != null) throw new OpenDFeCommunicationException(fault.Value);
-        response.EnsureSuccessStatusCode();
-        return TratarRetorno(body);
+        return base.ExecuteAsync(soapAction, message, soapHeader, cancellationToken, soapNamespaces);
     }
 
-    protected override void GravarSoap(string content, string name)
-        => throw new NotSupportedException("Utilize GravarSoapAsync para persistência SOAP do CT-e.");
+    protected override void GravarSoap(string content, string name) =>
+        GravarSoapAsync(content, name, Configuracoes.OperationToken.Value).ConfigureAwait(false).GetAwaiter().GetResult();
 
-    private Task GravarSoapAsync(string content, string name, CancellationToken token)
+    protected override Task GravarSoapAsync(string content, string name, CancellationToken token)
         => !Configuracoes.WebServices.Salvar ? Task.CompletedTask
-            : Configuracoes.DocumentStore.SaveAsync(Path.Combine(Configuracoes.Arquivos.PathSalvar, name), NormalizeXml(content), token);
+            : GravarDocumentoAsync(Configuracoes.Arquivos.PathSalvar, name, content, token);
+
+    private Task GravarDocumentoAsync(string directory, string name, string content, CancellationToken token) =>
+        Configuracoes.DocumentStore.SaveAsync(new DFeDocument(Path.GetFullPath(Path.Combine(directory, name)),
+            NormalizeXml(content), DFeArquivoExiste.Sobrescrever), token);
 
     protected Task GravarCTeAsync(string content, string name, DateTime date, string cnpj, ModeloCTe model, CancellationToken token)
         => !Configuracoes.Arquivos.Salvar ? Task.CompletedTask
-            : Configuracoes.DocumentStore.SaveAsync(Path.Combine(Configuracoes.Arquivos.GetPathCTe(date, cnpj, model), name), NormalizeXml(content), token);
+            : GravarDocumentoAsync(Configuracoes.Arquivos.GetPathCTe(date, cnpj, model), name, content, token);
 
     protected Task GravarEventoAsync(string content, string name, CTeTipoEvento type, DateTime date, string cnpj, CancellationToken token)
         => !Configuracoes.Arquivos.Salvar ? Task.CompletedTask
-            : Configuracoes.DocumentStore.SaveAsync(Path.Combine(Configuracoes.Arquivos.GetPathEvento(type, cnpj, date), name), NormalizeXml(content), token);
+            : GravarDocumentoAsync(Configuracoes.Arquivos.GetPathEvento(type, cnpj, date), name, content, token);
 
     protected Task GravarInutilizacaoAsync(string content, string name, DateTime date, string cnpj, CancellationToken token)
         => !Configuracoes.Arquivos.Salvar ? Task.CompletedTask
-            : Configuracoes.DocumentStore.SaveAsync(Path.Combine(Configuracoes.Arquivos.GetPathInu(date, cnpj), name), NormalizeXml(content), token);
+            : GravarDocumentoAsync(Configuracoes.Arquivos.GetPathInu(date, cnpj), name, content, token);
 
     private static string NormalizeXml(string content)
         => "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + content.RemoverDeclaracaoXml();

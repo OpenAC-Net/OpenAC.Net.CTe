@@ -6,9 +6,7 @@
   </Configurations>
   <Project Path="OpenAC.Net.CTe.DACTe.PDFSharp.Web/OpenAC.Net.CTe.DACTe.PDFSharp.Web.csproj" />
   <Project Path="OpenAC.Net.CTe.DACTe.PDFSharp/OpenAC.Net.CTe.DACTe.PDFSharp.csproj" />
-  <Project Path="OpenAC.Net.CTe.Demo.Tests/OpenAC.Net.CTe.Demo.Tests.csproj" />
   <Project Path="OpenAC.Net.CTe.Demo/OpenAC.Net.CTe.Demo.csproj" />
-  <Project Path="OpenAC.Net.CTe.Pdf.Exemplo/OpenAC.Net.CTe.Pdf.Exemplo.csproj" />
   <Project Path="OpenAC.Net.CTe.Tests/OpenAC.Net.CTe.Tests.csproj" />
   <Project Path="OpenAC.Net.CTe.Web/OpenAC.Net.CTe.Web.csproj" />
   <Project Path="OpenAC.Net.CTe/OpenAC.Net.CTe.csproj" />

@@ -7,9 +7,9 @@ using OpenAC.Net.DFe.Core;
 
 namespace OpenAC.Net.CTe.Services;
 
-internal static class CTeSchemaValidator
+public static class CTeSchemaValidator
 {
-    internal static void Validate(string xml, CTeConfig config, bool os)
+    public static void Validate(string xml, CTeConfig config, bool os)
     {
         var errors = new List<string>();
         XmlSchemaValidation.ValidarXml(xml, config.Arquivos.GetSchema(os ? SchemaCTe.CTeOS : SchemaCTe.CTe), out var main, out _);

@@ -43,10 +43,14 @@ namespace OpenAC.Net.CTe.Configuracao;
 [TypeConverter(typeof(ExpandableObjectConverter))]
 public sealed partial class CTeConfigArquivos : DFeArquivosConfigBase<SchemaCTe>
 {
+    internal OpenAC.Net.DFe.Core.Service.DFeServices<TipoServicoCTe> Catalogo { get; private set; }
+
+    internal void CopiarCatalogo(CTeConfigArquivos origem) => Catalogo = origem.Catalogo;
+
     #region Fields
 
     private readonly CTeConfigGeral geralConfig;
-    private readonly Dictionary<string, string> schemasCache = new();
+    private readonly System.Collections.Concurrent.ConcurrentDictionary<string, string> schemasCache = new();
 
     #endregion Fields
 
@@ -166,7 +170,9 @@ public sealed partial class CTeConfigArquivos : DFeArquivosConfigBase<SchemaCTe>
     /// <inheritdoc />
     protected override void ArquivoServicoChange()
     {
-        CTeServiceManager.Load(ArquivoServicos);
+        if (string.IsNullOrWhiteSpace(ArquivoServicos)) { Catalogo = null; return; }
+        using var stream = File.OpenRead(ArquivoServicos);
+        Catalogo = CTeServiceManager.LerCatalogo(stream);
     }
 
     /// <inheritdoc />
