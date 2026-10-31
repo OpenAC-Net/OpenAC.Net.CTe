@@ -41,7 +41,6 @@ public sealed partial class CTeEvPrestDesacordo : DFeDocument<CTeEvPrestDesacord
 {
     #region Events
 
-
     #endregion Events
 
     #region Constructors
@@ -64,8 +63,15 @@ public sealed partial class CTeEvPrestDesacordo : DFeDocument<CTeEvPrestDesacord
     [DFeElement(TipoCampo.Str, "descEvento", Min = 1, Max = 255, Ocorrencia = Ocorrencia.Obrigatoria)]
     public string DescEvento { get; set; }
 
-    [DFeElement(TipoCampo.Custom, "indDesacordoOper", Min = 1, Max = 1, Ocorrencia = Ocorrencia.Obrigatoria)]
+    [DFeIgnore]
     public bool IndDesacordoOper { get; set; }
+
+    [DFeElement(TipoCampo.Int, "indDesacordoOper", Min = 1, Max = 1, Ocorrencia = Ocorrencia.Obrigatoria)]
+    private int IndDesacordoOperXml
+    {
+        get => IndDesacordoOper ? 1 : 0;
+        set => IndDesacordoOper = value != 0;
+    }
 
     [DFeElement(TipoCampo.Str, "xObs", Min = 1, Max = 255, Ocorrencia = Ocorrencia.Obrigatoria)]
     public string Obs { get; set; }
@@ -73,16 +79,6 @@ public sealed partial class CTeEvPrestDesacordo : DFeDocument<CTeEvPrestDesacord
     #endregion Properties
 
     #region Methods
-
-    private string SerializeIndDesacordoOper()
-    {
-        return IndDesacordoOper ? "1" : "0";
-    }
-
-    private object DeserializeIndDesacordoOper(string value)
-    {
-        return Convert.ToBoolean(Convert.ToInt32(value));
-    }
 
     #endregion Methods
 }

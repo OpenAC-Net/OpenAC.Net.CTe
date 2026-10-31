@@ -52,6 +52,7 @@ public sealed partial class CTeInfCTe : GenericClone<CTeInfCTe>
     private CTeRem rem;
     private CTeReceb receb;
     private CTeDest dest;
+    private CTeOSToma toma;
 
     #endregion Fields
 
@@ -219,7 +220,15 @@ public sealed partial class CTeInfCTe : GenericClone<CTeInfCTe>
     #endregion Propriedades
 
     [DFeElement("toma", Ordem = 80, Ocorrencia = Ocorrencia.NaoObrigatoria)]
-    public CTeOSToma Toma { get; set; }
+    public CTeOSToma Toma
+    {
+        get => toma;
+        set
+        {
+            toma = value;
+            if (value != null) value.Parent = this;
+        }
+    }
 
     [DFeElement("pgtoVinc", Ordem = 110, Ocorrencia = Ocorrencia.NaoObrigatoria)]
     public CTePagamentoVinculado PgtoVinc { get; set; }

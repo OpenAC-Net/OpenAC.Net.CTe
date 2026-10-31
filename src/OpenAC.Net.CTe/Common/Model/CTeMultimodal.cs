@@ -41,7 +41,6 @@ public sealed partial class CTeMultimodal : DFeDocument<CTeMultimodal>, ICTeModa
 {
     #region Events
 
-
     #endregion Events
 
     #region Constructors
@@ -61,17 +60,17 @@ public sealed partial class CTeMultimodal : DFeDocument<CTeMultimodal>, ICTeModa
     [DFeElement(TipoCampo.Enum, "indNegociavel", Id = "", Min = 1, Max = 1, Ocorrencia = Ocorrencia.Obrigatoria)]
     public CTeIndNegociavel IndNegociavel { get; set; }
 
-    [DFeElement("seg", Ocorrencia = Ocorrencia.Obrigatoria)]
+    [DFeElement("seg", Ocorrencia = Ocorrencia.NaoObrigatoria)]
     public CTeSeguro Seg { get; set; }
 
     #endregion Propriedades
 
     #region Methods
 
-    internal bool ShouldSerializerSeg()
+    internal bool ShouldSerializeSeg()
     {
-        return !Seg.NAver.IsEmpty() || !Seg.NApol.IsEmpty() ||
-               !Seg.InfSeg.CNPJ.IsEmpty() || !Seg.InfSeg.XSeg.IsEmpty();
+        return Seg != null && (!Seg.NAver.IsEmpty() || !Seg.NApol.IsEmpty() ||
+               !string.IsNullOrEmpty(Seg.InfSeg?.CNPJ) || !string.IsNullOrEmpty(Seg.InfSeg?.XSeg));
     }
 
     #endregion Methods

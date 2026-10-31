@@ -6,7 +6,10 @@ namespace OpenAC.Net.CTe;
 public sealed class CTeDistribuicaoSolicitacao
 {
     public DFeCodUF UF { get; set; }
+    
     public string CpfCnpj { get; set; }
+    
     public string UltimoNsu { get; set; }
+    
     public string Nsu { get; set; }
 }

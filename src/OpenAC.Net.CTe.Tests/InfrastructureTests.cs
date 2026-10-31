@@ -40,9 +40,16 @@ public class InfrastructureTests
         var config = new CTeConfig { HttpTransport = transport };
         using var certificate = CreateCertificate();
         using var service = new ProbeService(config, certificate);
-        using var cancellation = new CancellationTokenSource(TimeSpan.FromMilliseconds(100));
-        await Assert.ThrowsAsync<OperationCanceledException>(() => service.SendAsync(cancellation.Token));
-        await Assert.That(transport.Token.CanBeCanceled).IsTrue();
+        using var cancellation = new CancellationTokenSource();
+        var operation = service.SendAsync(cancellation.Token);
+        try
+        {
+            await transport.Started.Task.WaitAsync(TimeSpan.FromSeconds(10));
+            cancellation.Cancel();
+            await Assert.ThrowsAsync<OperationCanceledException>(() => operation);
+            await Assert.That(transport.Token.CanBeCanceled).IsTrue();
+        }
+        finally { cancellation.Cancel(); }
     }
 
     [Test]
@@ -111,6 +118,7 @@ public class InfrastructureTests
     private sealed class FakeTransport : IDFeHttpTransport
     {
         public bool Wait, Fault;
+        public TaskCompletionSource<bool> Started { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
         public X509Certificate2? Certificate;
         public CancellationToken Token;
         public string Envelope = "", ContentType = "";
@@ -120,7 +128,11 @@ public class InfrastructureTests
             Token = cancellationToken;
             Envelope = await request.Content!.ReadAsStringAsync(cancellationToken);
             ContentType = request.Content.Headers.ContentType!.ToString();
-            if (Wait) await Task.Delay(Timeout.Infinite, cancellationToken);
+            if (Wait)
+            {
+                Started.TrySetResult(true);
+                await Task.Delay(Timeout.Infinite, cancellationToken);
+            }
             var body = Fault ? "<s:Fault><s:Reason><s:Text>Falha de teste</s:Text></s:Reason></s:Fault>" : "<result>ok</result>";
             return new HttpResponseMessage(Fault ? HttpStatusCode.InternalServerError : HttpStatusCode.OK)
             { Content = new StringContent($"<s:Envelope xmlns:s=\"http://www.w3.org/2003/05/soap-envelope\"><s:Body>{body}</s:Body></s:Envelope>") };

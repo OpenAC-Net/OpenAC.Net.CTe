@@ -39,7 +39,6 @@ public sealed partial class CTeSeguro : GenericClone<CTeSeguro>
 {
 	#region Events
 
-
 	#endregion Events
 
 	#region Constructors
@@ -59,7 +58,7 @@ public sealed partial class CTeSeguro : GenericClone<CTeSeguro>
 	[DFeElement(TipoCampo.Str, "nApol", Id = "", Min = 1, Max = 20, Ocorrencia = Ocorrencia.Obrigatoria)]
 	public string NApol { get; set; }
 
-	[DFeElement(TipoCampo.Str, "nAver", Id = "", Min = 1, Max = 20, Ocorrencia = Ocorrencia.NaoObrigatoria)]
+	[DFeElement(TipoCampo.Str, "nAver", Id = "", Min = 1, Max = 20, Ocorrencia = Ocorrencia.Obrigatoria)]
 	public string NAver { get; set; }
 
 	#endregion Propriedades

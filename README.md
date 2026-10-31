@@ -104,6 +104,20 @@ POST fiscal não recebe retentativas automáticas. Rejeições fiscais fazem par
 falhas técnicas e cancelamentos são propagados ao chamador. Após uma falha com resultado desconhecido,
 a aplicação pode consultar a chave antes de decidir o próximo passo.
 
+## Serialização dos modelos
+
+Os modelos utilizam o DFe.Core 1.8.0-beta.6. A normalização de IE/RNTRC, os indicadores
+booleanos (`0`/`1`) e os nomes de homologação são aplicados nas propriedades XML, preservando
+os valores públicos informados pela aplicação. A associação do tomador CT-e OS propaga seu `Parent`.
+
+`CTeIde.DhEmi` e `CTeIde.DhCont` usam `DateTimeOffset`: no leiaute 2.00, o XML contém data/hora
+sem fuso; a partir do 3.00, preserva o offset informado. O campo de contingência não é emitido no 4.00. A formatação
+usa os tipos fiscais do Core e independe da cultura do processo.
+
+O seguro multimodal é opcional. Quando informado, seus campos são escritos conforme os XSDs
+locais 3.00/4.00, incluindo `nAver`. `CoreModelContractTests` verifica leitura/escrita, culturas,
+fuso, propagação de contexto, assinatura e validação dos casos afetados nos schemas locais.
+
 ## Licença
 
 MIT. Consulte [LICENSE](LICENSE).

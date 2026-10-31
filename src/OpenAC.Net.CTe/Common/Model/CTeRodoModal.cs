@@ -42,7 +42,6 @@ public sealed partial class CTeRodoModal : DFeDocument<CTeRodoModal>, ICTeModal
 {
     #region Events
 
-
     #endregion Events
 
     #region Constructors
@@ -56,8 +55,15 @@ public sealed partial class CTeRodoModal : DFeDocument<CTeRodoModal>, ICTeModal
 
     #region Propriedades
 
-    [DFeElement(TipoCampo.Custom, "RNTRC", Id = "", Min = 6, Max = 8, Ocorrencia = Ocorrencia.Obrigatoria)]
+    [DFeIgnore]
     public string RNTRC { get; set; }
+
+    [DFeElement(TipoCampo.Str, "RNTRC", Id = "", Min = 6, Max = 8, Ocorrencia = Ocorrencia.Obrigatoria)]
+    private string RNTRCXml
+    {
+        get => CTeUtils.NormalizarNumeroOuIsento(RNTRC);
+        set => RNTRC = value;
+    }
 
     [DFeCollection("occ", Ocorrencia = Ocorrencia.Obrigatoria)]
     public DFeCollection<CTeRodoOcc> Occ { get; set; }
@@ -65,16 +71,6 @@ public sealed partial class CTeRodoModal : DFeDocument<CTeRodoModal>, ICTeModal
     #endregion Propriedades
 
     #region Methods
-
-    private string SerializeRNTRC()
-    {
-        return RNTRC.Trim().ToUpper() == CTeConst.CTeIEIsento ? RNTRC.Trim().ToUpper() : RNTRC.OnlyNumbers();
-    }
-
-    private object DeserializeRNTRC(string value)
-    {
-        return value;
-    }
 
     #endregion Methods
 }

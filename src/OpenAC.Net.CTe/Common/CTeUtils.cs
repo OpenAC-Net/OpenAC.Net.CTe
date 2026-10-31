@@ -12,6 +12,14 @@ internal static class CTeUtils
                 "As versões 2.00 e 3.00 estão disponíveis apenas para leitura, geração e impressão.");
     }
 
+    internal static string NormalizarNumeroOuIsento(string valor)
+    {
+        if (string.IsNullOrWhiteSpace(valor)) return valor;
+        return string.Equals(valor.Trim(), CTeConst.CTeIEIsento, StringComparison.OrdinalIgnoreCase)
+            ? CTeConst.CTeIEIsento
+            : valor.OnlyNumbers();
+    }
+
     public static string RemoverDeclaracaoXml(this string xml)
     {
         if (xml.IsEmpty()) return xml;

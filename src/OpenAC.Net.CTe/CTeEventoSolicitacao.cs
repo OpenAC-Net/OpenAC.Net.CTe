@@ -4,7 +4,10 @@ namespace OpenAC.Net.CTe;
 public sealed class CTeEventoSolicitacao
 {
     public string Chave { get; set; }
+    
     public string CnpjAutor { get; set; }
+    
     public int Sequencia { get; set; } = 1;
+    
     public IEventoCTe Evento { get; set; }
 }

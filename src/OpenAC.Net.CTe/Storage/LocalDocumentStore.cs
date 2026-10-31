@@ -19,6 +19,7 @@ public sealed class LocalDocumentStore : IDFeDocumentStore
             await DFeFileSystemDocumentStore.Instance.SaveAsync(arquivo, cancellationToken).ConfigureAwait(false);
             return;
         }
+
         var path = arquivo.Caminho;
         var content = arquivo.Conteudo;
         cancellationToken.ThrowIfCancellationRequested();
@@ -33,7 +34,7 @@ public sealed class LocalDocumentStore : IDFeDocumentStore
             using (var stream = new FileStream(temporary, FileMode.CreateNew, FileAccess.Write, FileShare.None, 8192,
                        true))
                 await stream.WriteAsync(bytes, 0, bytes.Length, cancellationToken).ConfigureAwait(false);
-            
+
             cancellationToken.ThrowIfCancellationRequested();
             if (File.Exists(path)) File.Replace(temporary, path, null);
             else

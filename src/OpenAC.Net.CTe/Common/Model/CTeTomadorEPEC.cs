@@ -40,7 +40,6 @@ public sealed partial class CTeTomadorEPEC : GenericClone<CTeTomadorEPEC>
 {
     #region Events
 
-
     #endregion Events
 
     #region Properties
@@ -54,8 +53,15 @@ public sealed partial class CTeTomadorEPEC : GenericClone<CTeTomadorEPEC>
     [DFeElement(TipoCampo.StrNumberFill, "CNPJ", Min = 14, Max = 14, Ocorrencia = Ocorrencia.Obrigatoria)]
     public string CNPJ { get; set; }
 
-    [DFeElement(TipoCampo.Custom, "IE", Min = 0, Max = 14, Ocorrencia = Ocorrencia.Obrigatoria)]
+    [DFeIgnore]
     public string IE { get; set; }
+
+    [DFeElement(TipoCampo.Str, "IE", Min = 0, Max = 14, Ocorrencia = Ocorrencia.Obrigatoria)]
+    private string IEXml
+    {
+        get => CTeUtils.NormalizarNumeroOuIsento(IE);
+        set => IE = value;
+    }
 
     #endregion Properties
 
@@ -69,16 +75,6 @@ public sealed partial class CTeTomadorEPEC : GenericClone<CTeTomadorEPEC>
     internal bool ShouldSerializeCNPJ()
     {
         return CPF.IsEmpty();
-    }
-
-    private string SerializeIE()
-    {
-        return IE.Trim().ToUpper() == CTeConst.CTeIEIsento ? IE.Trim().ToUpper() : IE.OnlyNumbers();
-    }
-
-    private object DeserializeIE(string value)
-    {
-        return value;
     }
 
     #endregion Methods

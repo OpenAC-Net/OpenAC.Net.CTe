@@ -41,7 +41,6 @@ public sealed partial class CTeRem : DFeParentItem<CTeRem, CTeInfCTe>
 {
     #region Events
 
-
     #endregion Events
 
     #region Constructors
@@ -66,11 +65,25 @@ public sealed partial class CTeRem : DFeParentItem<CTeRem, CTeInfCTe>
     [DFeElement(TipoCampo.StrNumberFill, "CNPJ", Id = "#114", Min = 14, Max = 14, Ocorrencia = Ocorrencia.Obrigatoria)]
     public string CNPJ { get; set; }
 
-    [DFeElement(TipoCampo.Custom, "IE", Id = "#115", Min = 0, Max = 14, Ocorrencia = Ocorrencia.NaoObrigatoria)]
+    [DFeIgnore]
     public string IE { get; set; }
 
-    [DFeElement(TipoCampo.Str, "xNome", Id = "#116", Min = 2, Max = 60, Ocorrencia = Ocorrencia.Obrigatoria)]
+    [DFeElement(TipoCampo.Str, "IE", Id = "#115", Min = 0, Max = 14, Ocorrencia = Ocorrencia.NaoObrigatoria)]
+    private string IEXml
+    {
+        get => CTeUtils.NormalizarNumeroOuIsento(IE);
+        set => IE = value;
+    }
+
+    [DFeIgnore]
     public string XNome { get; set; }
+
+    [DFeElement(TipoCampo.Str, "xNome", Id = "#116", Min = 2, Max = 60, Ocorrencia = Ocorrencia.Obrigatoria)]
+    private string XNomeXml
+    {
+        get => Parent?.Ide?.TpAmb == DFeTipoAmbiente.Homologacao ? CTeConst.CTeHomologação : XNome;
+        set => XNome = value;
+    }
 
     [DFeElement(TipoCampo.Str, "xFant", Id = "#117", Min = 2, Max = 60, Ocorrencia = Ocorrencia.NaoObrigatoria)]
     public string XFant { get; set; }
@@ -96,26 +109,6 @@ public sealed partial class CTeRem : DFeParentItem<CTeRem, CTeInfCTe>
     internal bool ShouldSerializeCNPJ()
     {
         return CPF.IsEmpty();
-    }
-
-    private string SerializeIE()
-    {
-        return IE.Trim().ToUpper() == CTeConst.CTeIEIsento ? IE.Trim().ToUpper() : IE.OnlyNumbers();
-    }
-
-    private object DeserializeIE(string value)
-    {
-        return value;
-    }
-
-    private string SerializeXNome()
-    {
-        return Parent.Ide.TpAmb == DFeTipoAmbiente.Homologacao ? CTeConst.CTeHomologação : XNome;
-    }
-
-    private object DeserializeXNome(string value)
-    {
-        return value;
     }
 
     #endregion Methods

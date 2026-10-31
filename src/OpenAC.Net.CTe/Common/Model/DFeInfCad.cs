@@ -45,7 +45,6 @@ public sealed partial class DFeInfCad : GenericClone<DFeInfCad>
 {
     #region Events
 
-
     #endregion Events
 
     #region Constructors
@@ -62,8 +61,15 @@ public sealed partial class DFeInfCad : GenericClone<DFeInfCad>
     /// <summary>
     /// Define/retorna o número da Inscrição Estadual do contribuinte.
     /// </summary>
-    [DFeElement(TipoCampo.Custom, "IE", Min = 1, Max = 14, Ocorrencia = Ocorrencia.Obrigatoria)]
+    [DFeIgnore]
     public string IE { get; set; }
+
+    [DFeElement(TipoCampo.Str, "IE", Min = 1, Max = 14, Ocorrencia = Ocorrencia.Obrigatoria)]
+    private string IEXml
+    {
+        get => CTeUtils.NormalizarNumeroOuIsento(IE);
+        set => IE = value;
+    }
 
     /// <summary>
     /// Define/retorna o número do CNPJ do contribuinte.
@@ -88,8 +94,15 @@ public sealed partial class DFeInfCad : GenericClone<DFeInfCad>
     /// <summary>
     /// Define/retorna a situação cadastral do contribuinte.
     /// </summary>
-    [DFeElement(TipoCampo.Custom, "cSit", Min = 1, Max = 2, Ocorrencia = Ocorrencia.Obrigatoria)]
+    [DFeIgnore]
     public bool CSit { get; set; }
+
+    [DFeElement(TipoCampo.Int, "cSit", Min = 1, Max = 2, Ocorrencia = Ocorrencia.Obrigatoria)]
+    private int CSitXml
+    {
+        get => CSit ? 1 : 0;
+        set => CSit = value != 0;
+    }
 
     /// <summary>
     /// Define/retorna o indicador de contribuinte credenciado a emitir NF-e.
@@ -187,26 +200,6 @@ public sealed partial class DFeInfCad : GenericClone<DFeInfCad>
                 Endereco.CMun.HasValue ||
                 !Endereco.XMun.IsEmpty() ||
                 !Endereco.CEP.IsEmpty());
-    }
-
-    private string SerializeIE()
-    {
-        return IE.Trim().ToUpper() == "ISENTO" ? IE.Trim().ToUpper() : IE.OnlyNumbers();
-    }
-
-    private object DeserializeIE(string value)
-    {
-        return value;
-    }
-
-    private string SerializeCSit()
-    {
-        return CSit ? "1" : "0";
-    }
-
-    private object DeserializeCSit(string value)
-    {
-        return Convert.ToBoolean(Convert.ToInt32(value));
     }
 
     #endregion Methods

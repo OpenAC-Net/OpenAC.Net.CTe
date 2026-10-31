@@ -42,7 +42,6 @@ public sealed partial class CTeEmiDocAnt : GenericClone<CTeEmiDocAnt>
 {
 	#region Events
 
-
 	#endregion Events
 
 	#region Constructors
@@ -62,8 +61,15 @@ public sealed partial class CTeEmiDocAnt : GenericClone<CTeEmiDocAnt>
 	[DFeElement(TipoCampo.StrNumberFill, "CNPJ", Id = "#347", Min = 14, Max = 14, Ocorrencia = Ocorrencia.Obrigatoria)]
 	public string CNPJ { get; set; }
 
-	[DFeElement(TipoCampo.Custom, "IE", Id = "#348", Min = 0, Max = 14, Ocorrencia = Ocorrencia.Obrigatoria)]
+	[DFeIgnore]
 	public string IE { get; set; }
+
+	[DFeElement(TipoCampo.Str, "IE", Id = "#348", Min = 0, Max = 14, Ocorrencia = Ocorrencia.Obrigatoria)]
+	private string IEXml
+	{
+	    get => CTeUtils.NormalizarNumeroOuIsento(IE);
+	    set => IE = value;
+	}
 
 	[DFeElement(TipoCampo.Enum, "UF", Id = "#349", Min = 2, Max = 2, Ocorrencia = Ocorrencia.Obrigatoria)]
 	public DFeSiglaUF UF { get; set; }
@@ -88,16 +94,6 @@ public sealed partial class CTeEmiDocAnt : GenericClone<CTeEmiDocAnt>
 	internal bool ShouldSerializeCNPJ()
 	{
 		return CPF.IsEmpty();
-	}
-
-	private string SerializeIE()
-	{
-		return IE.Trim().ToUpper() == CTeConst.CTeIEIsento ? IE.Trim().ToUpper() : IE.OnlyNumbers();
-	}
-
-	private object DeserializeIE(string value)
-	{
-		return value;
 	}
 
 	#endregion Methods

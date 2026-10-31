@@ -42,7 +42,6 @@ public sealed partial class CTeIde : DFeParentItem<CTeIde, CTeInfCTe>
 {
     #region Events
 
-
     #endregion Events
 
     #region Constructors
@@ -77,8 +76,25 @@ public sealed partial class CTeIde : DFeParentItem<CTeIde, CTeInfCTe>
     [DFeElement(TipoCampo.Int, "nCT", Id = "#012", Min = 1, Max = 9, Ocorrencia = Ocorrencia.Obrigatoria, Ordem = 70)]
     public int NCT { get; set; }
 
-    [DFeElement(TipoCampo.DatHorTz, "dhEmi", Id = "#013", Min = 25, Max = 25, Ocorrencia = Ocorrencia.Obrigatoria, Ordem = 80)]
+    [DFeIgnore]
     public DateTimeOffset DhEmi { get; set; }
+
+    [DFeElement(TipoCampo.DatHor, "dhEmi", Id = "#013", Ocorrencia = Ocorrencia.Obrigatoria, Ordem = 80)]
+    private DateTime DhEmiSemFuso
+    {
+        get => DhEmi.DateTime;
+        set => DhEmi = value;
+    }
+
+    [DFeElement(TipoCampo.DatHorTz, "dhEmi", Id = "#013", Ocorrencia = Ocorrencia.Obrigatoria, Ordem = 80)]
+    private DateTimeOffset DhEmiComFuso
+    {
+        get => DhEmi;
+        set => DhEmi = value;
+    }
+
+    internal bool ShouldSerializeDhEmiSemFuso() => Parent?.Versao == CTeVersao.v200;
+    internal bool ShouldSerializeDhEmiComFuso() => Parent?.Versao != CTeVersao.v200;
 
     [DFeElement(TipoCampo.Enum, "tpImp", Id = "#014", Min = 1, Max = 1, Ocorrencia = Ocorrencia.Obrigatoria, Ordem = 90)]
     public DFeTipoImpressao TpImp { get; set; }
@@ -166,8 +182,22 @@ public sealed partial class CTeIde : DFeParentItem<CTeIde, CTeInfCTe>
     internal bool ShouldSerializeTomador03() => Mod == ModeloCTe.CTe && Parent.Versao == CTeVersao.v200;
     internal bool ShouldSerializeTomador4() => Mod == ModeloCTe.CTe;
 
-    [DFeElement(TipoCampo.Custom, "dhCont", Id = "#057", Min = 1, Max = 21, Ocorrencia = Ocorrencia.Obrigatoria, Ordem = 310)]
-    public DateTime DhCont { get; set; }
+    [DFeIgnore]
+    public DateTimeOffset DhCont { get; set; }
+
+    [DFeElement(TipoCampo.DatHor, "dhCont", Id = "#057", Ocorrencia = Ocorrencia.Obrigatoria, Ordem = 310)]
+    private DateTime DhContSemFuso
+    {
+        get => DhCont.DateTime;
+        set => DhCont = value;
+    }
+
+    [DFeElement(TipoCampo.DatHorTz, "dhCont", Id = "#057", Ocorrencia = Ocorrencia.Obrigatoria, Ordem = 310)]
+    private DateTimeOffset DhContComFuso
+    {
+        get => DhCont;
+        set => DhCont = value;
+    }
 
     [DFeElement(TipoCampo.Str, "xJust", Id = "#058", Min = 15, Max = 256, Ocorrencia = Ocorrencia.Obrigatoria, Ordem = 320)]
     public string XJust { get; set; }
@@ -208,26 +238,12 @@ public sealed partial class CTeIde : DFeParentItem<CTeIde, CTeInfCTe>
         return Mod == ModeloCTe.CTe;
     }
 
-    internal bool ShouldSerializeDhCont()
-    {
-        return Parent.Versao < CTeVersao.v400 && TpEmis == DFeTipoEmissao.FSDA;
-    }
+    internal bool ShouldSerializeDhContSemFuso() => Parent?.Versao == CTeVersao.v200 && TpEmis == DFeTipoEmissao.FSDA;
+    internal bool ShouldSerializeDhContComFuso() => Parent?.Versao == CTeVersao.v300 && TpEmis == DFeTipoEmissao.FSDA;
 
     internal bool ShouldSerializeXJust()
     {
         return Parent.Versao < CTeVersao.v400 && TpEmis == DFeTipoEmissao.FSDA;
-    }
-
-    private string SerializeDhCont()
-    {
-        return Parent.Versao == CTeVersao.v300
-            ? DhCont.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'sszzz")
-            : DhCont.ToString("s");
-    }
-
-    private object DeserializeDhCont(string value)
-    {
-        return value.ToData();
     }
 
     #endregion Methods

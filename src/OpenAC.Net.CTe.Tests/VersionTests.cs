@@ -45,7 +45,9 @@ public class VersionTests
         await Assert.That(os.ValidarAssinatura()).IsTrue();
         await AssertSchemaAsync(os.GetXml(), "cteOS_v4.00.xsd");
         var loaded = CTeOS.Load(os.GetXml());
-        await Assert.That(loaded.InfCTe.Toma.XNome).IsEqualTo("Cliente Exemplo");
+        await Assert.That(loaded.InfCTe.Toma.XNome).IsEqualTo("CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL");
+        await Assert.That(os.InfCTe.Toma.XNome).IsEqualTo("Cliente Exemplo");
+        await Assert.That(loaded.InfCTe.Toma.Parent).IsSameReferenceAs(loaded.InfCTe);
         await Assert.That(loaded.InfCTe.InfoCTe).IsTypeOf<CTeNormalOS>();
         var proc = new CTeProc { CTe = null, CTeOS = loaded, Versao = CTeVersao.v400 };
         var xml = proc.GetXml();
