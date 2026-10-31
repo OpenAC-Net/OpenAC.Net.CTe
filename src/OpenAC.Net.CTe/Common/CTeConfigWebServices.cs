@@ -68,8 +68,6 @@ public sealed partial class CTeConfigWebServices : DFeWebserviceConfigBase
 
     #endregion Constructor
 
-    /// <summary>Limite por chamada SOAP, incluindo persistência de envelopes.</summary>
-    public TimeSpan TimeoutOperacao { get; set; } = TimeSpan.FromSeconds(100);
 
     #region Properties
 

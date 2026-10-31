@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 
 namespace OpenAC.Net.CTe.Web;
 
-internal sealed class CTeHttpClientOptions(CTeHttpClientRegistry registry, IOptions<CTeWebOptions> options)
+internal sealed class CTeHttpClientOptions(CTeHttpClientRegistry registry)
     : IConfigureNamedOptions<HttpClientFactoryOptions>
 {
     public void Configure(HttpClientFactoryOptions value)
@@ -18,7 +18,7 @@ internal sealed class CTeHttpClientOptions(CTeHttpClientRegistry registry, IOpti
     public void Configure(string? name, HttpClientFactoryOptions value)
     {
         if (name == null || !registry.TryGet(name, out var registration)) return;
-        value.HandlerLifetime = options.Value.TempoVidaHandler;
+        value.HandlerLifetime = registration.Options.TempoVidaHandler;
         value.HttpClientActions.Add(client => client.Timeout = Timeout.InfiniteTimeSpan);
         value.HttpMessageHandlerBuilderActions.Add(builder =>
         {
@@ -27,18 +27,15 @@ internal sealed class CTeHttpClientOptions(CTeHttpClientRegistry registry, IOpti
                 AllowAutoRedirect = false,
                 UseCookies = false,
                 AutomaticDecompression = DecompressionMethods.All,
-                PooledConnectionLifetime = options.Value.TempoVidaConexaoPool,
+                PooledConnectionLifetime = registration.Options.TempoVidaConexaoPool,
                 SslOptions = new SslClientAuthenticationOptions
                 {
                     EnabledSslProtocols = registration.Protocols,
                     ClientCertificates = new X509CertificateCollection { registration.Certificate }
                 }
             };
-            var pipeline =
-                new ResiliencePipelineBuilder<HttpResponseMessage>().AddTimeout(options.Value.TimeoutTentativa);
-            if (options.Value.CircuitBreakerHabilitado)
-                pipeline.AddCircuitBreaker(new HttpCircuitBreakerStrategyOptions());
-            builder.AdditionalHandlers.Add(new ResilienceHandler(pipeline.Build()));
+            builder.AdditionalHandlers.Add(new ResilienceHandler(
+                OpenAC.Net.DFe.Core.Http.DFeHttpResilience.CreatePipeline(registration.Options)));
         });
     }
 }

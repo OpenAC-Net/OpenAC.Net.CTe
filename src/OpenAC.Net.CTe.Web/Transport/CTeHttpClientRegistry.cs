@@ -13,15 +13,13 @@ internal sealed class CTeHttpClientRegistry : IDisposable
     internal static string Hash(string value) =>
         Convert.ToHexString(SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(value)));
 
-    internal string Register(string tenant, X509Certificate2 certificate, SslProtocols protocols, Uri endpoint)
+    internal string Register(string tenant, OpenAC.Net.DFe.Core.Http.DFeHttpTransportOptions options, Uri endpoint)
     {
-        var name = "OpenAC.CTe:" +
-                   Hash(
-                       $"{tenant}|{certificate.Thumbprint}|{(int)protocols}|{endpoint.GetLeftPart(UriPartial.Authority)}");
+        var name = "OpenAC.CTe:" + Hash(tenant + "|" + options.GetPoolKey(endpoint));
         lock (gate)
         {
             if (!registrations.ContainsKey(name))
-                registrations[name] = new CTeHttpRegistration(new X509Certificate2(certificate), protocols);
+                registrations[name] = new CTeHttpRegistration(new X509Certificate2(options.Certificate!), options);
         }
 
         return name;

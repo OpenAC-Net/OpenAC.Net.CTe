@@ -20,6 +20,8 @@ public class SharedWebTransportTests
         {
             config.Certificados.CertificadoBytes = pfx;
             config.Certificados.Senha = "test";
+            config.WebServices.TempoVidaHandler = TimeSpan.FromMinutes(7);
+            config.WebServices.TempoVidaConexaoPool = TimeSpan.FromMinutes(3);
             config.Arquivos.PathSchemas = Path.Combine(AppContext.BaseDirectory, "Schemas");
             config.WebServices.Enderecos[TipoServicoCTe.CTeStatusServico] = "https://example.test/status";
         });
@@ -33,6 +35,12 @@ public class SharedWebTransportTests
         await Assert.That((await first.ConsultarSituacaoServicoAsync()).Resultado.CStat).IsEqualTo(107);
         await Assert.That(clients.Names[0]).IsNotEqualTo(clients.Names[1]);
         await Assert.That(clients.Names[0]).IsEqualTo(clients.Names[2]);
+        var handlerOptions = provider.GetRequiredService<Microsoft.Extensions.Options.IOptionsMonitor<Microsoft.Extensions.Http.HttpClientFactoryOptions>>()
+            .Get(clients.Names[0]);
+        await Assert.That(handlerOptions.HandlerLifetime).IsEqualTo(TimeSpan.FromMinutes(7));
+        var handler = provider.GetRequiredService<IHttpMessageHandlerFactory>().CreateHandler(clients.Names[0]);
+        while (handler is DelegatingHandler delegating) handler = delegating.InnerHandler!;
+        await Assert.That(((SocketsHttpHandler)handler).PooledConnectionLifetime).IsEqualTo(TimeSpan.FromMinutes(3));
         clients.Fail = true;
         await Assert.ThrowsExactlyAsync<CTeTechnicalException>(() => first.ConsultarSituacaoServicoAsync());
         await Assert.That(clients.Calls).IsEqualTo(4);

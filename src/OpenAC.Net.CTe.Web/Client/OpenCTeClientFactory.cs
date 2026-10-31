@@ -11,7 +11,6 @@ internal sealed class OpenCTeClientFactory(
     ICTeCertificadoProvider certificateReader,
     IHttpClientFactory clients,
     CTeHttpClientRegistry registry,
-    IOptions<CTeWebOptions> options,
     ILogger<CTeWebHttpTransport> logger,
     IDFeDocumentStore store) : IOpenCTeClientFactory
 {
@@ -26,29 +25,28 @@ internal sealed class OpenCTeClientFactory(
             ?? throw new InvalidOperationException("O provider retornou uma configuração nula.");
         
         configuration = configuration.Copiar();
+        _ = new OpenAC.Net.DFe.Core.Http.DFeHttpTransportOptions(configuration.WebServices);
         await certificates.ConfigureAsync(tenantId, configuration.Certificados, cancellationToken)
             .ConfigureAwait(false);
         
         using (var certificate = await certificateReader.ObterAsync(configuration.Certificados, cancellationToken)
                    .ConfigureAwait(false))
-            CTeWebHttpTransport.ValidateCertificate(certificate, options.Value.MargemValidadeCertificado);
+            configuration.Certificados.ValidarCertificado(certificate);
         
-        configuration.HttpTransport = new CTeWebHttpTransport(tenantId, clients, registry, options, logger);
+        configuration.HttpTransport = new CTeWebHttpTransport(tenantId, clients, registry, logger);
         configuration.DocumentStore = store;
         configuration.Arquivos.CriarDiretorios = false;
-        configuration.WebServices.TimeoutOperacao = options.Value.TimeoutOperacao;
-        configuration.Arquivos.Salvar = options.Value.PersistenciaHabilitada;
-        configuration.WebServices.Salvar = options.Value.PersistenciaHabilitada;
-        if (!options.Value.PersistenciaHabilitada) 
-            return new OpenCTe(configuration, certificateReader);
-        
-        var path = Path.Combine(Path.GetFullPath(options.Value.DiretorioDocumentos),
-            CTeHttpClientRegistry.Hash(tenantId));
-        
-        configuration.Arquivos.PathSalvar = path;
-        configuration.Arquivos.PathCTe = path;
-        configuration.Arquivos.PathEvento = Path.Combine(path, "Eventos");
-        configuration.Arquivos.PathInu = Path.Combine(path, "Inutilizacoes");
+        if (configuration.Arquivos.Salvar || configuration.WebServices.Salvar)
+        {
+            var tenant = CTeHttpClientRegistry.Hash(tenantId);
+            configuration.Arquivos.PathSalvar = Path.Combine(Path.GetFullPath(configuration.Arquivos.PathSalvar), tenant);
+            if (!string.IsNullOrWhiteSpace(configuration.Arquivos.PathCTe))
+                configuration.Arquivos.PathCTe = Path.Combine(Path.GetFullPath(configuration.Arquivos.PathCTe), tenant);
+            if (!string.IsNullOrWhiteSpace(configuration.Arquivos.PathEvento))
+                configuration.Arquivos.PathEvento = Path.Combine(Path.GetFullPath(configuration.Arquivos.PathEvento), tenant);
+            if (!string.IsNullOrWhiteSpace(configuration.Arquivos.PathInu))
+                configuration.Arquivos.PathInu = Path.Combine(Path.GetFullPath(configuration.Arquivos.PathInu), tenant);
+        }
 
         return new OpenCTe(configuration, certificateReader);
     }

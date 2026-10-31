@@ -13,7 +13,6 @@ internal sealed class CTeWebHttpTransport(
     string tenantId,
     IHttpClientFactory clients,
     CTeHttpClientRegistry registry,
-    IOptions<CTeWebOptions> options,
     ILogger<CTeWebHttpTransport> logger) : IDFeHttpTransport
 {
     private static readonly ActivitySource Activities = new("OpenAC.Net.CTe.Web");
@@ -34,21 +33,19 @@ internal sealed class CTeWebHttpTransport(
         var certificate = transportOptions.Certificate
                           ?? throw new InvalidOperationException("Certificado com chave privada não informado.");
         
-        ValidateCertificate(certificate, options.Value.MargemValidadeCertificado);
+        OpenAC.Net.DFe.Core.Common.DFeCertificadosConfigBase.ValidarCertificado(certificate, transportOptions.MargemValidadeCertificado);
         
-        var name = registry.Register(tenantId, certificate, transportOptions.Protocols, endpoint);
+        var name = registry.Register(tenantId, transportOptions, endpoint);
         using var activity = Activities.StartActivity("CTe.SOAP", ActivityKind.Client);
         activity?.SetTag("server.address", endpoint.Host);
         activity?.SetTag("openac.tenant", CTeHttpClientRegistry.Hash(tenantId));
-        using var timeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-        timeout.CancelAfter(options.Value.TimeoutOperacao);
         
         var watch = Stopwatch.StartNew();
         
         try
         {
             using var client = clients.CreateClient(name);
-            var response = await client.SendAsync(request, HttpCompletionOption.ResponseContentRead, timeout.Token)
+            var response = await client.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken)
                 .ConfigureAwait(false);
             activity?.SetTag("http.response.status_code", (int)response.StatusCode);
             Count.Add(1,
@@ -74,13 +71,4 @@ internal sealed class CTeWebHttpTransport(
         }
     }
 
-    internal static void ValidateCertificate(X509Certificate2 certificate, TimeSpan margin)
-    {
-        if (certificate is not { HasPrivateKey: true })
-            throw new InvalidOperationException("Certificado com chave privada não informado.");
-        
-        var now = DateTime.UtcNow;
-        if (certificate.NotBefore.ToUniversalTime() > now || certificate.NotAfter.ToUniversalTime() <= now + margin)
-            throw new InvalidOperationException("Certificado fora do período de validade ou próximo do vencimento.");
-    }
 }

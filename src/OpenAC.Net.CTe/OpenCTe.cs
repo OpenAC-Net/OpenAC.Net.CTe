@@ -125,6 +125,7 @@ public sealed class OpenCTe : IOpenCTeClient
         try
         {
             token.ThrowIfCancellationRequested();
+            configuracao.Certificados.ValidarCertificado(certificate);
             return certificate is not { HasPrivateKey: true }
                 ? throw new InvalidOperationException("Certificado com chave privada não informado.")
                 : certificate;

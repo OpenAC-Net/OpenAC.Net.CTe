@@ -143,8 +143,9 @@ public abstract class CTeServiceClient : DFeSoapServiceClient<CTeConfig, CTeConf
         {
             UseCookies = false,
             AllowAutoRedirect = false,
-            AutomaticDecompression = DecompressionMethods.None
-        };
+            AutomaticDecompression = DecompressionMethods.None,
+            MargemValidadeCertificado = Configuracoes.Certificados.MargemValidadeCertificado,
+    };
 
     protected override string CriarNomeArquivo(bool resposta) =>
         $"{DateTime.UtcNow:yyyyMMddHHmmssfff}_{Guid.NewGuid():N}_{NomeArquivo}_{(resposta ? "retorno" : "envio")}.xml";

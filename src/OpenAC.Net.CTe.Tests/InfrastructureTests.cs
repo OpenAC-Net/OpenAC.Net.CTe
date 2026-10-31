@@ -72,7 +72,9 @@ public class InfrastructureTests
         {
             config.Certificados.CertificadoBytes = bytes;
             config.Certificados.Senha = "test";
-        }, options => { options.PersistenciaHabilitada = true; options.DiretorioDocumentos = Path.GetTempPath(); });
+            config.Arquivos.Salvar = true;
+            config.Arquivos.PathSalvar = Path.GetTempPath();
+        });
         using var provider = services.BuildServiceProvider(new ServiceProviderOptions { ValidateScopes = true, ValidateOnBuild = true });
         using var scope = provider.CreateScope();
         var factory = scope.ServiceProvider.GetRequiredService<IOpenCTeClientFactory>();

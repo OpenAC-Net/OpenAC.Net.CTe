@@ -82,8 +82,8 @@ public class SharedServiceCompatibilityTests
         var content = new PendingContent();
         var config = new CTeConfig { HttpTransport = new CaptureTransport { Content = content } };
         config.WebServices.TimeoutOperacao = TimeSpan.FromMilliseconds(150);
-        // The CTe-specific operation deadline takes precedence over the generic connection setting.
-        config.WebServices.TimeOut = TimeSpan.FromSeconds(10);
+        // TimeOut e TimeoutOperacao representam o mesmo prazo no Core.
+        await Assert.That(config.WebServices.TimeOut).IsEqualTo(TimeSpan.FromMilliseconds(150));
         using var certificate = InfrastructureTests.CreateCertificate();
         using var service = new Probe(config, certificate);
         await Assert.ThrowsAsync<OperationCanceledException>(() => service.SendAsync().WaitAsync(TimeSpan.FromSeconds(5)));

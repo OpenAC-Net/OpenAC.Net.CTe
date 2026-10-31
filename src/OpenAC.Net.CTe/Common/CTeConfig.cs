@@ -39,6 +39,10 @@ public sealed class CTeConfig : DFeConfigBase<CTeConfigGeral, CTeConfigWebServic
         copia.Geral.ValidarDigest = Geral.ValidarDigest;
         copia.WebServices.UF = WebServices.UF;
         copia.WebServices.TimeoutOperacao = WebServices.TimeoutOperacao;
+        copia.WebServices.TimeoutTentativa = WebServices.TimeoutTentativa;
+        copia.WebServices.CircuitBreakerHabilitado = WebServices.CircuitBreakerHabilitado;
+        copia.WebServices.TempoVidaHandler = WebServices.TempoVidaHandler;
+        copia.WebServices.TempoVidaConexaoPool = WebServices.TempoVidaConexaoPool;
         copia.WebServices.Salvar = WebServices.Salvar;
         copia.WebServices.Ambiente = WebServices.Ambiente;
         copia.WebServices.Tentativas = WebServices.Tentativas;
@@ -65,6 +69,7 @@ public sealed class CTeConfig : DFeConfigBase<CTeConfigGeral, CTeConfigWebServic
         copia.Arquivos.CriarDiretorios = Arquivos.CriarDiretorios;
         copia.Certificados.Certificado = Certificados.Certificado;
         copia.Certificados.Senha = Certificados.Senha;
+        copia.Certificados.MargemValidadeCertificado = Certificados.MargemValidadeCertificado;
         copia.Certificados.CertificadoBytes = Certificados.CertificadoBytes == null ? null : (byte[])Certificados.CertificadoBytes.Clone();
         copia.Arquivos.OrdenacaoPath.AddRange(Arquivos.OrdenacaoPath);
         copia.Arquivos.CopiarCatalogo(Arquivos);
@@ -90,6 +95,7 @@ internal static class CTeCertificadoConfigCopy
     {
         Certificado = origem.Certificado,
         Senha = origem.Senha,
+        MargemValidadeCertificado = origem.MargemValidadeCertificado,
         CertificadoBytes = origem.CertificadoBytes == null ? null : (byte[])origem.CertificadoBytes.Clone()
     };
 }
