@@ -85,16 +85,27 @@ public class InfrastructureTests
     }
 
     [Test]
-    public async Task DocumentStoreWritesCompleteDocumentsUnderConcurrentReplacement()
+    [Arguments(false)]
+    [Arguments(true)]
+    public async Task DocumentStoreWritesCompleteDocumentsUnderConcurrentReplacement(bool existingFile)
     {
         var path = Path.Combine(Path.GetTempPath(), "openac-cte-tests-" + Guid.NewGuid().ToString("N"), "doc.xml");
         try
         {
-            var store = new LocalDocumentStore();
             var payloads = Enumerable.Range(0, 12).Select(i => $"<doc>{new string((char)('a' + i), 8192)}</doc>").ToArray();
-            await Task.WhenAll(payloads.Select(value => store.SaveAsync(new DFeDocument(path, value, DFeArquivoExiste.Sobrescrever))));
-            await Assert.That(payloads).Contains(await File.ReadAllTextAsync(path));
-            await Assert.That(Directory.GetFiles(Path.GetDirectoryName(path)!)).Count().IsEqualTo(1);
+            if (existingFile)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+                await File.WriteAllTextAsync(path, "<original/>");
+            }
+
+            for (var round = 0; round < 10; round++)
+            {
+                await Task.WhenAll(payloads.Select(value => new LocalDocumentStore().SaveAsync(
+                    new DFeDocument(path, value, DFeArquivoExiste.Sobrescrever))));
+                await Assert.That(payloads).Contains(await File.ReadAllTextAsync(path));
+                await Assert.That(Directory.GetFiles(Path.GetDirectoryName(path)!)).Count().IsEqualTo(1);
+            }
         }
         finally { Directory.Delete(Path.GetDirectoryName(path)!, true); }
     }
